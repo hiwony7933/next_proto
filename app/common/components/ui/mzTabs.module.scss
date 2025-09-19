@@ -1,0 +1,30 @@
+.tabsWrapper {
+    width: 100%;
+}
+
+.tabList {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.tabList button {
+    padding: 6px 16px;
+    border: none;
+    background: #eee;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.tabList .active {
+    background: #222;
+    color: #fff;
+}
+
+.tabContent {
+    border: 1px solid #eee;
+    padding: 16px;
+    border-radius: 0 0 4px 4px;
+    background: #fafafa;
+}

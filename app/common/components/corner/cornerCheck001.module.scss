@@ -1,0 +1,159 @@
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.section {
+  margin-bottom: 100px;
+  background-position: 50%;
+  background-size: cover;
+  min-height: 100vh;
+  overflow: visible;
+  position: relative;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+}
+
+.wLayoutBlockcontainer {
+  width: 100%;
+  max-width: 1360px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: block;
+  margin: 0 auto;
+}
+
+.wLayoutLayout {
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-columns: 1fr;
+  justify-content: center;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  padding: 0;
+  display: grid;
+  gap: 45px;
+}
+
+.wLayoutCell {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+}
+
+.pdpContentsColumn {
+  grid-column-gap: 32px;
+  grid-row-gap: 32px;
+  flex-flow: column;
+  padding-top: 104px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.gap16 {
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+}
+
+.wLayoutVflex {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+
+.flexStretch {
+  flex: 1;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.rtbCheckpointBox {
+  grid-column-gap: 4px;
+  grid-row-gap: 4px;
+  background-color: var(--grayscale--00-primary);
+  color: var(--tertiary--500-default);
+  border-radius: 12px;
+  flex-flow: column;
+  padding: 16px 20px;
+  display: flex;
+  box-shadow: 0 2px 24px #0052a41f;
+}
+
+.wLayoutHflex {
+  flex-direction: row;
+  align-items: flex-start;
+  display: flex;
+}
+
+.alignCenter {
+  justify-content: center;
+  align-items: center;
+}
+
+.gap8 {
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+  display: flex;
+}
+
+.checkboxEmbed16px {
+  width: 16px;
+  height: 18px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.wEmbed {
+  /* No direct style, but keep for structure */
+}
+
+.textSmall {
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.textBlack {
+  color: var(--grayscale--1000-default);
+}
+
+.showMob {
+  display: none;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .showMob {
+    display: block;
+  }
+
+  .section {
+    background-image: none !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .showMob {
+    display: block;
+  }
+
+  .section {
+    background-image: none !important;
+  }
+
+  .pdpContentsColumn {
+    align-items: stretch;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+  }
+
+  .wLayoutBlockcontainer {
+    padding: 0 20px;
+  }
+
+  .wLayoutLayout {
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+  }
+}

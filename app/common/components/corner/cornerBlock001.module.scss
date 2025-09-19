@@ -1,0 +1,216 @@
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.cornerBlock001 {
+  margin-bottom: 50px;
+  padding: 0 0 0 50px;
+
+  h4 {
+    @include mixinFontSize(24);
+    font-weight: 700;
+    color: $colorBlack;
+  }
+
+  .cornerTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-right: 50px;
+  }
+
+  .swiperButton {
+    display: flex;
+    gap: 10px;
+  }
+
+  // 스크롤바 위치 조정
+  :global(.swiper-scrollbar) {
+    margin-top: 20px !important;
+    position: relative !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 4px !important;
+    height: 6px !important;
+  }
+
+  :global(.swiper-scrollbar-drag) {
+    background: #000 !important;
+    border-radius: 4px !important;
+    height: 6px !important;
+  }
+
+  // 더 구체적인 셀렉터로 스크롤바 스타일 강제 적용
+  :global(.swiper-container .swiper-scrollbar) {
+    margin-top: 20px !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+    border-radius: 4px !important;
+    height: 6px !important;
+  }
+
+  :global(.swiper-container .swiper-scrollbar .swiper-scrollbar-drag) {
+    background: #000 !important;
+    border-radius: 4px !important;
+    height: 6px !important;
+  }
+
+  // 최신 Swiper 버전 호환성
+  :global(.swiper .swiper-scrollbar) {
+    margin-top: 20px !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+    border-radius: 4px !important;
+    height: 6px !important;
+  }
+
+  :global(.swiper .swiper-scrollbar .swiper-scrollbar-drag) {
+    background: #000 !important;
+    border-radius: 4px !important;
+    height: 6px !important;
+  }
+}
+
+.blockList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blockItem {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.title {
+  font-weight: bold;
+  @include mixinFontSize(16);
+  margin-bottom: 8px;
+}
+
+.ol {
+  padding-left: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+.swiper-button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.flex-stretch {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.swiper-prev,
+.swiper-next {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 50%;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.swiper-prev:hover,
+.swiper-next:hover {
+  background: #e0e0e0;
+}
+
+.swiper {
+  overflow-x: auto;
+  padding-bottom: 30px; // 스크롤바를 위한 추가 공간
+}
+
+.swiper-wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.swiper-slidebox {
+  min-width: 320px;
+  max-width: 340px;
+  height: 320px !important;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+}
+
+.slider-textbox {
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  padding: 20px 16px 16px 16px;
+  border-radius: 0 0 16px 16px;
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  .title {
+    @include mixinFontSize(16);
+    font-weight: 700;
+    color: $colorWhite;
+  }
+
+  .dec {
+    @include mixinFontSize(14);
+    font-weight: 400;
+    color: $colorWhite;
+  }
+}
+
+.text-large {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-sub-middle {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Add custom scrollbar styles */
+.swiper-wrapper::-webkit-scrollbar {
+  width: 2px !important;
+  height: 2px !important;
+}
+
+.swiper-wrapper::-webkit-scrollbar-thumb {
+  background-color: #ddd !important;
+}
+
+.swiper-wrapper::-webkit-scrollbar-track {
+  // background-color: #f2f2f2 !important;
+}
+
+@media screen and (max-width: 767px) {
+  .cornerBlock001 {
+    padding: 0 0 0 20px;
+  }
+
+  .swiperButton {
+    display: none !important;
+  }
+}

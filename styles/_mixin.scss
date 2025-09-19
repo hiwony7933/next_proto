@@ -1,0 +1,145 @@
+// 자주 사용하는 스타일 패턴(반복되는 CSS) 함수화
+@charset 'utf-8';
+@use 'variable' as *;
+
+@mixin mixinFontSize($Size) {
+  @if ($Size ==10) {
+    font-size: 10px;
+    line-height: 14px;
+  }
+
+  @if ($Size ==12) {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  @if ($Size ==13) {
+    font-size: 13px;
+    line-height: 20px;
+  } @else if($Size ==14) {
+    font-size: 14px;
+    line-height: 21px;
+  } @else if($Size ==16) {
+    font-size: 16px;
+    line-height: 24px;
+  } @else if($Size ==18) {
+    font-size: 18px;
+    line-height: 27px;
+  } @else if($Size ==20) {
+    font-size: 20px;
+    line-height: 28px;
+  } @else if($Size ==24) {
+    font-size: 24px;
+    line-height: 32px;
+  } @else if($Size ==28) {
+    font-size: 28px;
+    line-height: 40px;
+  } @else if($Size ==36) {
+    font-size: 36px;
+    line-height: 48px;
+  }
+}
+
+@mixin mixinEllipsis($line: 1, $height: null) {
+  @if ($line ==1) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+    white-space: inherit;
+  }
+
+  @if $height !=null {
+    height: $height;
+  }
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+// header 어드민, desktop 공통
+@mixin mixinHeaderLogo($width, $height, $left, $top) {
+  position: absolute;
+  left: $left;
+  top: $top;
+  display: block;
+  width: $width;
+  height: $height;
+  background-image: url('@/assets/images/common/hLogo.png');
+  background-repeat: no-repeat;
+  background-size: $width auto;
+  color: transparent;
+  font-size: 0;
+}
+
+// 버튼 스타일 (이전, 다음)
+@mixin mixinBtnCirclePrev() {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid $colorGray9;
+  background-color: $colorWhite;
+  color: transparent;
+  font-size: 0;
+  box-shadow: 0px 2px 6px 0px rgba(22, 37, 66, 0.08);
+  position: relative;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border: solid $colorDefault;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+
+@mixin mixinBullet1PX($rotate, $direction, $distance) {
+  content: '';
+  position: absolute;
+  top: 50%;
+
+  @if $direction ==left {
+    left: $distance;
+  } @else if $direction ==right {
+    right: $distance;
+  }
+
+  $wPostion: 20px;
+  width: 6px;
+  height: 6px;
+  border: solid $colorDefault;
+  border-width: 0 1px 1px 0;
+  transform: rotate($rotate);
+
+  @if $rotate ==-45deg {
+    margin-top: -5px;
+  } @else if $rotate ==45deg {
+    margin-top: -4px;
+  }
+}
+
+@mixin mixinBoxShadow($x: null, $y: null, $blur: null, $color: null) {
+  background-color: $colorWhite;
+  border: 1px solid $colorGray8;
+  border-radius: 8px;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+@mixin mixinFormBox() {
+  background-color: $colorWhite;
+  border: 1px solid $colorGray9;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: $colorDefault;
+  @include mixinFontSize(14px);
+}

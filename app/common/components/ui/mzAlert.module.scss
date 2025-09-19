@@ -1,0 +1,259 @@
+@charset "utf-8";
+
+// 🎯 SweetAlert2 전체 컨테이너
+.lyContainer {
+  background: rgba(0, 0, 0, 0.5) !important;
+  padding: 0 !important;
+  z-index: 9999 !important;
+}
+
+// 🎯 모달 팝업 박스
+.lyPopup {
+  max-width: 400px !important;
+  width: 80% !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+  background: #ffffff !important;
+}
+
+// 🎯 헤더 영역
+.lyHeader {
+  padding: 20px 20px 0 20px !important;
+  border-bottom: none !important;
+}
+
+// 🎯 제목
+.lyTitle {
+  color: #333333 !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+// 🎯 닫기 버튼
+.lyCloseButton {
+  color: #999999 !important;
+  font-size: 24px !important;
+  line-height: 1 !important;
+
+  &:hover {
+    color: #333333 !important;
+  }
+}
+
+// 🎯 아이콘
+.lyIcon {
+  margin: 20px auto 10px !important;
+  border: none !important;
+
+  &.swal2-success {
+    border-color: #28a745 !important;
+    color: #28a745 !important;
+  }
+
+  &.swal2-error {
+    border-color: #dc3545 !important;
+    color: #dc3545 !important;
+  }
+
+  &.swal2-warning {
+    border-color: #ffc107 !important;
+    color: #ffc107 !important;
+  }
+
+  &.swal2-info {
+    border-color: #17a2b8 !important;
+    color: #17a2b8 !important;
+  }
+}
+
+// 🎯 이미지
+.lyImage {
+  max-width: 100% !important;
+  margin: 20px auto 10px !important;
+}
+
+// 🎯 컨텐츠 영역
+.lyContent {
+  padding: 0 !important;
+}
+
+// 🎯 HTML 컨테이너 (메시지 영역)
+.lyHtmlContainer {
+  margin: 20px 30px !important;
+  padding: 0 !important;
+  color: #333333 !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  letter-spacing: -0.3px;
+  text-align: center !important;
+  word-break: keep-all;
+}
+
+// 🎯 입력 필드
+.lyInput {
+  margin: 20px 0 !important;
+  padding: 10px 15px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+
+  &:focus {
+    border-color: #007bff !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25) !important;
+  }
+}
+
+// 🎯 입력 라벨
+.lyInputLabel {
+  color: #333333 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+}
+
+// 🎯 유효성 검사 메시지
+.lyValidationMessage {
+  color: #dc3545 !important;
+  font-size: 13px !important;
+  margin-top: 5px !important;
+}
+
+// 🎯 레거시 클래스 (기존 코드 호환성)
+.lyContens {
+  max-width: 400px !important;
+  width: 80% !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.lyMsg {
+  margin: 30px !important;
+  padding: 0 !important;
+  color: #000000 !important;
+  font-size: 15px !important;
+  line-height: 20px !important;
+  letter-spacing: -0.3px;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.lyContens .lyMsg .left {
+  text-align: left;
+}
+
+// 🎯 액션 버튼 영역
+.lyActions {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-top: 1px solid #e9ecef !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 0 !important;
+}
+
+// 🎯 공통 버튼 스타일
+.lyBtn {
+  background-color: #ffffff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: #333333 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 55px !important;
+  height: 55px !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+  cursor: pointer !important;
+  transition: background-color 0.2s ease !important;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  &:hover {
+    background-color: #f8f9fa !important;
+  }
+
+  &:active {
+    background-color: #e9ecef !important;
+  }
+}
+
+// 🎯 확인 버튼
+.lyBtnConfirm {
+  width: 50% !important;
+  font-weight: 600 !important;
+  color: #007bff !important;
+
+  &:hover {
+    background-color: #e7f3ff !important;
+    color: #0056b3 !important;
+  }
+}
+
+// 🎯 거부 버튼
+.lyBtnDeny {
+  width: 50% !important;
+  border-left: 1px solid #e9ecef !important;
+  color: #6c757d !important;
+
+  &:hover {
+    background-color: #f8f9fa !important;
+    color: #495057 !important;
+  }
+}
+
+// 🎯 취소 버튼
+.lyBtnCancel {
+  width: 50% !important;
+  border-left: 1px solid #e9ecef !important;
+  color: #6c757d !important;
+
+  &:hover {
+    background-color: #f8f9fa !important;
+    color: #495057 !important;
+  }
+}
+
+// 🎯 로더
+.lyLoader {
+  border-color: #007bff transparent #007bff transparent !important;
+}
+
+// 🎯 푸터
+.lyFooter {
+  padding: 15px 20px !important;
+  border-top: 1px solid #e9ecef !important;
+  background-color: #f8f9fa !important;
+  text-align: center !important;
+  font-size: 13px !important;
+  color: #6c757d !important;
+}
+
+// 🎯 타이머 프로그레스 바
+.lyTimerProgressBar {
+  background-color: #007bff !important;
+  height: 3px !important;
+}
+
+// 🎯 레거시 클래스들 (기존 코드 호환성)
+.lyAction {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-top: 1px solid #d9d9d9 !important;
+}
+
+.lyBtnDendy {
+  width: 50% !important;
+}

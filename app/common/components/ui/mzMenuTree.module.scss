@@ -1,0 +1,224 @@
+@charset "utf-8";
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+@mixin mixinTreeImage($bePos: 0 0, $width: 16px, $height: 16px) {
+  width: $width;
+  height: $height;
+  background-image: url('../../assets/img/treeMz.png');
+  background-size: 58px auto;
+  background-repeat: no-repeat;
+  background-position: $bePos;
+}
+
+.treeStyle {
+  position: relative;
+
+  li.arrow {
+    position: relative;
+    z-index: 10;
+
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      pointer-events: none; // 클릭 이벤트 통과
+    }
+  }
+
+  ul.subDepth02 {
+    :global {
+      li.opened {
+        &::before {
+          left: 28px;
+        }
+      }
+
+      li.closed {
+        &::before {
+          left: 30px;
+        }
+      }
+
+      .folderBtn {
+        padding-left: 45px;
+      }
+    }
+  }
+
+  ul.subDepth03 {
+    :global {
+      li.opened {
+        &::before {
+          left: 57px;
+        }
+      }
+
+      li.closed {
+        &::before {
+          left: 60px;
+        }
+      }
+
+      .folderBtn {
+        padding-left: 75px;
+
+        &::before {
+        }
+      }
+    }
+  }
+
+  ul.subDepth04 {
+    :global {
+      .docBtn {
+        padding-left: 95px;
+      }
+    }
+  }
+
+  :global {
+    li.opened {
+      &::before {
+        top: 10px;
+        left: 5px;
+        @include mixinTreeImage(
+          -22px -28px,
+          8px,
+          5px
+        ); //화살표-백그라운드포지션,너비,높이,탑,레프트
+      }
+
+      .folderBtn {
+        font-weight: bold;
+
+        &::before {
+          @include mixinTreeImage(
+            -32px 0,
+            12px,
+            10px
+          ); //폴더열림-백그라운드포지션,너비,높이,탑,레프트
+        }
+      }
+    }
+
+    li.closed {
+      &::before {
+        top: 8px;
+        left: 5px;
+        @include mixinTreeImage(
+          -22px -35px,
+          5px,
+          8px
+        ); //화살표-백그라운드포지션,너비,높이,탑,레프트
+      }
+
+      .folderBtn {
+        font-weight: normal;
+
+        &::before {
+          @include mixinTreeImage(
+            -16px -16px,
+            12px,
+            10px
+          ); //폴더닫침-백그라운드포지션,너비,높이,탑,레프트
+        }
+      }
+    }
+
+    /* 버튼 스타일 */
+    .folderBtn {
+      width: 100%;
+      padding: 5px 0 5px 23px;
+      color: $colorGray1;
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+
+      &::before {
+        content: '';
+        margin-top: 2px;
+        display: block;
+      }
+
+      &:hover {
+        background-color: #e7eff7;
+      }
+    }
+
+    /* 버튼 스타일 */
+    .docBtn {
+      width: 100%;
+      padding: 5px 0 5px 67px;
+      color: $colorGray2;
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+
+      &::before {
+        content: '';
+        margin-top: 1px;
+        display: block;
+        @include mixinTreeImage(
+          0 -32px,
+          9px,
+          12px
+        ); //마지막뎁스-백그라운드포지션,너비,높이,탑,레프트
+      }
+
+      &:hover {
+        background-color: #e7eff7;
+      }
+    }
+  }
+
+  .hidden {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
+// 컨텍스트 메뉴 스타일
+.contextMenu {
+  background-color: $colorWhite;
+  border: 1px solid $colorGray7;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  min-width: 120px;
+  z-index: 1000;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+
+    li {
+      border-bottom: none;
+
+      button {
+        width: 100%;
+        padding: 8px 16px;
+        background: none;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        font-size: 13px;
+        color: $colorGray1;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: $colorGray10;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}

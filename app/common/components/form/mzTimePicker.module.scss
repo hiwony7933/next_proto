@@ -1,0 +1,180 @@
+.mzTimePicker {
+  position: relative;
+  display: inline-block;
+  width: 150px; // 고정 너비로 설정
+  max-width: 150px;
+
+  .inputWrap {
+    position: relative;
+
+    .pickerInput {
+      width: 100%;
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      background-color: #fff;
+      cursor: pointer;
+      
+      &:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+      }
+      
+      &:disabled {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        cursor: not-allowed;
+      }
+      
+      &::placeholder {
+        color: #999;
+      }
+    }
+  }
+
+  .pickerLayer {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    .timeSelector {
+      display: flex;
+      height: 200px;
+
+      .timeColumn {
+        flex: 1;
+        // display: flex;
+        flex-direction: column;
+
+        .columnHeader {
+          padding: 8px;
+          text-align: center;
+          font-weight: 600;
+          font-size: 12px;
+          color: #333;
+          border-bottom: 1px solid #eee;
+          background-color: #f8f9fa;
+        }
+
+        .timeList {
+          flex: 1;
+          overflow-y: auto;
+          max-height: 160px;
+
+          .timeItem {
+            width: 100%;
+            padding: 6px 8px;
+            border: none;
+            background: none;
+            text-align: center;
+            font-size: 13px;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background-color: #f8f9fa;
+            }
+
+            &.selected {
+              background-color: #007bff;
+              color: #fff;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+
+      .timeSeparator {
+        width: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: #666;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        background-color: #f8f9fa;
+      }
+    }
+
+    .pickerActions {
+      display: flex;
+      border-top: 1px solid #eee;
+      background-color: #f8f9fa;
+
+      .actionButton {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        background: none;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.cancel {
+          color: #6c757d;
+          border-right: 1px solid #eee;
+
+          &:hover {
+            background-color: #e9ecef;
+          }
+        }
+
+        &.confirm {
+          color: #007bff;
+          font-weight: 600;
+
+          &:hover {
+            background-color: #e7f3ff;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 스크롤바 스타일링
+.timeList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.timeList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.timeList::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.timeList::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+// 전역 CSS로 백업 스타일 - CSS 모듈 해시 대응
+:global {
+  // CSS 모듈로 생성된 해시 클래스명도 포함
+  [class*="mzTimePicker"].w100{
+    // 모든 하위 컨테이너
+    .inputWrap,
+    div {
+      flex: 1;
+    }
+    
+    // 모든 가능한 input 선택자
+    .pickerInput {
+      width: 100%;
+    }
+  }
+}

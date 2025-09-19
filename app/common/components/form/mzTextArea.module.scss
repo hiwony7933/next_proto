@@ -1,0 +1,16 @@
+@charset "utf-8";
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.mzTextArea {
+  .byteCount {
+    @include mixinFontSize(12);
+    text-align: right;
+    color: $colorDefault;
+    margin-top: 10px;
+
+    .red {
+      color: $colorRed;
+    }
+  }
+}

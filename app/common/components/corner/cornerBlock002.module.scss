@@ -1,0 +1,26 @@
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.cornerBlock001 {
+  padding: 0 50px 50px;
+
+  h4 {
+    @include mixinFontSize(24);
+    font-weight: 700;
+    color: $colorBlack;
+    margin-bottom: 20px;
+  }
+
+  .dec {
+    @include mixinFontSize(16);
+    font-weight: 400;
+    color: $colorBlack;
+  }
+}
+
+.cctv-process-image {
+  width: calc(100% + 48px);
+  max-width: none;
+  margin-left: -24px;
+  margin-right: -24px;
+}

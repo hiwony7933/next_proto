@@ -1,0 +1,333 @@
+div[class*='cornerModal'] .sample {
+  padding: 0;
+
+  > h2 {
+    display: none;
+  }
+
+  .sampleInfo {
+    padding: 0;
+    margin: 20px 20px 20px 0;
+    border: 0px;
+  }
+
+  .none {
+    display: none;
+  }
+}
+
+.sample {
+  padding: 40px;
+  //max-width: 1000px;
+  position: relative;
+  width: 100%;
+
+  .sampleViewButton {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    z-index: 100;
+    width: 100%;
+    justify-content: flex-end;
+
+    .btnBlue {
+      padding: 8px 16px;
+      border: 1px solid #007bff;
+      border-radius: 4px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btnGreen {
+      padding: 8px 16px;
+      border: 1px solid #28a745;
+      border-radius: 4px;
+      background-color: #28a745;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  }
+
+  .red {
+    color: $colorRed;
+  }
+
+  .search {
+    width: 550px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    @include mixinFormBox();
+
+    input.key {
+      flex: 1;
+      border: 0;
+    }
+  }
+}
+
+.sampleInfo {
+  margin: 50px 0;
+
+  h3 {
+    @include mixinFontSize(14);
+  }
+
+  > table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    @include mixinFontSize(14);
+
+    thead {
+      tr {
+        th {
+          padding: 10px;
+          background-color: $colorGray11;
+          @include mixinFontSize(14);
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+          border-top: 1px solid #ddd;
+          font-family: bold;
+        }
+
+        &.center th {
+          text-align: center;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        th,
+        td {
+          padding: 10px;
+          border-bottom: 1px solid #eee;
+        }
+
+        &.center td {
+          text-align: center;
+
+          button,
+          a {
+            margin: 4px auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+.codeBlock {
+  margin: 0 0 50px;
+  position: relative;
+
+  .codeTitle {
+    border-bottom: 1px solid #333;
+    border-radius: 5px 5px 0 0;
+    padding: 15px 0 10px 20px;
+    color: $colorGray11;
+    @include mixinFontSize(14);
+    font-weight: normal;
+    background-color: $colorBlack !important;
+  }
+
+  > pre {
+    border-radius: 0 0 5px 5px;
+    //font-size: 12px !important;
+    padding: 10px 20px 20px 20px !important;
+    margin: 0 !important;
+    background-color: $colorBlack !important;
+    font-size: 15px !important;
+    line-height: 25px !important;
+  }
+}
+
+.copyButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  padding: 10px;
+  color: $colorWhite;
+  font-size: 12px;
+}
+
+.cornerEditButton {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+
+  button {
+    min-width: 100px;
+  }
+}
+
+.sampleInfo {
+  background-color: $colorWhite;
+  border: 1px solid $colorGray8;
+  border-radius: 5px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  font-family: 'Segoe UI', 'Apple SD Gothic Neo', sans-serif;
+
+  &.card {
+    padding: 0;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: $colorGray2;
+    margin-bottom: 16px;
+    border-left: 4px solid $colorBule1;
+    padding-left: 12px;
+
+    em {
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
+
+  ol {
+    list-style: decimal inside;
+    padding-left: 0;
+
+    li {
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 1.6;
+
+      b {
+        display: inline-block;
+        margin-bottom: 4px;
+        color: $colorGray4;
+      }
+
+      span {
+        display: block;
+        color: $colorGray6;
+
+        i {
+          display: block;
+          font-style: italic;
+          margin-top: 4px;
+          color: $colorGray7;
+        }
+      }
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px dashed $colorGray8;
+    margin: 24px 0;
+  }
+
+  pre {
+    background-color: $colorGray11;
+    //border: 1px solid $colorGray8;
+    //border-radius: 8px;
+    padding: 16px;
+    font-size: 14px;
+    color: $colorGray4;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+
+  > div > b {
+    font-weight: 600;
+    color: $colorGray2;
+  }
+
+  .sampleInfoPrompt {
+    span {
+      font-size: 15px;
+    }
+  }
+}
+
+.examplePrompt {
+  background-color: $colorGray11;
+  border: 1px solid $colorGray8;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 16px;
+
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: $colorGray2;
+    margin-bottom: 12px;
+  }
+
+  .promptList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      align-items: flex-start;
+      margin-bottom: 10px;
+      line-height: 1.6;
+      color: $colorGray4;
+
+      .number {
+        display: inline-block;
+        width: 24px;
+        min-width: 24px;
+        font-weight: 600;
+        color: $colorSubDefault;
+      }
+
+      span {
+        flex: 1;
+      }
+
+      b {
+        font-weight: 600;
+        color: $colorGray2;
+      }
+    }
+  }
+}
+
+.modalContent {
+  width: 600px;
+
+  dl.formGroup {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    dt {
+      width: 100px;
+    }
+
+    dd {
+      flex: 1;
+
+      input,
+      textarea {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.modalButton {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+
+  button {
+    min-width: 120px;
+  }
+}

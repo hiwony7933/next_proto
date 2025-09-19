@@ -1,0 +1,173 @@
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.section {
+  /* Add section-specific styles if needed */
+  h4 {
+    @include mixinFontSize(24);
+    font-weight: 700;
+    color: $colorBlack;
+    margin-bottom: 20px;
+  }
+}
+
+.wLayoutBlockcontainer {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1360px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: block;
+}
+
+.wContainer {
+  padding-bottom: 160px;
+  /* .w-container styles are similar to .container, can be merged if needed */
+}
+
+.spacer {
+  height: 152px;
+}
+
+._160px {
+  /* Used for .spacer._160px */
+}
+
+.spacer24px {
+  width: 24px;
+  height: 24px;
+}
+
+.cctvVideoThumbnail {
+  aspect-ratio: 16/9;
+  // background-image: url(https://cdn.prod.website-files.com/65f40252d97e8a476f9d7ad2/66586aa38a988d65eb728f29_cctv-video-thumbnail.webp);
+  background-position: 50%;
+  background-size: contain;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.wLayoutVflex {
+  flex-direction: column;
+  align-items: flex-start;
+  display: flex;
+}
+
+.videoPlayButtonWrapper {
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0%;
+}
+
+.videoPlayButton {
+  /* No specific style found, add if needed */
+}
+
+.playEmbedIcon {
+  width: 36px;
+  height: 36px;
+}
+
+.wEmbed {
+  /* No direct style, but keep for structure */
+}
+
+.commentBox {
+  height: 0;
+  position: absolute;
+  inset: auto 0% -16px;
+}
+
+.cctv {
+  bottom: -32px;
+}
+
+.wLayoutHflex {
+  flex-direction: row;
+  align-items: flex-start;
+  display: flex;
+}
+
+.commentBubble {
+}
+
+.upArrow {
+  z-index: 1;
+  border-right: 14px solid #e5e7ec00;
+  border-bottom: 14px solid var(--grayscale--100-tertiary);
+  border-left: 14px solid #e5e7ec00;
+  width: 0;
+  height: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  inset: -13px 0% auto;
+}
+
+.border {
+  z-index: 0;
+  border-bottom-width: 16px;
+  border-right-width: 16px;
+  border-bottom-color: var(--grayscale--300);
+  border-left-width: 16px;
+  top: -15px;
+}
+
+.textMiddle {
+  font-size: 20px;
+  line-height: 30px;
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+  border: 1px solid #e5e7ec;
+  background-color: #f7f7f7;
+  color: #1a1a1a;
+  border-radius: 12px;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+
+  &::after {
+    content: '';
+    border-right: 14px solid #e5e7ec00;
+    border-bottom: 14px solid #f7f7f7;
+    border-left: 14px solid #e5e7ec00;
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    inset: -13px 0% auto;
+    z-index: 0;
+    border-bottom-width: 16px;
+    border-right-width: 16px;
+    border-bottom-color: #e5e7ec;
+    border-left-width: 16px;
+    top: -15px;
+  }
+
+  &::before {
+    content: '';
+    z-index: 1;
+    border-right: 14px solid #e5e7ec00;
+    border-bottom: 14px solid #f7f7f7;
+    border-left: 14px solid #e5e7ec00;
+    width: 0;
+    height: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    inset: -13px 0% auto;
+  }
+}

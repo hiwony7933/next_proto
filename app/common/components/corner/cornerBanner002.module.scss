@@ -1,0 +1,13 @@
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.cornerBanner002 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+
+  img {
+    width: 100%;
+  }
+}

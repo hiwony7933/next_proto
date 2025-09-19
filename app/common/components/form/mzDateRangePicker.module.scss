@@ -1,0 +1,42 @@
+@charset "utf-8";
+// @use '@/styles/_variable.scss' as *;
+// @use '@/styles/_mixin.scss' as *;
+
+@mixin spriteImg {
+  background-image: url(//img.lfmall.co.kr/file/WAS/apps/2019/mfront/common/sc2_bg.png);
+  background-repeat: no-repeat;
+  background-size: 400px auto;
+}
+
+/* input - checkbox */
+.MzDateRangePicker {
+  display: flex;
+  position: relative;
+  min-height: 22px;
+  align-items: center;
+  gap: 10px;
+
+  :global {
+    .dayBtn {
+      display: flex;
+      gap: 2px;
+    }
+  }
+}
+
+// // 전역 CSS로 백업 스타일 - CSS 모듈 해시 대응
+// :global {
+//   // CSS 모듈로 생성된 해시 클래스명도 포함
+//   [class*='MzDateRangePicker'].w100 {
+//     // 모든 하위 컨테이너
+//     .inputWrap,
+//     div {
+//       flex: 1;
+//     }
+
+//     // 모든 가능한 input 선택자
+//     .pickerInput {
+//       width: 100%;
+//     }
+//   }
+// }

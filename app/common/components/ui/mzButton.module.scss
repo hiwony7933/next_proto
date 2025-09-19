@@ -1,0 +1,152 @@
+@charset "utf-8";
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.mzButton {
+  padding: 0 10px;
+  border: 1px solid $colorGray9;
+  border-radius: 2px;
+  background-color: $colorWhite;
+  color: $colorDefault;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:global(.disabled),
+  &:disabled {
+    &.size,
+    &.sizePC {
+      &1,
+      &2,
+      &3 {
+        background-color: $colorGray7 !important;
+        border-color: $colorGray7 !important;
+        color: #b2b2b2 !important;
+      }
+
+      &4,
+      &5 {
+        background-color: $colorGray4 !important;
+        border-color: $colorGray4 !important;
+        color: $colorWhite !important;
+      }
+    }
+  }
+
+  &.fill {
+    &Black {
+      background-color: $colorDefault;
+      border-color: $colorDefault;
+      color: $colorWhite !important;
+    }
+
+    &Red {
+      background-color: $colorSubDefault;
+      border-color: $colorSubDefault;
+      color: $colorWhite;
+    }
+  }
+
+  &.stroke {
+    &Black {
+      border-color: $colorDefault;
+    }
+
+    &Red {
+      border-color: $colorSubDefault;
+      color: $colorSubDefault;
+    }
+  }
+
+  &.size {
+    &1 {
+      height: 30px;
+      font-size: 13px;
+    }
+
+    &2 {
+      height: 36px;
+      font-size: 13px;
+    }
+
+    &3 {
+      height: 40px;
+      font-size: 14px;
+    }
+
+    &4 {
+      height: 48px;
+      font-size: 14px;
+    }
+
+    &5 {
+      height: 56px;
+      font-size: 16px;
+
+      &.fillBlack {
+        //font-weight: bold;
+      }
+    }
+  }
+
+  &.sizePC {
+    &1 {
+      height: 24px;
+      font-size: 12px;
+    }
+
+    &2 {
+      height: 28px;
+      font-size: 13px;
+    }
+
+    &3 {
+      height: 40px;
+      font-size: 14px;
+    }
+
+    &4 {
+      height: 48px;
+      font-size: 15px;
+    }
+
+    &5 {
+      height: 56px;
+      font-size: 16px;
+
+      &.fillBlack {
+        //font-weight: bold;
+      }
+    }
+  }
+
+  &.black {
+    background-color: $colorDefault;
+    color: $colorWhite;
+  }
+
+  &.red {
+    background-color: $colorSubDefault;
+    color: $colorWhite;
+  }
+
+  &.lineBlack {
+    border-color: $colorDefault;
+  }
+
+  &.lineRed {
+    border-color: $colorSubDefault;
+    color: $colorSubDefault;
+  }
+
+  .square {
+    border-radius: 0;
+  }
+}
+
+.mzUnderline {
+  border-bottom: 1px solid $colorGray2;
+  color: $colorGray2;
+  @include mixinFontSize(12);
+}

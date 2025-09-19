@@ -1,0 +1,81 @@
+@use '@/styles/_variable.scss' as *;
+@use '@/styles/_mixin.scss' as *;
+
+.wLayoutBlockcontainer {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1360px;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: block;
+  margin-bottom: 50px;
+}
+
+.wContainer {
+  /* .w-container styles are similar to .container, can be merged if needed */
+}
+
+.spacer {
+  height: 152px;
+}
+
+.wLayoutHflex {
+  flex-direction: row;
+  align-items: flex-start;
+  display: flex;
+}
+
+.cctvCtaBoxWrapper {
+  background-color: #aed7ff66;
+  border-radius: 12px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+}
+
+.textLarge {
+  font-size: 24px;
+  line-height: 38px;
+}
+
+.cctvCtaBtnWrapper {
+  grid-column-gap: 8px;
+  grid-row-gap: 8px;
+}
+
+.cctvSolidCta {
+  background-color: #0052a4;
+  color: #fff;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  border-radius: 8px;
+  width: 240px;
+  height: 60px;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 60px;
+
+  &:hover {
+    background-color: #0052a4;
+  }
+
+  &:active {
+    background-color: #0052a4;
+  }
+}
+
+.wInlineBlock {
+  display: inline-block;
+}

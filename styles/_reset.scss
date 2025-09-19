@@ -1,0 +1,467 @@
+// 브라우저 기본 스타일 초기화 및 전체 사이트 공통 스타일 초기화
+
+@charset 'utf-8';
+@use 'mixin' as *;
+@use 'variable' as *;
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+table,
+th,
+td,
+form,
+fieldset,
+legend,
+textarea,
+input,
+select,
+textarea,
+button,
+strong {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  //font-size: 14px;
+  -webkit-text-size-adjust: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+fieldset,
+li,
+img {
+  border: 0;
+  vertical-align: top;
+}
+
+button,
+input[type='button'] {
+  overflow: visible;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+address,
+caption,
+em,
+i {
+  font-style: normal;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+  //-webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  //-moz-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+a,
+a:active,
+a:hover {
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+select,
+input {
+  border: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input:disabled {
+  opacity: 1;
+}
+
+hr {
+  display: none;
+}
+
+::selection {
+  background: rgba(0, 0, 0, 0.1);
+  text-shadow: none;
+}
+
+::-webkit-selection {
+  background: rgba(0, 0, 0, 0.1);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: rgba(0, 0, 0, 0.1);
+  text-shadow: none;
+}
+
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+  display: none;
+}
+
+button:focus,
+input:focus,
+select:focus,
+a:focus {
+  outline: none;
+}
+
+.blind,
+caption,
+legend {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  font-size: 0px;
+  line-height: 100px;
+  white-space: nowrap;
+}
+
+/* 스크롤바 전체 스타일 */
+// ::-webkit-scrollbar {
+// width: 4px;
+/* 스크롤바의 너비 */
+// }
+
+/* 스크롤바 배경 */
+::-webkit-scrollbar-track {
+  background: #fff;
+  /* 배경색 (밝은 회색으로 설정) */
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+/* 스크롤바 핸들 */
+::-webkit-scrollbar-thumb {
+  background: #e1e6ec;
+  /* 스크롤바 핸들의 색상 (파란색으로 설정) */
+  border-radius: 40px;
+}
+
+/* 스크롤바 핸들을 마우스로 hover 했을 때 */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  /* 핸들을 hover할 때 색상 변경 (어두운 회색) */
+}
+
+html {
+  -webkit-touch-callout: none;
+  //-webkit-user-select: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.noscroll {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+// 크롬에서 아이콘 안 보이게 추가
+input[type='time']::-webkit-inner-spin-button,
+input[type='time']::-webkit-calendar-picker-indicator input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type='text'],
+input[type='password'],
+input[type='number'],
+input[type='email'],
+input[type='tel'],
+input[type='search'] {
+  @include mixinFormBox();
+}
+
+textarea {
+  @include mixinFormBox();
+  width: 100%;
+  min-height: 50px;
+  resize: vertical;
+  /* 세로만 가능, 가로는 막힘 */
+}
+
+/** 스와이프 버튼 스타일 */
+.hwSwiperWrap {
+  position: relative;
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    @include mixinBtnCirclePrev();
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    margin-top: -16px;
+
+    &::before {
+      color: transparent;
+    }
+  }
+
+  .swiper-button-prev {
+    left: -16px;
+
+    &::before {
+      transform: translate(-50%, -50%) rotate(135deg);
+    }
+  }
+
+  .swiper-button-next {
+    right: -16px;
+  }
+
+  .swiper-button-disabled {
+    opacity: 0.5;
+  }
+}
+
+.mz-alert-confirm-button,
+.mz-alert-cancel-button {
+  min-width: 100px;
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 60px;
+  color: $colorDefault;
+  @include mixinFontSize(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hw-alert-confirm-button {
+  font-weight: bold;
+  background-color: $colorBlueTint1;
+}
+
+.hw-alert-cancel-button {
+  border: 1px solid $colorDefault;
+}
+
+/* 날짜 선택 스타일 */
+.react-datepicker {
+  width: 362px;
+  padding: 20px;
+  color: $colorDefault;
+  @include mixinFontSize(14);
+  font-family: 'hanjinGroupSans', 'Apple SD Gothic Neo';
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow:
+    0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+  z-index: 100 !important;
+  position: relative !important;
+}
+
+/* React DatePicker Popper - 실제 팝업 컨테이너 */
+.react-datepicker-popper {
+  z-index: 100 !important;
+  position: fixed !important;
+
+  /* 모달 내부에서 사용될 때 */
+  &.pickerLayer {
+    z-index: 105 !important;
+    position: fixed !important;
+  }
+}
+
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+.react-datepicker__month-container {
+  float: none;
+}
+
+.react-datepicker__header:not(.react-datepicker__header--has-time-select) {
+  border-top-right-radius: 12px;
+}
+
+.react-datepicker__header {
+  background: $colorWhite;
+  color: $colorDefault;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 0;
+}
+
+.react-datepicker__navigation {
+  top: 16px;
+}
+
+.react-datepicker__current-month {
+  margin: 0 auto;
+  padding: 0 0 16px 0 !important;
+  @include mixinFontSize(18px);
+  font-weight: normal;
+}
+
+.react-datepicker__header:not(.react-datepicker__header--has-time-select) {
+  border: 0;
+  //padding: 20px 20px 020px;
+}
+
+.react-datepicker__day-names {
+  color: $colorGray5;
+  @include mixinFontSize(14px);
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  width: 46px;
+  height: 46px;
+  color: $colorDefault;
+  @include mixinFontSize(14px);
+  line-height: 45px;
+  margin: 0;
+  border: 1px solid #fff;
+}
+
+.react-datepicker__month {
+  margin: 0;
+}
+
+.react-datepicker__day--outside-month {
+  color: $colorGray7;
+}
+
+.react-datepicker__day-name {
+  color: $colorGray5;
+}
+
+.react-datepicker__navigation--previous {
+  left: 22px;
+}
+
+.react-datepicker__navigation--next {
+  right: 22px;
+}
+
+.react-datepicker__navigation-icon::before,
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow {
+  border-color: $colorDefault;
+  border-width: 1px 1px 0 0;
+}
+
+.react-datepicker__day:not([aria-disabled='true']):hover,
+.react-datepicker__month-text:not([aria-disabled='true']):hover,
+.react-datepicker__quarter-text:not([aria-disabled='true']):hover,
+.react-datepicker__year-text:not([aria-disabled='true']):hover {
+  border-radius: 100%;
+  border: 1px solid $colorSubDefault;
+  background-color: $colorWhite;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range,
+.react-datepicker__month-text--selected,
+.react-datepicker__month-text--in-selecting-range,
+.react-datepicker__month-text--in-range,
+.react-datepicker__quarter-text--selected,
+.react-datepicker__quarter-text--in-selecting-range,
+.react-datepicker__quarter-text--in-range,
+.react-datepicker__year-text--selected,
+.react-datepicker__year-text--in-selecting-range,
+.react-datepicker__year-text--in-range {
+  color: $colorWhite;
+  background-color: $colorSubDefault;
+  border: 1px solid $colorSubDefault;
+}
+
+.react-datepicker__day--selected {
+  //background: #3182ce;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: $colorWhite;
+}
+
+.react-datepicker__day--today {
+  border: 1px solid $colorWhite;
+  //background-color: $colorBlueTint5;
+  //border-radius: 100%;
+}
+
+.tui-tree-content-wrapper {
+  position: relative;
+
+  .tui-tree-toggle-btn.tui-js-tree-toggle-btn {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    z-index: 10;
+    color: transparent !important; // 글자 투명
+    font-size: 0 !important; // 폰트 크기 0
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.tui-tree-subtree .tui-tree-content-wrapper {
+  .tui-tree-toggle-btn.tui-js-tree-toggle-btn {
+    left: 20px;
+  }
+}
+
+.tui-tree-subtree .tui-tree-subtree .tui-tree-content-wrapper {
+  padding-left: 50px;
+}
+
+.cornerMgtModal {
+  width: 1200px;
+}

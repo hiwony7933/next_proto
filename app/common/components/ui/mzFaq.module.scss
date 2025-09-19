@@ -1,0 +1,19 @@
+.faqWrapper {
+    width: 100%;
+}
+
+.faqItem {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.question {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.answer {
+    margin-top: 8px;
+    color: #333;
+    font-size: 15px;
+}
