@@ -63,6 +63,7 @@ export default function CornerFaq001({
               <button
                 className={`${questionClassName} ${openIndexes.includes(idx) ? styles.open : ""}`}
                 onClick={() => handleClick(idx)}
+                aria-expanded={openIndexes.includes(idx)}
               >
                 {item.question}
               </button>

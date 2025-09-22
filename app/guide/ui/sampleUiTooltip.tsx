@@ -1,6 +1,6 @@
-import React from 'react';
-import MzTooltip from '../../common/components/ui/mzTooltip';
-import '../assets/sample.scss';
+import React from "react";
+import MzTooltip from "../../common/components/ui/mzTooltip";
+import "../assets/sample.scss";
 
 export default function SampleMzTooltip() {
   return (

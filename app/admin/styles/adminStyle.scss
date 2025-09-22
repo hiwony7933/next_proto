@@ -1,0 +1,428 @@
+@mixin spriteImg {
+  background-image: url(//img.lfmall.co.kr/file/WAS/apps/2019/mfront/common/sc2_bg.png);
+  background-repeat: no-repeat;
+  background-size: 400px auto;
+}
+
+.layoutTitle {
+  margin: 0 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+
+  h2.title {
+    @include mixinFontSize(16);
+
+    span {
+      margin-left: 10px;
+      color: $colorGray5;
+      @include mixinFontSize(12);
+      font-weight: normal;
+    }
+  }
+
+  .showHide {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.layoutSearch {
+  margin-bottom: 30px;
+  position: relative;
+  // z-index: 10;
+
+  &.mzFormShowHide {
+    .searchForm {
+      display: none;
+    }
+
+    .searchActionButton {
+      display: none;
+    }
+  }
+
+  .searchForm {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-spacing: 0;
+      border-top: 1px solid $colorGray8;
+      border-bottom: 1px solid $colorGray8;
+      margin-bottom: 10px;
+      @include mixinFontSize(13);
+
+      .flex {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      th {
+        background-color: $colorGray12;
+        padding: 5px 10px;
+        border-top: 1px solid $colorGray8;
+        border-bottom: 1px solid $colorGray8;
+        text-align: left;
+        font-weight: normal;
+        color: $colorBlack;
+      }
+
+      td {
+        padding: 5px 10px;
+        border-top: 1px solid $colorGray8;
+        border-bottom: 1px solid $colorGray8;
+      }
+
+      .required {
+        &::before {
+          content: "*";
+          color: $colorRed;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .searchActionButton {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    > button {
+      min-width: 120px;
+    }
+  }
+}
+
+/* 엔트리 폼 */
+.entryForm {
+  margin-bottom: 20px;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-top: 1px solid $colorGray8;
+    border-bottom: 1px solid $colorGray8;
+    @include mixinFontSize(13);
+
+    .flex {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    th {
+      background-color: $colorGray12;
+      padding: 10px;
+      border-top: 1px solid $colorGray8;
+      border-bottom: 1px solid $colorGray8;
+      text-align: left;
+      font-weight: normal;
+      color: $colorBlack;
+      vertical-align: top;
+    }
+
+    td {
+      padding: 10px;
+      border-top: 1px solid $colorGray8;
+      border-bottom: 1px solid $colorGray8;
+      vertical-align: top;
+    }
+
+    .required {
+      &::before {
+        content: "*";
+        color: $colorRed;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+/* 엔트리 버튼 */
+.entryButton {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* 트리 레프트 */
+.layoutTreeLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+
+  .tuiTreeLeft {
+    width: 350px;
+    min-width: 350px;
+    max-width: 350px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .tuiTreeArea {
+    width: 100%;
+    flex: 1;
+    border: 1px solid $colorGray8;
+    border-radius: 4px;
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  .tuiTreeRight {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    // 내부 요소들의 배치 조정
+    > * {
+      flex-shrink: 0; // 각 섹션이 줄어들지 않도록
+    }
+
+    // 마지막 그리드 영역은 필요시 확장되도록
+    > :last-child {
+      flex: 1;
+      min-height: 0; // flex item의 기본 min-height 제거
+    }
+  }
+}
+
+/* 그리드 헤더 명 컬러 변경 */
+.mzGridWrap {
+  max-width: 100%;
+  width: 100%;
+  border: 1px solid $colorGray8;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; // 내부 스크롤을 위해
+
+  .gridCheckedCount {
+    position: absolute;
+    bottom: 24px;
+    right: 15px;
+    color: $colorGray5;
+    @include mixinFontSize(12);
+  }
+
+  .gridList {
+    padding: 0 0 20px 0;
+    flex: 1;
+    overflow: hidden; // TUI Grid의 내부 스크롤 활용
+  }
+
+  .gridHeader {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .gridLeft {
+      display: flex;
+      gap: 4px;
+    }
+
+    .gridRight {
+      display: flex;
+      gap: 4px;
+    }
+
+    .gridSearch {
+      display: flex;
+      gap: 0;
+      position: relative;
+
+      .btnSearch {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: transparent;
+        background: url("../../../public/images/admin/iconSearch.png") no-repeat
+          center center;
+        background-size: 16px auto;
+      }
+    }
+  }
+}
+
+/* TUI-GRID 커스텀 */
+.tui-grid-container {
+  input[type="checkbox"] {
+    margin: 0 auto;
+    display: block;
+    width: 22px;
+    height: 22px;
+    line-height: 0;
+    @include spriteImg;
+    background-position: -20px 0;
+
+    &:checked {
+      background-position: -42px 0;
+    }
+  }
+}
+
+.tui-grid-header-area {
+  border-right: 1px solid #ccc !important;
+}
+
+.tui-grid-table-container {
+  border-right: 1px solid #ccc;
+}
+
+.tui-grid-container .tui-grid-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  .tui-page-btn {
+    color: $colorGray5;
+    @include mixinFontSize(13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+  }
+
+  .tui-first,
+  .tui-prev,
+  .tui-next,
+  .tui-last {
+    color: transparent;
+    font-size: 0;
+    background-color: $colorWhite;
+    background-size: 16px auto;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .tui-first {
+    background-image: url("../../../public/images/admin/paging_first01.png");
+  }
+
+  .tui-prev {
+    background-image: url("../../../public/images/admin/paging_prev01.png");
+  }
+
+  .tui-next {
+    background-image: url("../../../public/images/admin/paging_next01.png");
+  }
+
+  .tui-last {
+    background-image: url("../../../public/images/admin/paging_last01.png");
+  }
+}
+
+.tui-grid-container .tui-grid-pagination {
+  margin: 15px 0 0 0 !important;
+}
+
+.entryForm {
+  padding: 10px;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    .flex {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .required {
+      &::before {
+        content: "*";
+        color: $colorRed;
+        margin-right: 5px;
+      }
+    }
+
+    th {
+      background-color: $colorGray12;
+      padding: 5px 10px 5px 20px;
+      border-top: 1px solid $colorGray8;
+      border-bottom: 1px solid $colorGray8;
+      color: $colorBlack;
+      @include mixinFontSize(14);
+      font-weight: normal;
+      text-align: left;
+    }
+
+    td {
+      padding: 5px 10px;
+      border-top: 1px solid $colorGray8;
+      border-bottom: 1px solid $colorGray8;
+
+      // 인라인 요소들을 위한 flex 컨테이너
+      .inlineGroup {
+        display: flex;
+        align-items: center;
+
+        input {
+          margin-right: 8px;
+        }
+        button {
+          white-space: nowrap !important; // 텍스트 개행 방지
+        }
+      }
+
+      // DatePicker와 TimePicker를 위한 전용 컨테이너
+      .dateTimeGroup {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        // DatePicker와 TimePicker 컴포넌트
+        > div {
+          flex: 1;
+          min-width: 0;
+        }
+      }
+
+      .mzGridWrap {
+        border: 0;
+        padding: 10px 0;
+
+        th {
+          text-align: center !important;
+          padding: 0;
+        }
+
+        td {
+          padding: 0;
+        }
+      }
+    }
+
+    input[type="text"] {
+      width: 80%;
+    }
+  }
+}
+
+// 우편번호 찾기 */
+.modalPostcode {
+  width: 500px;
+  height: 475px;
+}

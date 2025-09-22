@@ -1,0 +1,353 @@
+// GridBuilder SCSS - Migrated from CSS
+@mixin mininSelectInput {
+  height: 28px;
+  border: 1px solid #D6DBE1;
+  border-radius: 2px !important;
+  color: #000000;
+  font-size: 13px;
+  line-height: 28px;
+  background-color: #FFFFFF;
+}
+
+@mixin spriteImg {
+  background-image: url(//img.lfmall.co.kr/file/WAS/apps/2019/mfront/common/sc2_bg.png);
+  background-repeat: no-repeat;
+  background-size: 400px auto;
+}
+
+.grid-builder-container {
+  position: relative;
+  width: 100%;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-weight: bold;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+}
+
+.grid-container {
+  width: 100%;
+  position: relative;
+}
+
+/* Toolbar Styles */
+.sbgrid_CPA {
+  width: 100%;
+  height: 40px;
+  background-color: #f8f9fa;
+  border-bottom: none;
+  padding: 5px;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+
+  &.sbgrid_CPA_st {
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+  }
+}
+
+/* 그리드 상단 좌측 버튼 */
+.sbgrid-toolbar {
+  display: flex !important;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 그리드 상단 검색 영역 */
+.sbgrid_CPI {
+  display: flex !important;
+  float: none !important;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+
+  &.sbgrid_CPI_st {
+    color: #333;
+  }
+
+  strong {
+    color: #007bff;
+    font-weight: bold;
+  }
+
+  span {
+    display: inline-block;
+    position: relative;
+
+
+  }
+
+  //셀렉트박스만 i 태그
+  i {
+    display: inline-block;
+    position: relative;
+
+    seletct {
+      border-radius: 2px;
+
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      width: 6px;
+      height: 6px;
+      border: solid #051469;
+      border-width: 0 0 1px 1px;
+      transform: translate(0, -5px) rotate(-45deg);
+    }
+  }
+}
+
+/* Button Styles */
+.btn_black {
+  background-color: #000000;
+  border-color: #000000;
+  padding: 0 10px;
+  border-radius: 2px;
+  letter-spacing: -0.3px;
+  display: flex;
+  color: #FFFFFF !important;
+  height: 24px;
+  font-size: 12px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #2c2c2c;
+    border-color: #2c2c2c;
+    color: #FFFFFF !important;
+  }
+
+  &:active {
+    background: linear-gradient(to bottom, #2c2c2c 0%, #4a4a4a 100%);
+  }
+
+  span {
+    font-weight: normal;
+  }
+}
+
+.btn {
+  background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 100%);
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 4px 12px;
+  font-size: 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: linear-gradient(to bottom, #f0f0f0 0%, #e0e0e0 100%);
+  }
+
+  &:active {
+    background: linear-gradient(to bottom, #e0e0e0 0%, #f0f0f0 100%);
+  }
+}
+
+
+
+/* Select and Input Styles */
+.grid-pageElement {
+  padding: 0 40px 0 10px;
+  @include mininSelectInput;
+}
+
+.grid-keywordElement {
+  width: 180px;
+  padding: 0 40px 0 10px;
+  @include mininSelectInput;
+
+  &:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  }
+}
+
+/* 체크박스 스타일 */
+.checkbox {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+  .hidden-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+
+    &:checked~.custom-input {
+      background-position: -42px 0;
+
+      &:after {
+        //display: block;
+      }
+    }
+  }
+
+  .custom-input {
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    width: 22px;
+    height: 22px;
+    line-height: 0;
+    @include spriteImg;
+    background-position: -20px 0;
+    //border: 1px solid yellow;
+
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 5px;
+      top: 2px;
+      width: 3px;
+      height: 8px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+}
+
+/* Grid Common Styles */
+.sbgrid_common {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+/* TUI Grid overrides */
+.tui-grid-container {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+}
+
+.tui-grid-header-area {
+  background-color: #f8f9fa;
+}
+
+.tui-grid-cell-header {
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  font-weight: bold;
+  text-align: center;
+
+  .checkbox {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.tui-grid-cell {
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+
+  &.tui-grid-cell-selected {
+    background-color: #e3f2fd;
+  }
+
+  &.tui-grid-cell-editing {
+    background-color: #fff3cd;
+  }
+
+  .checkbox {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Error and validation styles */
+.grid-error {
+  color: #dc3545;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.grid-required {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Utility classes */
+.uncheck {
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+/* Animation for loading */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sbgrid_CPA {
+    height: auto;
+    padding: 8px 5px;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .sbgrid-toolbar {
+    flex-wrap: wrap;
+  }
+
+  .sbgrid_CPI {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .grid-keywordElement {
+    width: 120px;
+  }
+}

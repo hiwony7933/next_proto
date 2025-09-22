@@ -1,6 +1,6 @@
-'use client';
-import React, { useState } from 'react';
-import styles from './mzFaq.module.scss';
+"use client";
+import React, { useState } from "react";
+import styles from "./mzFaq.module.scss";
 
 interface FaqItem {
   question: string;
@@ -15,14 +15,22 @@ const MzFaq: React.FC<MzFaqProps> = ({ items }) => {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   return (
     <div className={styles.faqWrapper}>
-      {items.map((item, idx) => (
-        <div key={idx} className={styles.faqItem}>
-          <div className={styles.question} onClick={() => setOpenIdx(openIdx === idx ? null : idx)}>
-            {item.question}
-          </div>
-          {openIdx === idx && <div className={styles.answer}>{item.answer}</div>}
-        </div>
-      ))}
+      <ol className={styles.faqList}>
+        {items.map((item, idx) => (
+          <li key={idx} className={styles.faqItem}>
+            <button
+              className={styles.question}
+              onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
+              aria-expanded={openIdx === idx}
+            >
+              {item.question}
+            </button>
+            {openIdx === idx && (
+              <div className={styles.answer}>{item.answer}</div>
+            )}
+          </li>
+        ))}
+      </ol>
     </div>
   );
 };
