@@ -1,45 +1,61 @@
-import React, { useState } from 'react';
-import CornerFaq001 from '../../common/components/corner/cornerFaq001';
-import { LightAsync as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import '../assets/sample.scss';
-import { faqData } from '@/sample/data/faq';
-import MzButton from '../../common/components/ui/mzButton';
-import { MzModal } from '../../common/components/ui/mzModal';
-import MzSelectBox from '../../common/components/form/mzSelectBox';
-import { MzCheckBox } from '../../common/components/form/mzCheckBox';
-import MzAdminGrid, { AdminGridColumn } from '../../common/components/ui/mzAdminGrid';
+import React, { useState } from "react";
+import CornerFaq001 from "../../common/components/corner/cornerFaq001";
+import { LightAsync as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import "../assets/sample.scss";
+import { faqData } from "@/sample/data/faq";
+import MzButton from "../../common/components/ui/mzButton";
+import { MzModal } from "../../common/components/ui/mzModal";
+import MzSelectBox from "../../common/components/form/mzSelectBox";
+import { MzCheckBox } from "../../common/components/form/mzCheckBox";
+import MzAdminGrid, {
+  AdminGridColumn,
+} from "../../common/components/ui/mzAdminGrid";
 
 const faqItemsRaw = faqData.map((item, index) => ({
   id: index + 1,
-  title: item.question,
-  html: item.answer,
+  question: item.question,
+  category: item.category,
+  answer: item.answer,
 }));
 
 const sampleCode = `import CornerFaq001 from '@/components/corner/cornerFaq001';
 import { faqData } from '@/sample/data/faq';
 
 const faqItems = faqData.map(item => ({
-  title: item.question,
-  html: item.answer.replace(/\\n/g, '<br/>'),
+  question: item.question,
+  category: item.category,
+  answer: item.answer.replace(/\\n/g, '<br/>'),
 }));
 
-<CornerFaq001 items={faqItems} multiOpen={false} />
+<CornerFaq001 items={faqItems}
+          wrapClassName={wrapClassName}
+          multiOpen={multiOpen}
+          totalVisible
+          totalPrefix="보안검색결과"
+          totalUnit="건" />
 `;
 
 const columns = [
   {
-    name: 'title',
-    header: '질문',
-    editor: { type: 'text' },
-    align: 'left' as const,
+    name: "question",
+    header: "질문",
+    editor: { type: "text" },
+    align: "left" as const,
     validation: { required: true },
   },
   {
-    name: 'html',
-    header: '답변',
-    editor: { type: 'text' },
-    align: 'left' as const,
+    name: "answer",
+    header: "답변",
+    editor: { type: "text" },
+    align: "left" as const,
+    validation: { required: true },
+  },
+  {
+    name: "category",
+    header: "카테고리",
+    editor: { type: "text" },
+    align: "left" as const,
     validation: { required: true },
   },
 ];
@@ -49,10 +65,18 @@ export default function SampleCornerFaq001() {
   const [modalOpen, setModalOpen] = useState(false);
   const [faqItems, setFaqItems] = useState(faqItemsRaw);
   const [editFaqItems, setEditFaqItems] = useState(faqItemsRaw);
-  const [wrapClassName, setWrapClassName] = useState<'faqType01' | 'faqType02'>('faqType01');
+  const [wrapClassName, setWrapClassName] = useState<"faqType01" | "faqType02">(
+    "faqType01"
+  );
   const [multiOpen, setMultiOpen] = useState(false);
   const [editWrapClassName, setEditWrapClassName] = useState(wrapClassName);
   const [editMultiOpen, setEditMultiOpen] = useState(multiOpen);
+  const [totalVisible, setTotalVisible] = useState(true);
+  const [totalPrefix, setTotalPrefix] = useState("보안검색결과");
+  const [totalUnit, setTotalUnit] = useState("건");
+  const [editTotalVisible, setEditTotalVisible] = useState(totalVisible);
+  const [editTotalPrefix, setEditTotalPrefix] = useState(totalPrefix);
+  const [editTotalUnit, setEditTotalUnit] = useState(totalUnit);
 
   const handleCopy = async (text: string) => {
     await navigator.clipboard.writeText(text);
@@ -64,6 +88,9 @@ export default function SampleCornerFaq001() {
     setEditFaqItems(faqItems);
     setEditWrapClassName(wrapClassName);
     setEditMultiOpen(multiOpen);
+    setEditTotalVisible(totalVisible);
+    setEditTotalPrefix(totalPrefix);
+    setEditTotalUnit(totalUnit);
     setModalOpen(true);
   };
 
@@ -76,24 +103,44 @@ export default function SampleCornerFaq001() {
             수정
           </MzButton>
         </div>
-        <CornerFaq001 items={faqItems} wrapClassName={wrapClassName} multiOpen={multiOpen} />
+        <CornerFaq001
+          items={faqItems}
+          wrapClassName={wrapClassName}
+          multiOpen={multiOpen}
+          totalVisible={totalVisible}
+          totalPrefix={totalPrefix}
+          totalUnit={totalUnit}
+        />
       </div>
       <div className="codeBlock">
         <h6 className="codeTitle">샘플 코드</h6>
-        <SyntaxHighlighter language="javascript" style={atomOneDark} wrapLongLines>
+        <SyntaxHighlighter
+          language="javascript"
+          style={atomOneDark}
+          wrapLongLines
+        >
           {`import CornerFaq001 from '@/components/corner/cornerFaq001';
 import { faqData } from '@/sample/data/faq';
 
 const faqItems = faqData.map(item => ({
-  title: item.question,
-  html: item.answer.replace(/\\n/g, '<br/>'),
+  question: item.question,
+  answer: item.answer.replace(/\\n/g, '<br/>'),
 }));
 
-<CornerFaq001 items={faqItems} multiOpen={false} />
+<CornerFaq001 items={faqItems}
+          wrapClassName={wrapClassName}
+          multiOpen={multiOpen}
+          totalVisible={totalVisible}
+          totalPrefix={totalPrefix}
+          totalUnit={totalUnit} />
 `}
         </SyntaxHighlighter>
-        <button onClick={() => handleCopy(sampleCode)} type="button" className="copyButton">
-          {copied ? '복사됨!' : '코드 복사'}
+        <button
+          onClick={() => handleCopy(sampleCode)}
+          type="button"
+          className="copyButton"
+        >
+          {copied ? "복사됨!" : "코드 복사"}
         </button>
       </div>
 
@@ -111,7 +158,7 @@ const faqItems = faqData.map(item => ({
           <tbody>
             <tr>
               <td>items</td>
-              <td>{`{ title: string; html: string; }[]`}</td>
+              <td>{`{ question: string; category: string; answer: string; }[]`}</td>
               <td>FAQ 항목 배열</td>
               <td>-</td>
             </tr>
@@ -134,6 +181,12 @@ const faqItems = faqData.map(item => ({
               <td>styles.question</td>
             </tr>
             <tr>
+              <td>categoryClassName</td>
+              <td>string</td>
+              <td>카테고리 영역 클래스명</td>
+              <td>styles.category</td>
+            </tr>
+            <tr>
               <td>answerClassName</td>
               <td>string</td>
               <td>답변 영역 클래스명</td>
@@ -145,11 +198,33 @@ const faqItems = faqData.map(item => ({
               <td>여러개 동시 열기 허용 (true: 여러개, false: 하나만)</td>
               <td>false</td>
             </tr>
+            <tr>
+              <td>totalVisible</td>
+              <td>boolean</td>
+              <td>총 개수 표시 여부</td>
+              <td>true</td>
+            </tr>
+            <tr>
+              <td>totalPrefix</td>
+              <td>string</td>
+              <td>총 앞 텍스트(예: '총', '보안검색결과')</td>
+              <td>총</td>
+            </tr>
+            <tr>
+              <td>totalUnit</td>
+              <td>string</td>
+              <td>단위 텍스트(예: '개', '건', '회')</td>
+              <td>개</td>
+            </tr>
           </tbody>
         </table>
       </div>
       {/* 수정 모달 */}
-      <MzModal isOpen={modalOpen} onClose={() => setModalOpen(false)} title="FAQ 수정">
+      <MzModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="FAQ 수정"
+      >
         <div className="modalContent">
           <dl className="formGroup">
             <dt>
@@ -159,9 +234,11 @@ const faqItems = faqData.map(item => ({
               <MzSelectBox
                 type="dropdown"
                 className="dropdown"
-                options={['faqType01', 'faqType02']}
+                options={["faqType01", "faqType02"]}
                 selected={editWrapClassName}
-                onSelect={(v) => setEditWrapClassName(v as 'faqType01' | 'faqType02')}
+                onSelect={(v) =>
+                  setEditWrapClassName(v as "faqType01" | "faqType02")
+                }
                 size="2"
                 style={{ width: 80 }}
               />
@@ -185,18 +262,71 @@ const faqItems = faqData.map(item => ({
               </MzCheckBox>
             </dd>
           </dl>
+          <dl className="formGroup">
+            <dt>
+              <label htmlFor="totalVisible">총 개수 표시</label>
+            </dt>
+            <dd>
+              <MzCheckBox
+                type="checkbox"
+                id="totalVisible"
+                shape="round"
+                checked={editTotalVisible}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setEditTotalVisible(e.target.checked)
+                }
+              >
+                총 개수 표시
+              </MzCheckBox>
+            </dd>
+          </dl>
+          <dl className="formGroup">
+            <dt>
+              <label htmlFor="totalPrefix">접두 텍스트</label>
+            </dt>
+            <dd>
+              <input
+                id="totalPrefix"
+                type="text"
+                value={editTotalPrefix}
+                onChange={(e) => setEditTotalPrefix(e.target.value)}
+                style={{ width: 160 }}
+              />
+            </dd>
+          </dl>
+          <dl className="formGroup">
+            <dt>
+              <label htmlFor="totalUnit">단위 텍스트</label>
+            </dt>
+            <dd>
+              <input
+                id="totalUnit"
+                type="text"
+                value={editTotalUnit}
+                onChange={(e) => setEditTotalUnit(e.target.value)}
+                style={{ width: 160 }}
+              />
+            </dd>
+          </dl>
           <MzAdminGrid
             columns={columns}
             data={editFaqItems}
             setData={setEditFaqItems}
             perPage={editFaqItems.length}
-            gridLeftBtn={['add', 'delete']}
+            gridLeftBtn={["add", "delete"]}
             pageSizeYN={false}
             gridSearchYN={false}
             gridSettingYN={false}
-            onCreateRow={() => ({ id: Date.now(), title: '', html: '' })}
+            onCreateRow={() => ({
+              id: Date.now(),
+              question: "",
+              category: "",
+              answer: "",
+            })}
             onDeleteRows={(ids: number[]) => {
-              setEditFaqItems((prev) => prev.filter((row) => !ids.includes(row.id)));
+              setEditFaqItems((prev) =>
+                prev.filter((row) => !ids.includes(row.id))
+              );
             }}
           />
           <div className="modalButton">
@@ -210,6 +340,9 @@ const faqItems = faqData.map(item => ({
                 setFaqItems(editFaqItems);
                 setWrapClassName(editWrapClassName);
                 setMultiOpen(editMultiOpen);
+                setTotalVisible(editTotalVisible);
+                setTotalPrefix(editTotalPrefix);
+                setTotalUnit(editTotalUnit);
                 setModalOpen(false);
               }}
             >
