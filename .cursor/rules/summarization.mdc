@@ -1,0 +1,115 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+### 개요
+
+- Next.js 15(SSR) 기반으로 SPA 구조를 정리하고, 브라우저 전용 라이브러리 대응, 테넌트(도메인) 분기, 스타일/린트 체계, 가이드 화면 구조를 단계적으로 개편했습니다.
+- 목표: SSR 안정성, 테넌트 확장성, 전역/모듈 스타일 일관성, 샘플/가이드 분리와 점진 전환.
+
+### 의존성/도구
+
+- 추가(런타임): react-day-picker, @tanstack/react-table, @tanstack/react-virtual, embla-carousel-react, @tiptap/react, @tiptap/starter-kit, zustand
+- 추가(개발): prettier, eslint-config-prettier, @types/react-modal, sass, @types/react-syntax-highlighter
+- 유지/대응: react-modal, highcharts, react-syntax-highlighter 등은 클라이언트 전용 컴포넌트에서 사용
+- 경고/루트 오인 방지: next.config.ts에 outputFileTracingRoot: process.cwd() 지정
+- 패키지 매니저 고정: package.json "packageManager": "yarn@1.22.22"
+
+### SSR 안정화
+
+- 브라우저 전용 라이브러리와 DOM 접근 로직을 클라이언트로 한정
+  - 컴포넌트 상단에 'use client' 추가(또는 dynamic import + ssr:false)
+  - window/document 사용은 반드시 useEffect 내부에서 처리
+- Next 15 규칙 반영
+  - 동적 라우트 params는 Promise로 제공 → 서버 컴포넌트에서 await params 적용
+  - ssr:false는 서버 컴포넌트에서 금지 → 클라이언트 래퍼로 위임 후 dynamic 사용
+- SPA 흔적 제거
+  - 라우팅: react-router-dom → Next.js 라우팅/Link
+  - 환경: import.meta.env → process.env.NEXT*PUBLIC*\*
+
+### 테넌트(도메인) 분기/테마
+
+- middleware.ts
+  - ENV(TENANT_SK_HOST 등)로 호스트→테넌트(sk/cap/adt) 매핑
+  - /\_next|/api|/favicon 등 제외 후 `/${tenant}`로 rewrite
+  - 로컬 강제: ?tenant=sk|cap|adt
+- 라우팅 구조
+  - app/sk, app/cap, app/adt 페이지/레이아웃 준비
+  - app/layout.tsx에서 header의 host를 기준으로 body에 `tenant-sk|cap|adt` 클래스 부여
+- 테마/상태관리
+  - Zustand store(stores/themeStore.ts) + app/providers/ThemeProvider.tsx로 tenant/mode 관리
+  - globals.css/전역 CSS 변수(–brand 등)로 테넌트 테마 연동
+
+### 스타일 체계(SCSS)
+
+- 전역: app/layout.tsx에서 styles/common.scss 전역 임포트
+- styles/common.scss
+  - @use 'reset'; @use 'variable' as _; @use 'mixin' as _
+- next.config.ts
+  - sassOptions.includePaths=['styles'], additionalData로 전 SCSS에서 변수/믹스인 자동 주입
+- 모듈 SCSS: 컴포넌트에서는 .module.scss를 상대경로로 임포트
+- public 자산: /public 경로는 import가 아닌 URL(/images/...)로 사용(또는 next/image 사용 권장)
+
+### 가이드(guide) 전환
+
+- 폴더 라우팅 전환 시도 후, 요구에 따라 slug 라우트 복원
+  - app/guide/samples/[slug]/page.tsx: 서버에서 await params → 허용된 slug만 통과
+  - app/guide/samples/[slug]/ClientSample.tsx: 클라이언트 컴포넌트에서 dynamic(ssr:false)로 샘플 로드
+  - slug 예: ui-button/ui-alert/ui-modal/ui-tabs/ui-tooltip/ui-tree/ui-tree-new, form-date-picker/form-date-range-picker/form-file-upload/form-select-box/form-input-box/form-text-area/form-image-type/form-checkbox/form-phone-number/form-address, corner-\*
+- 가이드 라우팅 상수: app/guide/routers/routePath.ts(Next 경로 문자열 기반)
+
+### 공통/컴포넌트 정리
+
+- 버튼/배너 등 SPA 흔적 제거
+  - Link: react-router-dom → next/link
+  - 환경: import.meta.env → process.env.NEXT*PUBLIC*\*
+- sweetalert2(MzAlert)
+  - 브라우저 전용 → 'use client' 파일에서만 사용, 필요 시 동적 import 가드
+- 모달(MzModal / MzModalContainer)
+  - 'use client' 적용, 필요 시 ReactModal appElement 설정(옵션)
+  - SCSS 경로 alias 정리(@use 'variable', 'mixin'), 일부 하드코딩 색 변수화, !important 축소
+- 트리/그리드
+  - MzTree: tui-tree dynamic import(ssr:false) + useEffect 초기화
+  - MzMenuTree/MzTreeNew: 문서 이벤트는 useEffect로 바인딩/해제, 'use client'
+  - MzAdminGrid: 'use client' 추가, tui-grid 동적 import로 SSR 충돌 제거, 인스턴스 생성 전 로드 플래그(gridLibReady) 체크
+- 탭/툴팁/FAQ
+  - 'use client'로 상태/이벤트 처리
+
+### SK 테넌트 레이아웃/헤더
+
+- app/sk/layout.tsx: SSR 세그먼트 레이아웃(헤더/메인/푸터)
+- app/sk/layouts/header.tsx
+  - 헤더 메뉴 데이터 분리: app/sk/layouts/menus.ts
+  - public 자산은 URL(/images/sk_logo.svg) 또는 next/image로 사용(잘못된 import 경로 시 콘솔 에러)
+- app/sk/layouts/footer.tsx: 모듈 SCSS 상대경로 임포트
+
+### ESLint/Prettier/타입
+
+- ESLint: next/core-web-vitals + next/typescript + prettier, 스크립트(lint/lint:fix)
+- Prettier: .prettierrc/.prettierignore, 스크립트(format/format:check)
+- app/guide/\*\*는 화면 우선 위해 ESLint ignore
+- 타입: @types/react-syntax-highlighter 설치(필요 시 서브모듈 선언 파일 추가)
+
+### 주의/가이드라인
+
+- 브라우저 전용 라이브러리/DOM 접근은 클라이언트에서만(컴포넌트 상단 'use client', dynamic import + ssr:false, useEffect 내부 처리)
+- Next 15: 동적 라우트 params는 서버 컴포넌트에서 await
+- public 자산: import 대신 URL 경로 또는 next/image 사용
+- 전역 스타일은 레이아웃에서 1회 임포트, 컴포넌트 전용은 모듈 SCSS 사용
+- SPA 의존 로직/코드(react-router-dom, import.meta.env 등)는 모두 Next/SSR 방식으로 치환
+
+### 현재 상태 요약
+
+- SSR 기준으로 주요 컴포넌트/가이드/레이아웃이 안전하게 동작
+- 테넌트(도메인) 분기 + 테마 구조 선반영
+- 가이드 slug 라우트 정상 동작(서버에서 params await, 클라이언트에서 샘플 로드)
+- 그리드/트리/모달/알림 등 브라우저 전용 의존성은 클라이언트에서만 로드되도록 정리 완료
+
+필요 시 다음 단계
+
+- DatePicker/RangePicker를 react-day-picker 기반으로 완전 교체(현 단계는 점진)
+- TUI Editor 완전 제거 후 TipTap 통일
+- 전역 버튼 atoms 모듈 + composes 전략 도입으로 스타일 중복/!important 제거 가속
+- stylelint 도입(중요 규칙 자동 점검)
