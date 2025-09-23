@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+"use client";
+import React, { useMemo, useState } from "react";
 import styles from "./cornerFaq001.module.scss";
+import MzButton from "../ui/mzButton";
+import MzPagination from "../ui/mzPagination";
 
 type FaqItem = { question: string; category: string; answer: string };
 
@@ -30,6 +33,9 @@ export default function CornerFaq001({
 }: Props) {
   // multiOpen: 여러개 열기, 아니면 하나만
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 10;
 
   const handleClick = (idx: number) => {
     if (multiOpen) {
@@ -41,42 +47,114 @@ export default function CornerFaq001({
     }
   };
 
-  console.log("FAQ items", items);
+  const handleCategoryClick = (value: string) => {
+    setSelectedCategory(value);
+    // 카테고리 변경 시 열림 상태 초기화
+    setOpenIndexes([]);
+  };
+
+  // 중복 제거된 카테고리 목록 (빈 문자열/공백 제외)
+  const categories = Array.from(
+    new Set(
+      (items || [])
+        .map((item) => item.category?.trim())
+        .filter((cat): cat is string => Boolean(cat))
+    )
+  );
+
+  // 선택된 카테고리에 따른 필터링 아이템
+  const filteredItems = useMemo(() => {
+    const base =
+      selectedCategory === "all"
+        ? items
+        : items.filter((item) => item.category?.trim() === selectedCategory);
+    return base;
+  }, [items, selectedCategory]);
+
+  // 페이지 변경 시 열림 상태 초기화
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setOpenIndexes([]);
+  };
+
+  // 현재 페이지에 표시할 슬라이스 계산
+  const pageStartIndex = (currentPage - 1) * itemsPerPage;
+  const pageEndIndex = pageStartIndex + itemsPerPage;
+  const pagedItems = filteredItems.slice(pageStartIndex, pageEndIndex);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredItems.length / itemsPerPage)
+  );
 
   return (
     <div className={styles.faqContainer}>
-      <h4>FAQ</h4>
+      {/* 
+        props로 받은 items 데이터가 없으면 카테고리 버튼 숨김, 데이터가 있으면 노출 
+      */}
+      {categories.length > 0 &&
+        (() => {
+          return (
+            <div className={styles.faqCategory}>
+              <MzButton
+                onClick={() => handleCategoryClick("all")}
+                aria-pressed={selectedCategory === "all"}
+              >
+                전체
+              </MzButton>
+              {categories.map((cat) => (
+                <MzButton
+                  key={cat}
+                  onClick={() => handleCategoryClick(cat)}
+                  aria-pressed={selectedCategory === cat}
+                >
+                  {cat}
+                </MzButton>
+              ))}
+            </div>
+          );
+        })()}
       {/* Total에 대한 대표 스타일 적용필요할듯.. */}
       {totalVisible && (
         <div className={styles.faqTotal}>
-          {totalPrefix} {items.length}
+          {totalPrefix} {filteredItems.length}
           {totalUnit}
         </div>
       )}
       <ol className={`${styles[wrapClassName]} ${styles.faqWrap}`}>
-        {items.map((item, idx) => (
-          <li key={idx} className={itemClassName}>
-            <div className={styles.questionWrap}>
-              {item.category && item.category.trim() !== "" && (
-                <div className={categoryClassName}>{item.category}</div>
+        {pagedItems.map((item, idx) => {
+          const globalIndex = pageStartIndex + idx;
+          return (
+            <li key={globalIndex} className={itemClassName}>
+              <div className={styles.questionWrap}>
+                {item.category && item.category.trim() !== "" && (
+                  <div className={categoryClassName}>{item.category}</div>
+                )}
+                <button
+                  className={`${questionClassName} ${
+                    openIndexes.includes(globalIndex) ? styles.open : ""
+                  }`}
+                  onClick={() => handleClick(globalIndex)}
+                  aria-expanded={openIndexes.includes(globalIndex)}
+                >
+                  {item.question}
+                </button>
+              </div>
+              {openIndexes.includes(globalIndex) && (
+                <div
+                  className={`${answerClassName}`}
+                  dangerouslySetInnerHTML={{ __html: item.answer }}
+                />
               )}
-              <button
-                className={`${questionClassName} ${openIndexes.includes(idx) ? styles.open : ""}`}
-                onClick={() => handleClick(idx)}
-                aria-expanded={openIndexes.includes(idx)}
-              >
-                {item.question}
-              </button>
-            </div>
-            {openIndexes.includes(idx) && (
-              <div
-                className={`${answerClassName}`}
-                dangerouslySetInnerHTML={{ __html: item.answer }}
-              />
-            )}
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ol>
+      {/* pageNation */}
+      <MzPagination
+        currentPage={Math.min(currentPage, totalPages)}
+        onChange={handlePageChange}
+        totalPages={Math.min(10, totalPages)}
+      />
     </div>
   );
 }

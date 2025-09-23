@@ -1,11 +1,8 @@
-.tenantsContainer {
-  display: flex;
-  gap: 10px;
-  /* flex-direction: column; */
+.home {
   padding: 20px;
-  /* align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw; */
-  /* background-color: #f0f0f0; */
+
+  &__tenants {
+    display: flex;
+    gap: 10px;
+  }
 }

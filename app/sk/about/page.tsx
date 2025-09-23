@@ -1,11 +1,6 @@
-import React from 'react';
+"use client";
+import React from "react";
 
-const AboutPage = () => {
-  return (
-    <main>
-      <h1>AboutPage</h1>
-    </main>
-  );
-};
-
-export default AboutPage;
+export default function AboutPage() {
+  return <div>AboutPage</div>;
+}

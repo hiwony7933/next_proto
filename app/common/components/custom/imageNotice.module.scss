@@ -1,0 +1,18 @@
+.eventItemWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.eventList {
+  display: flex;
+  flex: 1 1 30%;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.eventItem {
+  flex: 1 1 30%;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}

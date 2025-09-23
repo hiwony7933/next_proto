@@ -1,9 +1,5 @@
-@charset "utf-8";
-@use '@/styles/_variable.scss' as *;
-@use '@/styles/_mixin.scss' as *;
-
 .mzInputText {
-  padding: 0 10px;
+  padding: 12px;
   border: 1px solid $colorGray9;
   border-radius: 2px;
   background-color: $colorWhite;
@@ -11,7 +7,66 @@
   letter-spacing: -0.3px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+
+  &__input {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    outline: none;
+  }
+
+  &__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 6px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: $colorGray9;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:hover {
+      color: $colorDefault;
+    }
+
+    svg {
+      display: block;
+    }
+  }
+
+  &__search {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-left: 6px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    img {
+      display: block;
+    }
+  }
+
+  // hasValue modifier 제거 (빈 규칙 방지)
 
   &:global(.disabled),
   &:disabled {
@@ -84,9 +139,7 @@
       height: 56px;
       font-size: 16px;
 
-      &.fillBlack {
-        //font-weight: bold;
-      }
+      // 5 사이즈 특이 처리 없음
     }
   }
 
@@ -115,17 +168,11 @@
       height: 56px;
       font-size: 16px;
 
-      &.fillBlack {
-        //font-weight: bold;
-      }
+      // 5 사이즈 특이 처리 없음
     }
   }
 
-  &.weight {
-    &Bold {
-      //font-weight: bold;
-    }
-  }
+  // weight:Bold 미사용으로 제거 (빈 규칙 방지)
 
   &.black {
     background-color: $colorDefault;
@@ -150,7 +197,7 @@
     border-radius: 0;
   }
 
-  &:read-only {
+  &__input:read-only {
     background-color: $colorGray12;
     border-color: $colorGray9;
     color: $colorDefault;

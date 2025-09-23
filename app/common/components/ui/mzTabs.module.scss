@@ -3,9 +3,10 @@
 
   &__list {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 20px;
+    // margin-bottom: 8px;
     width: 100%;
+    border-bottom: 1px solid #eee;
 
     &--auto {
       display: inline-flex;
@@ -21,10 +22,11 @@
   &__button {
     padding: 6px 16px;
     border: none;
-    background: #eee;
+    color: #eee;
     border-radius: 4px 4px 0 0;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 18px;
+    font-weight: 700;
 
     /* 균등 분배 컨텍스트에서 동일 폭으로 */
     .tabs__list--equal & {
@@ -32,8 +34,8 @@
     }
 
     &--active {
-      background: #222;
-      color: #fff;
+      color: #333;
+      border-bottom: 3px solid #333;
     }
   }
 
