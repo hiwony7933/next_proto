@@ -32,109 +32,112 @@ export default function Header() {
   };
   return (
     <header className={S.header} role="banner">
-      <div className={S["header__inner"]}>
-        <div className={S["header__inner-left"]}>
-          <Image
-            src={skLogo}
-            alt="쉴더스 로고"
-            width={100}
-            height={100}
-            priority
-          />
-          <nav
-            className={S["header__menus"]}
-            aria-label="주요 메뉴"
-            onMouseEnter={handleOpen}
-            onMouseLeave={handleClose}
-          >
-            {menus.map((menu, index) => (
-              <Link
-                className={S["header__menu-link"]}
-                key={menu.label}
-                href={menu.href.startsWith("/") ? menu.href : `/${menu.href}`}
-                aria-label={menu.label}
-                onMouseEnter={() => handleActivate(index)}
-                onFocus={() => handleActivate(index)}
-                onClick={handleItemClick}
-                onKeyDown={handleItemKeyDown}
-              >
-                {menu.label}
-              </Link>
-            ))}
-          </nav>
+      <div className={S["header__inner-container"]}>
+        <div className={S["header__inner"]}>
+          <div className={S["header__inner-left"]}>
+            <Image
+              src={skLogo}
+              alt="쉴더스 로고"
+              width={100}
+              height={100}
+              priority
+            />
+            <nav
+              className={S["header__menus"]}
+              aria-label="주요 메뉴"
+              onMouseEnter={handleOpen}
+              onMouseLeave={handleClose}
+            >
+              {menus.map((menu, index) => (
+                <Link
+                  className={S["header__menu-link"]}
+                  key={menu.label}
+                  href={menu.href.startsWith("/") ? menu.href : `/${menu.href}`}
+                  aria-label={menu.label}
+                  onMouseEnter={() => handleActivate(index)}
+                  onFocus={() => handleActivate(index)}
+                  onClick={handleItemClick}
+                  onKeyDown={handleItemKeyDown}
+                >
+                  {menu.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          <div className={S["header__inner-right"]}>
+            <MzButton>검색</MzButton>
+            <MzButton>KR</MzButton>
+            <MzButton>ADT캡스</MzButton>
+            <MzButton>캡스홈</MzButton>
+          </div>
         </div>
-        <div className={S["header__inner-right"]}>
-          <MzButton>검색</MzButton>
-          <MzButton>KR</MzButton>
-          <MzButton>ADT캡스</MzButton>
-          <MzButton>캡스홈</MzButton>
-        </div>
-      </div>
-      <div
-        className={`${S["header__menu-open"]} ${isMenuOpen ? S["header__menu-open--visible"] : ""}`}
-        onMouseEnter={handleOpen}
-        onMouseLeave={handleClose}
-      >
         <div
-          className={S["header__menu-open-inner"]}
-          role="tree"
-          aria-label="하위 메뉴"
+          className={`${S["header__menu-open"]} ${isMenuOpen ? S["header__menu-open--visible"] : ""}`}
+          onMouseEnter={handleOpen}
+          onMouseLeave={handleClose}
         >
-          {activeMenuIndex !== null && menus[activeMenuIndex]?.children && (
-            <ul className={S["header__tree"]} role="group">
-              {menus[activeMenuIndex].children.map((second) => {
-                const hasThird =
-                  Array.isArray(second.children) && second.children.length > 0;
-                return (
-                  <li
-                    key={second.label}
-                    className={S["header__tree-item"]}
-                    role="treeitem"
-                    aria-expanded={hasThird ? true : undefined}
-                  >
-                    <Link
-                      className={S["header__menu-children-link"]}
-                      href={
-                        second.href.startsWith("/")
-                          ? second.href
-                          : `/${second.href}`
-                      }
-                      aria-label={second.label}
-                      onClick={handleItemClick}
-                      onKeyDown={handleItemKeyDown}
+          <div
+            className={S["header__menu-open-inner"]}
+            role="tree"
+            aria-label="하위 메뉴"
+          >
+            {activeMenuIndex !== null && menus[activeMenuIndex]?.children && (
+              <ul className={S["header__tree"]} role="group">
+                {menus[activeMenuIndex].children.map((second) => {
+                  const hasThird =
+                    Array.isArray(second.children) &&
+                    second.children.length > 0;
+                  return (
+                    <li
+                      key={second.label}
+                      className={S["header__tree-item"]}
+                      role="treeitem"
+                      aria-expanded={hasThird ? true : undefined}
                     >
-                      {second.label}
-                    </Link>
-                    {hasThird && (
-                      <ul className={S["header__tree-group"]} role="group">
-                        {second.children!.map((third) => (
-                          <li
-                            key={third.label}
-                            className={S["header__tree-item"]}
-                            role="treeitem"
-                          >
-                            <Link
-                              className={S["header__menu-children-link"]}
-                              href={
-                                third.href.startsWith("/")
-                                  ? third.href
-                                  : `/${third.href}`
-                              }
-                              aria-label={third.label}
-                              onClick={handleItemClick}
-                              onKeyDown={handleItemKeyDown}
+                      <Link
+                        className={S["header__menu-children-link"]}
+                        href={
+                          second.href.startsWith("/")
+                            ? second.href
+                            : `/${second.href}`
+                        }
+                        aria-label={second.label}
+                        onClick={handleItemClick}
+                        onKeyDown={handleItemKeyDown}
+                      >
+                        {second.label}
+                      </Link>
+                      {hasThird && (
+                        <ul className={S["header__tree-group"]} role="group">
+                          {second.children!.map((third) => (
+                            <li
+                              key={third.label}
+                              className={S["header__tree-item"]}
+                              role="treeitem"
                             >
-                              {third.label}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+                              <Link
+                                className={S["header__menu-children-link"]}
+                                href={
+                                  third.href.startsWith("/")
+                                    ? third.href
+                                    : `/${third.href}`
+                                }
+                                aria-label={third.label}
+                                onClick={handleItemClick}
+                                onKeyDown={handleItemKeyDown}
+                              >
+                                {third.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </header>

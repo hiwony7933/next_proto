@@ -17,7 +17,7 @@ export type HeaderMenuItem = {
 
 export const skHeaderMenus: HeaderMenuItem[] = [
   {
-    label: "정보보안",
+    label: "사이버보안 인사이트",
     href: "",
     children: [
       {
@@ -68,7 +68,7 @@ export const skHeaderMenus: HeaderMenuItem[] = [
     ],
   },
   {
-    label: "시설보안",
+    label: "사이버보안 솔루션",
     href: "",
     children: [
       { label: "산업안전", href: "" },
@@ -77,7 +77,7 @@ export const skHeaderMenus: HeaderMenuItem[] = [
     ],
   },
   {
-    label: "인사이트",
+    label: "산업보안 솔루션",
     href: "",
     children: [
       { label: "2025", href: "" },

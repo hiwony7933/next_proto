@@ -120,41 +120,45 @@ export default function CornerFaq001({
           {totalUnit}
         </div>
       )}
-      <ol className={`${styles[wrapClassName]} ${styles.faqWrap}`}>
-        {pagedItems.map((item, idx) => {
-          const globalIndex = pageStartIndex + idx;
-          return (
-            <li key={globalIndex} className={itemClassName}>
-              <div className={styles.questionWrap}>
-                {item.category && item.category.trim() !== "" && (
-                  <div className={categoryClassName}>{item.category}</div>
-                )}
-                <button
-                  className={`${questionClassName} ${
-                    openIndexes.includes(globalIndex) ? styles.open : ""
-                  }`}
-                  onClick={() => handleClick(globalIndex)}
-                  aria-expanded={openIndexes.includes(globalIndex)}
-                >
-                  {item.question}
-                </button>
-              </div>
-              {openIndexes.includes(globalIndex) && (
-                <div
-                  className={`${answerClassName}`}
-                  dangerouslySetInnerHTML={{ __html: item.answer }}
-                />
-              )}
-            </li>
-          );
-        })}
-      </ol>
-      {/* pageNation */}
-      <MzPagination
-        currentPage={Math.min(currentPage, totalPages)}
-        onChange={handlePageChange}
-        totalPages={Math.min(10, totalPages)}
-      />
+      {pagedItems.length === 0 && <div>검색 결과가 없습니다.</div>}
+      {pagedItems.length > 0 && (
+        <>
+          <ol className={`${styles[wrapClassName]} ${styles.faqWrap}`}>
+            {pagedItems.map((item, idx) => {
+              const globalIndex = pageStartIndex + idx;
+              return (
+                <li key={globalIndex} className={itemClassName}>
+                  <div className={styles.questionWrap}>
+                    {item.category && item.category.trim() !== "" && (
+                      <div className={categoryClassName}>{item.category}</div>
+                    )}
+                    <button
+                      className={`${questionClassName} ${
+                        openIndexes.includes(globalIndex) ? styles.open : ""
+                      }`}
+                      onClick={() => handleClick(globalIndex)}
+                      aria-expanded={openIndexes.includes(globalIndex)}
+                    >
+                      {item.question}
+                    </button>
+                  </div>
+                  {openIndexes.includes(globalIndex) && (
+                    <div
+                      className={`${answerClassName}`}
+                      dangerouslySetInnerHTML={{ __html: item.answer }}
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+          <MzPagination
+            currentPage={Math.min(currentPage, totalPages)}
+            onChange={handlePageChange}
+            totalPages={Math.min(10, totalPages)}
+          />
+        </>
+      )}
     </div>
   );
 }

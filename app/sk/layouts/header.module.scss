@@ -1,20 +1,26 @@
 .header {
-  padding: 0 40px;
   background-color: #fff;
   color: #000;
   // height: 107px;
-  width: 100%;
+  // max-width: 1920px;
+  // min-width: 1270px;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
   position: fixed;
   z-index: 1000;
+  // margin: 0 auto;
+  width: 100%;
 
   &__inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+
+  &__inner-container {
+    width: 100%;
+    max-width: 1270px;
+    margin: 0 auto;
   }
 
   &__inner-left {
@@ -39,7 +45,7 @@
   &__menu-link {
     color: #000;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 20px;
     margin: 0 20px;
     padding: 35px 0;
     &:hover {
