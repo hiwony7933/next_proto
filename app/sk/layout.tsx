@@ -3,7 +3,8 @@ import Header from "./layouts/header";
 import Footer from "./layouts/footer";
 import styles from "./layout.module.scss";
 import BreadCrumb from "./components/common/breadCrumb";
-import Banner from "./components/common/Banner";
+import Banner from "./components/common/banner";
+import FloatingButtons from "./components/common/floatingButtons";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const banner = [
@@ -81,6 +82,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <BreadCrumb />
       <main className={styles.layout__main}>{children}</main>
       <Footer />
+      <FloatingButtons />
     </>
   );
 }

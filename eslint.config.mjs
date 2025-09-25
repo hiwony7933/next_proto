@@ -28,14 +28,14 @@ const eslintConfig = [
       "react/react-in-jsx-scope": "off",
     },
   },
-  // 파일명 규칙: 비-컴포넌트는 camelCase, 컴포넌트 경로는 PascalCase 허용
+  // 파일명 규칙: camelCase만 허용
   {
     files: ["**/*.{ts,tsx}"],
     plugins: { unicorn },
     rules: {
       "unicorn/filename-case": [
         "error",
-        { cases: { camelCase: true, pascalCase: true, kebabCase: false } },
+        { cases: { camelCase: true, pascalCase: false, kebabCase: false } },
       ],
     },
   },
