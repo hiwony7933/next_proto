@@ -21,7 +21,7 @@ export const skHeaderMenus: HeaderMenuItem[] = [
     href: "",
     children: [
       {
-        label: "중소기업보안",
+        label: "사이버 스토리라인",
         href: "",
         children: [
           { label: "서비스", href: "" },
@@ -31,7 +31,7 @@ export const skHeaderMenus: HeaderMenuItem[] = [
         ],
       },
       {
-        label: "보안 관제 서비스",
+        label: "사이버 보안 리포트",
         href: "",
         children: [
           { label: "원격 보안 관제(MSS)", href: "" },
@@ -40,7 +40,7 @@ export const skHeaderMenus: HeaderMenuItem[] = [
         ],
       },
       {
-        label: "보안 컨설팅",
+        label: "뉴스룸",
         href: "",
         children: [
           { label: "취약점 진단", href: "" },
@@ -52,7 +52,7 @@ export const skHeaderMenus: HeaderMenuItem[] = [
         ],
       },
       {
-        label: "클라우드보안",
+        label: "업종별 사례",
         href: "",
       },
       {
@@ -71,7 +71,16 @@ export const skHeaderMenus: HeaderMenuItem[] = [
     label: "사이버보안 솔루션",
     href: "",
     children: [
-      { label: "산업안전", href: "" },
+      {
+        label: "중소기업 보안",
+        href: "",
+        children: [
+          { label: "PC보안", href: "" },
+          { label: "네트워크보안", href: "" },
+          { label: "서버보안", href: "" },
+          { label: "해킹사고대응", href: "" },
+        ],
+      },
       { label: "시설관리(FM)", href: "" },
       { label: "스마트팩토리(OT보안)", href: "" },
     ],

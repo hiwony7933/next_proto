@@ -9,6 +9,9 @@
 
 .faqContainer {
   padding: 0 40px;
+  @include mobile {
+    padding: 0;
+  }
 
   h4 {
     @include mixinFontSize(24);

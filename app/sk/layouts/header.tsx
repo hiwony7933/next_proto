@@ -32,9 +32,9 @@ export default function Header() {
   };
   return (
     <header className={S.header} role="banner">
-      <div className={S["header__inner-container"]}>
-        <div className={S["header__inner"]}>
-          <div className={S["header__inner-left"]}>
+      <div className={S.header__innerContainer}>
+        <div className={S.header__inner}>
+          <div className={S.header__innerLeft}>
             <Image
               src={skLogo}
               alt="쉴더스 로고"
@@ -43,14 +43,14 @@ export default function Header() {
               priority
             />
             <nav
-              className={S["header__menus"]}
+              className={S.header__menus}
               aria-label="주요 메뉴"
               onMouseEnter={handleOpen}
               onMouseLeave={handleClose}
             >
               {menus.map((menu, index) => (
                 <Link
-                  className={S["header__menu-link"]}
+                  className={S.header__menuLink}
                   key={menu.label}
                   href={menu.href.startsWith("/") ? menu.href : `/${menu.href}`}
                   aria-label={menu.label}
@@ -64,7 +64,7 @@ export default function Header() {
               ))}
             </nav>
           </div>
-          <div className={S["header__inner-right"]}>
+          <div className={S.header__innerRight}>
             <MzButton>검색</MzButton>
             <MzButton>KR</MzButton>
             <MzButton>ADT캡스</MzButton>
@@ -72,17 +72,17 @@ export default function Header() {
           </div>
         </div>
         <div
-          className={`${S["header__menu-open"]} ${isMenuOpen ? S["header__menu-open--visible"] : ""}`}
+          className={`${S.header__menuOpen} ${isMenuOpen ? S.header__menuOpenVisible : ""}`}
           onMouseEnter={handleOpen}
           onMouseLeave={handleClose}
         >
           <div
-            className={S["header__menu-open-inner"]}
+            className={S.header__menuOpenInner}
             role="tree"
             aria-label="하위 메뉴"
           >
             {activeMenuIndex !== null && menus[activeMenuIndex]?.children && (
-              <ul className={S["header__tree"]} role="group">
+              <ul className={S.header__tree} role="group">
                 {menus[activeMenuIndex].children.map((second) => {
                   const hasThird =
                     Array.isArray(second.children) &&
@@ -90,12 +90,12 @@ export default function Header() {
                   return (
                     <li
                       key={second.label}
-                      className={S["header__tree-item"]}
+                      className={S.header__treeItem}
                       role="treeitem"
                       aria-expanded={hasThird ? true : undefined}
                     >
                       <Link
-                        className={S["header__menu-children-link"]}
+                        className={S.header__menuChildrenLink}
                         href={
                           second.href.startsWith("/")
                             ? second.href
@@ -108,15 +108,15 @@ export default function Header() {
                         {second.label}
                       </Link>
                       {hasThird && (
-                        <ul className={S["header__tree-group"]} role="group">
+                        <ul className={S.header__treeGroup} role="group">
                           {second.children!.map((third) => (
                             <li
                               key={third.label}
-                              className={S["header__tree-item"]}
+                              className={S.header__treeItem}
                               role="treeitem"
                             >
                               <Link
-                                className={S["header__menu-children-link"]}
+                                className={S.header__menuChildrenLink}
                                 href={
                                   third.href.startsWith("/")
                                     ? third.href

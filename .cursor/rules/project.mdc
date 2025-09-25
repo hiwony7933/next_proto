@@ -1,0 +1,86 @@
+--
+description: SK쉴더스/ADT캡스/캡스홈 멀티 테넌트 랜딩+CMS 프로젝트 상위 규칙
+globs:
+alwaysApply: true
+
+---
+
+## 프로젝트 개요
+
+- **도메인**: SK쉴더스(`sk`), ADT캡스(`adt`), 캡스홈(`cap`)을 원소스 멀티테넌트로 운영.
+- **성격**: 각 도메인은 마케팅 랜딩 중심(약 70%), 나머지 CMS(게시판 리스트형/이미지형).
+- **목표**: SSR 기반 SEO 강화, 구조적 A11y 준수, 반응형(모바일/PC), 간결하고 유지보수 가능한 코드.
+
+## 라우팅/테넌트
+
+- **폴더 구조**: `app/sk`, `app/adt`, `app/cap` + 공통은 `app/common`.
+- **미들웨어**: 호스트→테넌트 매핑 후 `/${tenant}`로 rewrite. 로컬은 `?tenant=sk|adt|cap` 강제 가능.
+- **테마/상태**: `stores/themeStore.ts` + `app/providers/ThemeProvider.tsx`. `body`에 `tenant-<키>` 클래스, 전역 CSS 변수로 테넌트 테마 분기.
+- **승격 정책**: 도메인 전용(`app/<tenant>/components/common`) 컴포넌트는 2+ 테넌트에서 재사용 확인 시 `app/common`으로 승격.
+
+## SSR/클라이언트 경계
+
+- **원칙**: 브라우저 전용 라이브러리/DOM 접근은 클라이언트 컴포넌트에서만 처리.
+- **패턴**
+  - 클라이언트 전용 파일 상단에 `use client`.
+  - `window/document` 접근은 반드시 `useEffect` 내부.
+  - 서버 컴포넌트에서는 `ssr:false` 직접 사용 금지 → 클라이언트 래퍼에서 `dynamic(()=>..., { ssr:false })`.
+  - Next 15 규칙: 동적 라우트 `params`는 Promise → 서버 컴포넌트에서 `await params`.
+
+## 반응형 규칙
+
+- **브레이크포인트**: 모바일 ≤ `1270px`. 공통 훅 `hooks/useIsMobile(breakpoint=1270)` 사용.
+- **SCSS 권고**: 전역 변수에 `$bp-mobile: 1270px` 선언 후 `@media (max-width: $bp-mobile)` 일관 사용.
+- **이미지/레이아웃**: 랜딩 상단 요소는 CLS/LCP 고려. `next/image`의 `priority`/`sizes`/`fill` 적극 활용.
+
+## SEO 원칙(마케팅 강화)
+
+- **메타데이터**: 모든 페이지는 `metadata` 또는 `generateMetadata` 구현.
+  - 최소: `title`, `description`, `openGraph`, `twitter`, `robots`, `alternates.canonical`
+  - 테넌트별 브랜드/도메인 반영(Organization, WebSite JSON-LD 포함 권장)
+- **콘텐츠 구조**:
+  - 페이지 당 가시적 `h1` 1회(키 메시지), 의미 단락에 `h2–h3` 계층.
+  - 네비게이션: `nav` + `aria-current="page"` 적용.
+  - 목록/카드: `ul/li` 또는 `article`에 적절한 시맨틱 태그.
+- **정적 자산**: `public/` URL 또는 `next/image` 사용(직접 import 지양).
+- **검색 친화**: `robots.txt`/`sitemap.xml` 제공, 랜딩 핵심 키워드 상단 배치, Above-the-fold 이미지 최적화.
+
+## 접근성(A11y) — 구조/마크업
+
+- 버튼: 텍스트 없으면 `aria-label`(title 금지). 토글/아코디언은 `aria-expanded`/`aria-controls` + 패널 `role="region"`.
+- 링크 vs 버튼: 내비게이션은 `a/Link(href)` 사용, 동작은 `button`. `div/span`에 onClick 금지.
+- 이미지: 의미 있으면 `alt` 필수, 장식은 `alt="" aria-hidden="true"`.
+- 테이블: 데이터 표는 `caption`, `th scope="col|row"`, `thead/tbody`.
+- 폼: `label↔input` 연결, 도움말/오류는 `aria-describedby`.
+- 랜드마크/헤딩: `header/nav/main/footer` 태그와 실 텍스트 헤딩.
+
+## CMS(게시판) 규칙
+
+- **분류**: 리스트형, 이미지형 2종 공통 패턴 제공(`app/common/components/ui`).
+- **접근성/SEO**:
+  - 리스트형: `ul/li` + 항목별 `article` 권장, 썸네일은 `img`/`next/image`에 `alt`.
+  - 이미지형: `figure/figcaption` 권장, 카드 제목은 링크로 `aria-label` 보강.
+  - 페이지네이션 컴포넌트는 버튼/링크 역할 구분, `aria-current`/`aria-label` 제공.
+
+## 코드 스타일/컨벤션
+
+- **네이밍**: JS/TS/폴더/비컴포넌트 파일은 camelCase. React 컴포넌트 파일/컴포넌트는 PascalCase.
+- **스타일링**: CSS Modules + BEM 규칙
+  - `.block { &__element { ... } &__element--modifier { ... } }`
+  - JS/TS 접근은 camelCase(`.card__btn--primary` → `styles.card__btnPrimary`).
+- **임포트**: 전역 SCSS는 레이아웃 1회 임포트, 컴포넌트 전용은 `.module.scss`.
+- **포맷/린트**: ESLint(Next + TS + jsx-a11y) + Prettier. `app/guide/**`는 린트 제외.
+
+## 성능
+
+- LCP 타겟: < 2.5s(모바일), TBT 최소화. `next/script` 전략 사용.
+- 이미지: 포맷(WebP/AVIF) 우선, 적절한 `sizes`/`quality`. 캐러셀 등은 지연 로드.
+- 코드 분할: 테넌트/페이지 단위 청크, 무거운 위젯은 동적 import.
+
+## PR 체크리스트
+
+- SSR 경계 위반 없음(윈도우 접근/ssr:false 위치 점검).
+- SEO 메타/헤딩/랜드마크/aria 채움.
+- BEM 클래스/모듈 SCSS 일관.
+- 반응형(1270px 기준) 확인, `useIsMobile` 활용 여부.
+- 재사용 가능성 검토 후 공통 모듈 배치 여부 판단.

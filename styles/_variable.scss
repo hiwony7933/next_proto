@@ -1,36 +1,42 @@
 @charset 'utf-8';
-// 색상, 폰트, 여백 등 사이트 전체에서 사용하는 변수 정의 
+// 색상, 폰트, 여백 등 사이트 전체에서 사용하는 변수 정의
 $colorDefault: #000000;
 $colorSubDefault: #333333;
 $colorBule1: #333333; //color 값에 없는 색상 추가됨
-$colorWhite: #FFFFFF;
+$colorWhite: #ffffff;
 $colorBlack: #000000;
-$colorBlueTint1: #57BBEB;
-$colorBlueTint2: #76C9EF;
-$colorBlueTint3: #97D5F2;
-$colorBlueTint4: #BDE3F6;
-$colorBlueTint5: #D0E7F6;
-$colorBlueTint6: #DDF1FB;
-$colorBlueTint7: #EEF8FD;
+$colorBlueTint1: #57bbeb;
+$colorBlueTint2: #76c9ef;
+$colorBlueTint3: #97d5f2;
+$colorBlueTint4: #bde3f6;
+$colorBlueTint5: #d0e7f6;
+$colorBlueTint6: #ddf1fb;
+$colorBlueTint7: #eef8fd;
 
-$colorGreen: #28794E;
-$colorLightGreen: #F0FFF4;
-$colorDarkOrange: #C84300;
-$colorOrange: #E7660D;
-$colorLightOrange: #FEF4E6;
-$colorRed: #DA291C;
-$colorLightRed: #FFF5F5;
-
+$colorGreen: #28794e;
+$colorLightGreen: #f0fff4;
+$colorDarkOrange: #c84300;
+$colorOrange: #e7660d;
+$colorLightOrange: #fef4e6;
+$colorRed: #da291c;
+$colorLightRed: #fff5f5;
 
 $colorGray1: #121619;
-$colorGray2: #21272A;
-$colorGray3: #343A3F;
-$colorGray4: #565C63;
-$colorGray5: #6C747E;
+$colorGray2: #21272a;
+$colorGray3: #343a3f;
+$colorGray4: #565c63;
+$colorGray5: #6c747e;
 $colorGray6: #808892;
-$colorGray7: #B9C1C9;
-$colorGray8: #D6DBE1;
-$colorGray9: #E1E6EC;
-$colorGray10: #EBEFF5;
-$colorGray11: #F3F6FB;
-$colorGray12: #F8F9FC;
+$colorGray7: #b9c1c9;
+$colorGray8: #d6dbe1;
+$colorGray9: #e1e6ec;
+$colorGray10: #ebeff5;
+$colorGray11: #f3f6fb;
+$colorGray12: #f8f9fc;
+
+$mobile: 1270px;
+@mixin mobile {
+  @media screen and (max-width: #{$mobile}) {
+    @content;
+  }
+}

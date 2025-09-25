@@ -2,7 +2,7 @@
 import React, { useMemo, useState } from "react";
 import styles from "./cornerFaq001.module.scss";
 import MzButton from "../ui/mzButton";
-import MzPagination from "../ui/mzPagination";
+import MzPaginationManaged from "../ui/mzPaginationManaged";
 
 type FaqItem = { question: string; category: string; answer: string };
 
@@ -34,7 +34,6 @@ export default function CornerFaq001({
   // multiOpen: 여러개 열기, 아니면 하나만
   const [openIndexes, setOpenIndexes] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
 
   const handleClick = (idx: number) => {
@@ -71,20 +70,8 @@ export default function CornerFaq001({
     return base;
   }, [items, selectedCategory]);
 
-  // 페이지 변경 시 열림 상태 초기화
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    setOpenIndexes([]);
-  };
-
-  // 현재 페이지에 표시할 슬라이스 계산
-  const pageStartIndex = (currentPage - 1) * itemsPerPage;
-  const pageEndIndex = pageStartIndex + itemsPerPage;
-  const pagedItems = filteredItems.slice(pageStartIndex, pageEndIndex);
-  const totalPages = Math.max(
-    1,
-    Math.ceil(filteredItems.length / itemsPerPage)
-  );
+  // resetKey: 카테고리 변경 시 페이지 초기화
+  const resetKey = selectedCategory;
 
   return (
     <div className={styles.faqContainer}>
@@ -120,45 +107,50 @@ export default function CornerFaq001({
           {totalUnit}
         </div>
       )}
-      {pagedItems.length === 0 && <div>검색 결과가 없습니다.</div>}
-      {pagedItems.length > 0 && (
-        <>
-          <ol className={`${styles[wrapClassName]} ${styles.faqWrap}`}>
-            {pagedItems.map((item, idx) => {
-              const globalIndex = pageStartIndex + idx;
-              return (
-                <li key={globalIndex} className={itemClassName}>
-                  <div className={styles.questionWrap}>
-                    {item.category && item.category.trim() !== "" && (
-                      <div className={categoryClassName}>{item.category}</div>
-                    )}
-                    <button
-                      className={`${questionClassName} ${
-                        openIndexes.includes(globalIndex) ? styles.open : ""
-                      }`}
-                      onClick={() => handleClick(globalIndex)}
-                      aria-expanded={openIndexes.includes(globalIndex)}
-                    >
-                      {item.question}
-                    </button>
-                  </div>
-                  {openIndexes.includes(globalIndex) && (
-                    <div
-                      className={`${answerClassName}`}
-                      dangerouslySetInnerHTML={{ __html: item.answer }}
-                    />
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-          <MzPagination
-            currentPage={Math.min(currentPage, totalPages)}
-            onChange={handlePageChange}
-            totalPages={Math.min(10, totalPages)}
-          />
-        </>
-      )}
+      <MzPaginationManaged
+        items={filteredItems}
+        itemsPerPage={itemsPerPage}
+        resetKey={resetKey}
+        onPageChange={() => setOpenIndexes([])}
+        render={({ currentItems, pageStartIndex }) => (
+          <>
+            {currentItems.length === 0 && <div>검색 결과가 없습니다.</div>}
+            {currentItems.length > 0 && (
+              <ol className={`${styles[wrapClassName]} ${styles.faqWrap}`}>
+                {currentItems.map((item, idx) => {
+                  const globalIndex = pageStartIndex + idx;
+                  return (
+                    <li key={globalIndex} className={itemClassName}>
+                      <div className={styles.questionWrap}>
+                        {item.category && item.category.trim() !== "" && (
+                          <div className={categoryClassName}>
+                            {item.category}
+                          </div>
+                        )}
+                        <button
+                          className={`${questionClassName} ${
+                            openIndexes.includes(globalIndex) ? styles.open : ""
+                          }`}
+                          onClick={() => handleClick(globalIndex)}
+                          aria-expanded={openIndexes.includes(globalIndex)}
+                        >
+                          {item.question}
+                        </button>
+                      </div>
+                      {openIndexes.includes(globalIndex) && (
+                        <div
+                          className={`${answerClassName}`}
+                          dangerouslySetInnerHTML={{ __html: item.answer }}
+                        />
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+            )}
+          </>
+        )}
+      />
     </div>
   );
 }

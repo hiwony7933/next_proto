@@ -7,11 +7,11 @@
  * - 성능 메모: 매퍼/링크 빌더는 useMemo로 고정하여 재렌더 비용을 줄였습니다.
  * - 접근성: 이미지에는 title 기반의 대체 텍스트를 제공합니다.
  */
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import S from "./imageNotice.module.scss";
-import MzPagination from "../../../common/components/ui/mzPagination";
+import MzPaginationManaged from "../../../common/components/ui/mzPaginationManaged";
 
 type IdLike = string | number;
 
@@ -90,7 +90,7 @@ export default function ImageNotice<ItemType>(
     className,
   } = props;
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 12;
 
   // 간단한 필드 접근 헬퍼(매퍼 우선, 없으면 관용 필드 사용)
   // 유지보수 메모: 데이터 스키마가 고정되면 아래 헬퍼를 제거하고 직접 필드 접근으로 단순화 가능
@@ -112,14 +112,7 @@ export default function ImageNotice<ItemType>(
       : null;
   };
 
-  // 간단한 클라이언트 페이지네이션. 대용량은 가상 스크롤을 고려하세요.
-  const totalPages = Math.ceil(items.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = items.slice(startIndex, startIndex + itemsPerPage);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  // 페이지네이션은 관리형 컴포넌트로 이관
 
   // 상태 UI 우선 반환
   if (props.isLoading) {
@@ -157,79 +150,80 @@ export default function ImageNotice<ItemType>(
       className={[S.imageNotice, className].filter(Boolean).join(" ")}
       style={rootStyle}
     >
-      <div className={S.imageNotice__list}>
-        {currentItems.map((item, idx) => {
-          const idValue = mapId(item);
-          const titleText = mapTitle(item);
-          const dateText = mapDate(item);
-          const src = mapImage(item);
-          const href = mapHref(item);
+      <MzPaginationManaged
+        items={items}
+        itemsPerPage={pageSize}
+        render={({ currentItems }) => (
+          <div className={S.imageNotice__list}>
+            {currentItems.map((item, idx) => {
+              const idValue = mapId(item);
+              const titleText = mapTitle(item);
+              const dateText = mapDate(item);
+              const src = mapImage(item);
+              const href = mapHref(item);
 
-          const key = `${idValue ?? idx}`;
-          const handleClick = (e: React.MouseEvent) => {
-            if (props.onItemClick) {
-              e.preventDefault();
-              props.onItemClick(item);
-            }
-          };
+              const key = `${idValue ?? idx}`;
+              const handleClick = (e: React.MouseEvent) => {
+                if (props.onItemClick) {
+                  e.preventDefault();
+                  props.onItemClick(item);
+                }
+              };
 
-          // 마크업 단순화 정책
-          // href가 있으면 Link로 감싸고(상세페이지), 없으면 div로 감싸기(썸네일이미지만 보이기)
-          // - 썸네일만 Link로 감싸 레이어 중첩/겹침 제거
-          // - 아이템 루트는 항상 div로 유지하여 클릭/탭 영역을 명확히 분리
-          const thumb = href ? (
-            <Link
-              href={href}
-              className={S.imageNotice__thumb}
-              onClick={handleClick}
-            >
-              <Image
-                src={src}
-                alt={titleText}
-                width={imageWidth}
-                height={imageHeight}
-              />
-            </Link>
-          ) : (
-            <div className={S.imageNotice__thumb}>
-              <Image
-                src={src}
-                alt={titleText}
-                width={imageWidth}
-                height={imageHeight}
-              />
-            </div>
-          );
-          // 부모 페이지에서 예시 헤더/푸터 사용 예시
-          // <ImageNotice
-          //   items={eventData}
-          //   renderHeader={() => <div className="badge">NEW</div>}
-          //   renderFooter={(item) => (
-          //     <button onClick={() => share(item)}>공유</button>
-          //   )}
-          // />;
-          return (
-            <div
-              className={S.imageNotice__item}
-              key={key}
-              onClick={!href ? handleClick : undefined}
-            >
-              {renderHeader ? renderHeader(item) : null}
-              {thumb}
-              <div className={S.imageNotice__body}>
-                <h4 className={S.imageNotice__title}>{titleText}</h4>
-                {renderMetaArea ? renderMetaArea(item) : null}
-                {renderActions ? renderActions(item) : null}
-              </div>
-              {renderFooter ? renderFooter(item) : null}
-            </div>
-          );
-        })}
-      </div>
-      <MzPagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onChange={handlePageChange}
+              // 마크업 단순화 정책
+              // href가 있으면 Link로 감싸고(상세페이지), 없으면 div로 감싸기(썸네일이미지만 보이기)
+              // - 썸네일만 Link로 감싸 레이어 중첩/겹침 제거
+              // - 아이템 루트는 항상 div로 유지하여 클릭/탭 영역을 명확히 분리
+              const thumb = href ? (
+                <Link
+                  href={href}
+                  className={S.imageNotice__thumb}
+                  onClick={handleClick}
+                >
+                  <Image
+                    src={src}
+                    alt={titleText}
+                    width={imageWidth}
+                    height={imageHeight}
+                  />
+                </Link>
+              ) : (
+                <div className={S.imageNotice__thumb}>
+                  <Image
+                    src={src}
+                    alt={titleText}
+                    width={imageWidth}
+                    height={imageHeight}
+                  />
+                </div>
+              );
+              // 부모 페이지에서 예시 헤더/푸터 사용 예시
+              // <ImageNotice
+              //   items={eventData}
+              //   renderHeader={() => <div className="badge">NEW</div>}
+              //   renderFooter={(item) => (
+              //     <button onClick={() => share(item)}>공유</button>
+              //   )}
+              // />;
+              return (
+                <div
+                  className={S.imageNotice__item}
+                  key={key}
+                  onClick={!href ? handleClick : undefined}
+                >
+                  {renderHeader ? renderHeader(item) : null}
+                  {thumb}
+                  <div className={S.imageNotice__body}>
+                    <h4 className={S.imageNotice__title}>{titleText}</h4>
+                    {renderMetaArea ? renderMetaArea(item) : null}
+                    {renderActions ? renderActions(item) : null}
+                  </div>
+                  {renderFooter ? renderFooter(item) : null}
+                </div>
+              );
+            })}
+          </div>
+        )}
       />
     </div>
   );

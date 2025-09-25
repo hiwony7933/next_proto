@@ -44,5 +44,8 @@
     padding: 16px;
     border-radius: 0 0 4px 4px;
     background: #fafafa;
+    @include mobile {
+      padding: 0;
+    }
   }
 }

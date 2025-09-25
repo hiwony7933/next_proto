@@ -96,39 +96,39 @@ export default function Footer() {
   const [selected, setSelected] = useState(options[0]);
   return (
     <footer className={S.footer} role="banner">
-      <div className={S["footer__inner"]}>
-        <div className={S["footer__top"]}>
-          <div className={S["footer__top-left"]}>
-            <div className={S["footer__title"]}>
+      <div className={S.footer__inner}>
+        <div className={S.footer__top}>
+          <div className={S.footer__topLeft}>
+            <div className={S.footer__title}>
               SK쉴더스의
               <br />
               전문가와 상담하세요
-              <div className={S["footer__desc"]}>
+              <div className={S.footer__desc}>
                 원하는 상담 내용과 간단한 정보를 남겨주시면 전문 상담사가
                 도와드리겠습니다.
               </div>
             </div>
           </div>
-          <div className={S["footer__top-center"]}>
+          <div className={S.footer__topCenter}>
             <span>전화상담</span>
             <span>1800-6400</span>
             <span>평일 09:00~18:00 일요일/공휴일 휴무</span>
           </div>
-          <div className={S["footer__top-right"]}>
+          <div className={S.footer__topRight}>
             <MzButton>정보보안 전문상담</MzButton>
             <MzButton> ADT 캡스(물리보안)상담</MzButton>
           </div>
         </div>
-        <div className={S["footer__bottom"]}>
-          <div className={S["footer__bottom-left"]}>
-            <div className={S["footer__title"]}>에스케이쉴더스 주식회사</div>
+        <div className={S.footer__bottom}>
+          <div className={S.footer__bottomLeft}>
+            <div className={S.footer__title}>에스케이쉴더스 주식회사</div>
             <div>
               <div>
                 3486 경기도 성남시 분당구 판교로 227번길 23, 4&5층
                 <br />
                 사업자등록번호 : 120-86-07747
               </div>
-              <div className={S["footer__title"]}>
+              <div className={S.footer__title}>
                 COPYRIGHT © 2026 SK SHIELDUS. ALL RIGHTS RESERVED.
               </div>
             </div>
@@ -143,13 +143,13 @@ export default function Footer() {
               <div>Copyright 2025 SK쉴더스. All rights reserved.</div>
             </div>
           </div>
-          <div className={S["footer__bottom-center"]}>
-            <div className={S["footer__family-list"]}>
+          <div className={S.footer__bottomCenter}>
+            <div className={S.footer__familyList}>
               {Object.values(familyLinkGroups).map((item, index) => (
-                <div className={S["footer__family-item"]} key={index}>
+                <div className={S.footer__familyItem} key={index}>
                   {item.map((link, linkIdx) => (
                     <Link
-                      className={S["footer__family-link"]}
+                      className={S.footer__familyLink}
                       href={link.href}
                       key={linkIdx}
                       passHref
@@ -164,7 +164,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div className={S["footer__bottom-right"]}>
+          <div className={S.footer__bottomRight}>
             <MzSelectBox
               type="default"
               size="5"

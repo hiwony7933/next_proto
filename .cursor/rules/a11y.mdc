@@ -1,0 +1,52 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+## 접근성(A11y) 팀 규칙 — 구조/마크업 범위
+
+이 프로젝트는 SSR/SEO 강화를 위해 구조적 웹접근성을 필수로 준수합니다. 디자인(명도 대비 등)은 본 범위에 포함하지 않습니다.
+
+### 버튼(Button)
+
+- 텍스트가 없는 버튼은 접근 가능한 이름 제공(aria-label 또는 aria-labelledby). title만 사용 금지.
+- 토글/아코디언: aria-expanded, aria-controls를 설정하고, 대상 패널에 id/role="region"/aria-labelledby 연결.
+
+예시:
+
+```tsx
+<button
+  id="accordion-trigger"
+  aria-label="상세 열기"
+  aria-expanded={open}
+  aria-controls="accordion-panel"
+  onClick={toggle}
+/>
+<div id="accordion-panel" role="region" aria-labelledby="accordion-trigger" hidden={!open} />
+```
+
+### 링크 vs 버튼
+
+- 네비게이션은 a/Link(href 필수), 동작은 button 사용.
+- div/span에 onClick만 부여 금지(키보드, 역할, 포커스 문제).
+
+### 이미지(Image/Icon)
+
+- 의미 있는 이미지: alt로 대체 텍스트 제공.
+- 장식/아이콘: alt="" + aria-hidden="true" 또는 CSS 배경.
+
+### 테이블(Table)
+
+- 데이터 테이블: caption 제공(시각적 숨김 가능).
+- th에 scope="col|row" 권장, thead/tbody 구조 유지.
+
+### 폼(Form)
+
+- label↔input 연결(htmlFor/id) 또는 aria-labelledby.
+- 도움말/오류 텍스트는 aria-describedby로 연결.
+
+### 제목/랜드마크
+
+- h1–h6는 실제 텍스트 포함(빈 헤딩 금지).
+- header/nav/main/footer 등 시맨틱 태그 사용.

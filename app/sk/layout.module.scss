@@ -8,5 +8,8 @@
     margin: 0 auto;
     background-color: #fff;
     color: #000;
+    @include mobile {
+      padding-top: 70px;
+    }
   }
 }

@@ -5,7 +5,9 @@
   font-size: 14px;
   color: #666;
   padding-top: 105px;
-
+  @include mobile {
+    display: none;
+  }
   &__list {
     display: flex;
     list-style: none;

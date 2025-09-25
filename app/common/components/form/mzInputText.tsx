@@ -108,7 +108,7 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
     );
 
     // 내부 input 엘리먼트 클래스(래퍼와 분리)
-    const inputClassNames = classnames(styles["mzInputText__input"]);
+    const inputClassNames = classnames(styles.mzInputText__input);
 
     // 전달받은 ref와 내부 ref를 병합하여 외부 접근을 보장
     const setCombinedRef = (node: HTMLInputElement | null) => {
@@ -167,8 +167,9 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
         {hasValue && isInteractive && (
           <button
             type="button"
+            title="입력 초기화"
             aria-label="입력 초기화"
-            className={styles["mzInputText__clear"]}
+            className={styles.mzInputText__clear}
             onClick={handleClear}
           >
             <svg
@@ -190,14 +191,16 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
         {onSearch && (
           <button
             type="button"
+            title="검색"
             aria-label="검색"
-            className={styles["mzInputText__search"]}
+            className={styles.mzInputText__search}
             onClick={handleSearch}
             disabled={rest.disabled === true}
           >
             <img
               src="/images/common/icon_18_search.svg"
               alt=""
+              aria-hidden="true"
               width={18}
               height={18}
             />

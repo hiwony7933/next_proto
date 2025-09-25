@@ -29,8 +29,9 @@ React component filenames and the component functions/classes themselves must us
 
 Good: Filename ImageUploader.tsx, Component export default function ImageUploader() {}
 
-2. CSS Styling Methodology: BEM
+2. CSS Styling Methodology: BEM (+ camelCase accessor for CSS Modules)
    All SCSS class names written in .module.scss files must follow the BEM (Block\_\_Element--Modifier) methodology. The goal is to create readable, reusable, and conflict-free styles.
+   In CSS Modules, dashed class names can be accessed via camelCase in JS/TS (build configured).
 
 - BEM Structure:
 
@@ -43,13 +44,13 @@ Modifier: A variation or state of a block or element. Use a double hyphen. (e.g.
 - Example Implementation:
   You must follow this pattern when creating components and styles.
 
-JSX Structure:
+JSX Structure (with camelCase accessor):
 
 JavaScript
 
 <div className={styles.card}>
   <h2 className={styles.card__title}>Card Title</h2>
-  <button className={`${styles.card__button} ${styles['card__button--primary']}`}>
+  <button className={`${styles.card__button} ${styles.card__buttonPrimary}`}>
     Action
   </button>
 </div>
@@ -78,4 +79,9 @@ padding: 8px;
 
 }
 }
-Please confirm you understand and will apply these rules to all future code.
+Notes:
+
+- Access rules in JS/TS with camelCase: `.card__button--primary` -> `styles.card__buttonPrimary`.
+- For dashed names without underscores: `.header-container` -> `styles.headerContainer`.
+- You may still use bracket access where necessary: `styles['card__button--primary']`.
+  Please confirm you understand and will apply these rules to all future code.

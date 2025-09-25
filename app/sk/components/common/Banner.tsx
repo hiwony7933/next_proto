@@ -24,9 +24,9 @@ export default function Banner({ items }: { items: BannerItem[] }) {
 
   return (
     <section className={S.banner} aria-label="페이지 배너">
-      <div className={S["banner__inner"]}>
-        <h2 className={S["banner__title"]}>{current.title}</h2>
-        <p className={S["banner__desc"]}>{current.desc}</p>
+      <div className={S.banner__inner}>
+        <h2 className={S.banner__title}>{current.title}</h2>
+        <p className={S.banner__desc}>{current.desc}</p>
       </div>
     </section>
   );
