@@ -12,6 +12,9 @@ export default function EventPage() {
       <ImageNotice
         items={items}
         basePath="/sk/support/event"
+        columns={4}
+        gap={12}
+        itemsPerPage={12}
         renderMetaArea={(item) => (
           <span className={S.imageNotice__date}>{item.date}</span>
         )}

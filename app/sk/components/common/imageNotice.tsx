@@ -90,7 +90,7 @@ export default function ImageNotice<ItemType>(
     className,
   } = props;
 
-  const pageSize = 12;
+  const pageSize = props.itemsPerPage;
 
   // 간단한 필드 접근 헬퍼(매퍼 우선, 없으면 관용 필드 사용)
   // 유지보수 메모: 데이터 스키마가 고정되면 아래 헬퍼를 제거하고 직접 필드 접근으로 단순화 가능
