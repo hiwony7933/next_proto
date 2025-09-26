@@ -24,7 +24,16 @@ const geistMono = Geist_Mono({
 export async function generateMetadata(): Promise<Metadata> {
   const headerList = await headers();
   const host = headerList.get("host") ?? "";
-  const tenant = getTenantFromHost(host) ?? "sk";
+  const headerTenant = headerList.get("x-tenant") as
+    | "sk"
+    | "cap"
+    | "adt"
+    | null;
+  const tenant =
+    headerTenant ??
+    getTenantFromHost(host) ??
+    (process.env.NEXT_PUBLIC_DEV_TENANT as any) ??
+    "sk";
   const siteName =
     tenant === "sk" ? "SK쉴더스" : tenant === "adt" ? "ADT캡스" : "캡스홈";
   const baseUrl = `https://${host}`;
@@ -59,8 +68,17 @@ export default async function RootLayout({
   // 서버 헤더에서 host 추출 (SSR 안전)
   const headerList = await headers();
   const host = headerList.get("host");
-  // host로부터 테넌트 정보 추출
-  const tenant = getTenantFromHost(host);
+  const headerTenant = headerList.get("x-tenant") as
+    | "sk"
+    | "cap"
+    | "adt"
+    | null;
+  // 헤더 우선 → host → 로컬 기본값
+  const tenant =
+    headerTenant ??
+    getTenantFromHost(host) ??
+    (process.env.NEXT_PUBLIC_DEV_TENANT as any) ??
+    null;
   // 테넌트별 CSS 클래스 생성 (예: tenant-cap, tenant-sk 등)
   const tenantClass = tenant ? `tenant-${tenant}` : undefined;
   return (

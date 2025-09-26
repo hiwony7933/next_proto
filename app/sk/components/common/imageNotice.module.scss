@@ -23,6 +23,7 @@
 .imageNotice__thumb {
   position: relative;
   overflow: hidden;
+  outline: none;
 }
 
 .imageNotice__body {
@@ -65,4 +66,20 @@
   color: #222;
   background: #fff;
   text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* 접근성: 키보드 포커스 가시성 */
+.imageNotice__download:focus-visible,
+.imageNotice__thumb :focus-visible {
+  outline: 2px solid #000; /* 테넌트 변수화 가능: var(--focus-color) */
+  outline-offset: 2px;
+}
+
+/* 상호작용: 호버 피드백 */
+.imageNotice__download:hover {
+  background: #f7f7f7;
+  border-color: #ccc;
 }

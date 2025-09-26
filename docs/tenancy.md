@@ -29,6 +29,30 @@
 
 - 호스트 매핑용 ENV: 예) `TENANT_SK_HOST`, `TENANT_CAPS_HOST`, `TENANT_ADT_HOST`
 - Next 퍼블릭 환경 변수는 `process.env.NEXT_PUBLIC_*` 사용
+- 로컬 기본 테넌트: `NEXT_PUBLIC_DEV_TENANT=sk|cap|adt` (선택)
+
+## 로컬 개발 흐름
+
+- 기본 동작: 미들웨어가 `host` 기준으로 테넌트를 판별하고, 경로를 `/${tenant}`로 rewrite합니다.
+- 강제 지정: 쿼리 `?tenant=sk|cap|adt`로 현재 요청에 대해 테넌트를 강제합니다.
+- 헤더 주입: 미들웨어가 `x-tenant` 헤더를 주입하며, 서버 컴포넌트(레이아웃)는 이 값을 최우선으로 사용합니다.
+- 기본값: 호스트/쿼리가 없을 경우 `NEXT_PUBLIC_DEV_TENANT`가 설정되어 있으면 해당 테넌트를 사용합니다.
+
+## Dev 환경 (배포)
+
+- ENV 파일 예시: `.env.dev`
+
+```
+TENANT_SK_HOST=sk.dev.example.com
+TENANT_CAPS_HOST=cap.dev.example.com
+TENANT_ADT_HOST=adt.dev.example.com
+NEXT_PUBLIC_DEV_TENANT=sk
+```
+
+- 동작 원리
+  - 요청 `host`를 기준으로 미들웨어가 테넌트를 판별하고 `/${tenant}`로 내부 rewrite합니다.
+  - `x-tenant` 헤더가 주입되며 서버 컴포넌트는 이를 우선 사용합니다.
+  - 도메인 이름이 확정되면 위 값을 실제 서브도메인으로 교체하면 됩니다.
 
 ## 주의사항
 

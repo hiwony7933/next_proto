@@ -4,51 +4,59 @@ import styles from "./mzSelectBox.module.scss";
  * HwCustomDropdown
  * ----------------
  * 공통 커스텀 드롭다운 컴포넌트입니다.
- * 
+ *
  * [Props]
  * - options: string[]         // 드롭다운에 표시할 옵션 목록
  * - selected: string          // 현재 선택된 값
  * - onSelect: (value) => void // 옵션 선택 시 호출되는 콜백
  * - className?: string        // (선택) 추가 커스텀 클래스
  * - type?: 'default' | 'radio' | 'checkbox'
- * 
+ *
  * [사용 예시]
  * <HwCustomDropdown
  *   options={['A', 'B', 'C']}
  *   selected={selected}
  *   onSelect={setSelected}
  * />
- * 
+ *
  * [특징]
  * - 라디오 버튼 기반 접근성 지원
  * - 외부에서 상태 제어(선택/콜백) 가능
  * - 어디서든 import 하여 재사용 가능
  */
+type OptionLike =
+  | string
+  | { label: string; value: string | number; disabled?: boolean };
+
 type CustomDropdownProps = {
   id?: string;
-  type?: 'default' | 'search' | 'dropdown' | 'checkbox';
-  options: string[];
-  selected: string | string[];
-  onSelect: (value: string | string[]) => void;
+  name?: string;
+  type?: "default" | "search" | "dropdown" | "checkbox";
+  options: OptionLike[];
+  selected: string | number | Array<string | number>;
+  onSelect: (value: string | number | Array<string | number>) => void;
   className?: string;
-  size?: '1' | '2' | '3' | '4' | '5';
-  align?: 'left' | 'right';
+  size?: "1" | "2" | "3" | "4" | "5";
+  align?: "left" | "right";
   style?: React.CSSProperties;
 };
 
 export default function MzSelectBox({
   id,
-  type = 'default',
+  name,
+  type = "default",
   options,
   selected,
   onSelect,
-  className = '',
-  size = '3',
-  align = 'left',
+  className = "",
+  size = "3",
+  align = "left",
   style,
 }: CustomDropdownProps) {
   // options가 undefined일 때 빈 배열 사용
-  const safeOptions = options || [];
+  const safeOptions = (options || []).map((opt) =>
+    typeof opt === "string" ? { label: opt, value: opt } : opt
+  );
 
   /**
    * open
@@ -61,7 +69,10 @@ export default function MzSelectBox({
   // 외부 클릭 감지
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     }
@@ -76,30 +87,34 @@ export default function MzSelectBox({
   }, [open]);
 
   // 체크박스 선택 상태 관리 (selected를 string[]로 받을 수도 있음)
-  const [checkedValues, setCheckedValues] = useState<string[]>(
+  const [checkedValues, setCheckedValues] = useState<Array<string | number>>(
     Array.isArray(selected) ? selected : []
   );
 
-  const handleCheckboxChange = (opt: string) => {
-    let newChecked;
-    if (checkedValues.includes(opt)) {
-      newChecked = checkedValues.filter(v => v !== opt);
+  const handleCheckboxChange = (optValue: string | number) => {
+    let newChecked: Array<string | number>;
+    if (checkedValues.includes(optValue)) {
+      newChecked = checkedValues.filter((v) => v !== optValue);
     } else {
-      newChecked = [...checkedValues, opt];
+      newChecked = [...checkedValues, optValue];
     }
     setCheckedValues(newChecked);
-    onSelect(newChecked); // 부모로 배열 전달
+    onSelect(newChecked);
     console.log(newChecked);
   };
 
   return (
     <>
-      {type === 'checkbox' ? (
-        <div className={` ${styles[`${className}`]}`} ref={dropdownRef} style={style}>
+      {type === "checkbox" ? (
+        <div
+          className={` ${styles[`${className}`]}`}
+          ref={dropdownRef}
+          style={style}
+        >
           <button
             type="button"
             className={styles.btnSelectBox}
-            onClick={() => setOpen(o => !o)}
+            onClick={() => setOpen((o) => !o)}
             aria-haspopup="listbox"
             aria-expanded={open}
             style={style}
@@ -108,24 +123,29 @@ export default function MzSelectBox({
           </button>
           {open && (
             <div
-              className={`${styles.customDropdownListWrap} ${align === 'right' ? styles.right : ''}`}
-              style={align === 'right' ? { right: 0, left: 'auto' } : { left: 0, right: 'auto' }}
+              className={`${styles.customDropdownListWrap} ${align === "right" ? styles.right : ""}`}
+              style={
+                align === "right"
+                  ? { right: 0, left: "auto" }
+                  : { left: 0, right: "auto" }
+              }
             >
               <ul role="listbox">
                 {safeOptions.map((opt, idx) => {
                   const inputId = `customDropdownCheckbox_${idx}`;
                   return (
-                    <li key={opt} role="option">
+                    <li key={String(opt.value)} role="option">
                       <input
                         type="checkbox"
                         id={inputId}
                         name="customDropdown"
-                        value={opt}
-                        checked={checkedValues.includes(opt)}
-                        onChange={() => handleCheckboxChange(opt)}
+                        value={String(opt.value)}
+                        checked={checkedValues.includes(opt.value)}
+                        onChange={() => handleCheckboxChange(opt.value)}
                         className={styles.checkbox}
+                        disabled={opt.disabled}
                       />
-                      <label htmlFor={inputId}>{opt}</label>
+                      <label htmlFor={inputId}>{opt.label}</label>
                     </li>
                   );
                 })}
@@ -133,11 +153,34 @@ export default function MzSelectBox({
             </div>
           )}
         </div>
-      ) : type === 'default' ? (
-        <div className={`${styles.mzSelectBoxDefault}  ${styles[`size${size}`]}  ${className}`} style={style}>
-          <select value={selected} onChange={(e) => onSelect(e.target.value)}>
+      ) : type === "default" ? (
+        <div
+          className={`${styles.mzSelectBoxDefault}  ${styles[`size${size}`]}  ${className}`}
+          style={style}
+        >
+          <select
+            id={id}
+            name={name}
+            value={
+              typeof selected === "string" || typeof selected === "number"
+                ? String(selected)
+                : ""
+            }
+            onChange={(e) => {
+              const matched = safeOptions.find(
+                (o) => String(o.value) === e.target.value
+              );
+              onSelect(matched ? matched.value : e.target.value);
+            }}
+          >
             {safeOptions.map((opt, idx) => (
-              <option key={idx} value={opt}>{opt}</option>
+              <option
+                key={idx}
+                value={String(opt.value)}
+                disabled={opt.disabled}
+              >
+                {opt.label}
+              </option>
             ))}
           </select>
         </div>
@@ -145,7 +188,7 @@ export default function MzSelectBox({
         <div
           className={`${styles.mzSelectBox} ${styles[`size${size}`]}  ${styles[`${className}`]}`}
           ref={dropdownRef}
-          style={{ cursor: 'pointer', ...style }}
+          style={{ cursor: "pointer", ...style }}
         >
           <button
             type="button"
@@ -153,37 +196,54 @@ export default function MzSelectBox({
             aria-haspopup="listbox"
             aria-expanded={open}
             style={style}
-            onClick={() => setOpen(o => !o)}
+            onClick={() => setOpen((o) => !o)}
           >
-            {selected}
+            {(() => {
+              const found = safeOptions.find(
+                (o) =>
+                  !Array.isArray(selected) &&
+                  String(o.value) === String(selected)
+              );
+              return found
+                ? found.label
+                : Array.isArray(selected)
+                  ? selected.join(", ")
+                  : String(selected);
+            })()}
           </button>
           {open && (
             <div
-              className={`${styles.customDropdownListWrap} ${align === 'right' ? styles.right : ''}`}
+              className={`${styles.customDropdownListWrap} ${align === "right" ? styles.right : ""}`}
               style={{
-                ...(align === 'right' ? { right: 0, left: 'auto' } : { left: 0, right: 'auto' })
+                ...(align === "right"
+                  ? { right: 0, left: "auto" }
+                  : { left: 0, right: "auto" }),
               }}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <ul role="listbox">
                 {safeOptions.map((opt, idx) => {
                   const inputId = `customDropdownRadio_${idx}`;
+                  const isChecked =
+                    !Array.isArray(selected) &&
+                    String(selected) === String(opt.value);
                   return (
-                    <li key={opt} role="option">
+                    <li key={String(opt.value)} role="option">
                       <input
                         type="radio"
                         id={inputId}
                         name="customDropdown"
-                        value={opt}
-                        checked={selected === opt}
+                        value={String(opt.value)}
+                        checked={Boolean(isChecked)}
                         onChange={() => {
-                          onSelect(opt);
-                          setOpen(false); // 옵션 선택 시 드롭다운 닫기
-                          console.log('customDropdown', opt);
+                          onSelect(opt.value);
+                          setOpen(false);
+                          console.log("customDropdown", opt.value);
                         }}
                         className={`${type}_radio`}
+                        disabled={opt.disabled}
                       />
-                      <label htmlFor={inputId}>{opt}</label>
+                      <label htmlFor={inputId}>{opt.label}</label>
                     </li>
                   );
                 })}

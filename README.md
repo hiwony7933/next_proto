@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -14,26 +12,49 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Docs
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+문서는 `/docs` 폴더에서 확인할 수 있습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 로컬 호스트 매핑(Hosts) 설정
 
-## Learn More
+멀티 테넌트 로컬 개발을 위해 `hosts` 파일에 아래 항목을 추가해 주세요.
 
-To learn more about Next.js, take a look at the following resources:
+macOS/Linux: `/etc/hosts`, Windows: `C:\\Windows\\System32\\drivers\\etc\\hosts`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+127.0.0.1 sk.localhost
+127.0.0.1 adt.localhost
+127.0.0.1 cap.localhost
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+적용 후 개발 서버를 재시작하세요. 접속 예시:
 
-## Deploy on Vercel
+- http://localhost:3000 (포털)
+- http://sk.localhost:3000
+- http://adt.localhost:3000
+- http://cap.localhost:3000
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+쿼리로 강제 지정도 가능합니다: `http://localhost:3000?tenant=adt`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Dev 환경 도메인 구성
+
+배포용 Dev 환경에서는 다음 ENV로 호스트→테넌트 매핑을 설정합니다. 도메인이 확정되면 실제 값으로 교체하세요.
+
+ENV 파일: `.env.dev`
+
+```
+TENANT_SK_HOST=sk.dev.example.com
+TENANT_CAPS_HOST=cap.dev.example.com
+TENANT_ADT_HOST=adt.dev.example.com
+NEXT_PUBLIC_DEV_TENANT=sk
+```
+
+동작 개요
+
+- 미들웨어가 요청 host를 기준으로 테넌트를 판별하고 내부적으로 `/${tenant}`로 rewrite합니다.
+- 모든 요청에는 `x-tenant` 헤더가 주입되며, 서버 컴포넌트는 이를 우선 사용합니다.
+- 도메인이 확정되면 위 값을 실제 서브도메인으로 교체하여 재배포합니다.
 
 ## 스타일 가이드
 

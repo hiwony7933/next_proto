@@ -58,7 +58,7 @@ export default function ListNotice({
           items={items}
           itemsPerPage={itemsPerPage}
           render={({ currentItems }) => (
-            <table>
+            <table className={S.listNotice__table}>
               <colgroup>
                 {widths.map((w, idx) => (
                   <col key={idx} {...(w ? { width: w } : {})} />
@@ -75,7 +75,7 @@ export default function ListNotice({
                               <Image src={topFlagIcon} alt="상단고정" />
                             ) : (
                               <div
-                                className={S.listNotice__category_empty}
+                                className={S.listNotice__categoryEmpty}
                               ></div>
                             )}
                             <span>{item.category ?? ""}</span>
@@ -85,8 +85,7 @@ export default function ListNotice({
                       <td>
                         <Link
                           href={`${basePath}/${item.id}`}
-                          className={S.listNotice__content_link}
-                          style={{ width: "600px" }}
+                          className={S.listNotice__contentLink}
                         >
                           {item.label && (
                             <span className={S.listNotice__label}>공지</span>

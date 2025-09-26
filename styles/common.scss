@@ -1,3 +1,46 @@
 @use "reset";
 @use "variable" as *;
 @use "mixin" as *;
+
+/*
+  Global Focus Ring Utilities
+  - 기본 포커스 색상은 CSS 변수로 제어합니다.
+  - 테넌트별로 body.tenant-*에서 덮어쓸 수 있습니다.
+*/
+:root {
+  --focus-color: #000;
+  --focus-offset: 2px;
+}
+
+body.tenant-sk {
+  --focus-color: #da291c; /* 브랜드 레드 */
+}
+
+body.tenant-adt {
+  --focus-color: #28794e; /* 예시 그린 */
+}
+
+body.tenant-cap {
+  --focus-color: #e7660d; /* 예시 오렌지 */
+}
+
+/* 기본 포커스 규칙: 키보드 접근 요소의 가시성 보장 */
+:where(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+/* 유틸 클래스: 필요 시 임의 요소에 적용 */
+.uFocusRing {
+  &:focus-visible {
+    outline: 2px solid var(--focus-color);
+    outline-offset: var(--focus-offset);
+  }
+}

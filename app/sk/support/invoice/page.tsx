@@ -5,47 +5,139 @@ import { MzCheckBox } from "@/app/common/components/form/mzCheckBox";
 import MzSelectBox from "@/app/common/components/form/mzSelectBox";
 import MzButton from "@/app/common/components/ui/mzButton";
 import MzInputText from "@/app/common/components/form/mzInputText";
+import { getYearOptions, getMonthOptions } from "@/lib/dateOptions";
 
 export default function InvoicePage() {
-  const optionsYear = [
-    "2025년",
-    "2024년",
-    "2023년",
-    "2022년",
-    "2021년",
-    "2020년",
-  ];
-  const optionsMonth = [
-    "1월",
-    "2월",
-    "3월",
-    "4월",
-    "5월",
-    "6월",
-    "7월",
-    "8월",
-    "9월",
-    "10월",
-    "11월",
-    "12월",
-  ];
-  const [selectedYear, setSelectedYear] = useState(optionsYear[0]);
-  const [selectedMonth, setSelectedMonth] = useState(optionsMonth[0]);
+  const now = new Date();
+  const initialYear = now.getFullYear();
+  const initialMonth = now.getMonth() + 1;
+  const [selectedYear, setSelectedYear] = useState<number>(initialYear);
+  const [selectedMonth, setSelectedMonth] = useState<number>(initialMonth);
+  const yearOptions = getYearOptions({
+    startYear: initialYear - 5,
+    endYear: initialYear,
+    order: "desc",
+  });
+  const monthOptions = getMonthOptions({
+    year: selectedYear,
+    disableFuture: true,
+  });
+
+  // Tab1: 문서 재발행 폼 상태
+  const [contractInfo1, setContractInfo1] = useState("");
+  const [companyName1, setCompanyName1] = useState("");
+  const [name1, setName1] = useState("");
+  const [phone1, setPhone1] = useState("");
+  const [email1, setEmail1] = useState("");
+  const [showError1, setShowError1] = useState(false);
+
+  const handleSubmitTab1 = () => {
+    setShowError1(true);
+    const invalid = [contractInfo1, companyName1, name1, phone1, email1].some(
+      (v) => !String(v || "").trim()
+    );
+    if (!invalid) {
+      console.log("[문서 재발행] 제출: ", {
+        contractInfo1,
+        companyName1,
+        name1,
+        phone1,
+        email1,
+        year: selectedYear,
+        month: selectedMonth,
+      });
+      alert("접수 완료(모의)");
+    }
+  };
+
+  // Tab2: 세금계산서 정보변경 폼 상태
+  const [contractInfo2, setContractInfo2] = useState("");
+  const [companyName2, setCompanyName2] = useState("");
+  const [name2, setName2] = useState("");
+  const [phone2, setPhone2] = useState("");
+  const [representativeName, setRepresentativeName] = useState("");
+  const [companyNameChange, setCompanyNameChange] = useState("");
+  const [businessType, setBusinessType] = useState("");
+  const [businessItem, setBusinessItem] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+  const [showError2, setShowError2] = useState(false);
+
+  const handleSubmitTab2 = () => {
+    setShowError2(true);
+    const required = [
+      contractInfo2,
+      companyName2,
+      name2,
+      phone2,
+      representativeName,
+      companyNameChange,
+      businessType,
+      businessItem,
+      address,
+    ];
+    const invalid = required.some((v) => !String(v || "").trim());
+    if (!invalid) {
+      console.log("[정보 변경] 제출: ", {
+        contractInfo2,
+        companyName2,
+        name2,
+        phone2,
+        representativeName,
+        companyNameChange,
+        businessType,
+        businessItem,
+        address,
+        addressDetail,
+        year: selectedYear,
+        month: selectedMonth,
+      });
+      alert("접수 완료(모의)");
+    }
+  };
   const tabData = [
     {
       label: "문서 재발행(세금계산서, 청구서)",
       content: (
         <div>
           <h3>계약정보</h3>
-          <label htmlFor="contractInfo">계약정보</label>
-          <MzInputText type="text" id="contractInfo" />
+          <label htmlFor="contractInfo">계약번호</label>
+          <MzInputText
+            type="text"
+            id="contractInfo"
+            value={contractInfo1}
+            onChange={(e) => setContractInfo1(e.target.value)}
+            errorText="계약번호를 입력해주세요."
+            showError={showError1 && !contractInfo1.trim()}
+          />
           <label htmlFor="companyName">상호명</label>
-          <MzInputText type="text" id="companyName" />
+          <MzInputText
+            type="text"
+            id="companyName"
+            value={companyName1}
+            onChange={(e) => setCompanyName1(e.target.value)}
+            errorText="상호명을 입력해주세요."
+            showError={showError1 && !companyName1.trim()}
+          />
           <h3>요청자정보</h3>
           <label htmlFor="name">이름</label>
-          <MzInputText type="text" id="name" />
+          <MzInputText
+            type="text"
+            id="name"
+            value={name1}
+            onChange={(e) => setName1(e.target.value)}
+            errorText="이름을 입력해주세요."
+            showError={showError1 && !name1.trim()}
+          />
           <label htmlFor="phone">전화번호</label>
-          <MzInputText type="text" id="phone" />
+          <MzInputText
+            type="text"
+            id="phone"
+            value={phone1}
+            onChange={(e) => setPhone1(e.target.value)}
+            errorText="전화번호를 입력해주세요."
+            showError={showError1 && !phone1.trim()}
+          />
           <h3>재발행 요청 문서 번호</h3>
           <p>재발행 요청하실 문서를 선택해 주세요.(중복 선택가능)</p>
           <MzCheckBox
@@ -85,27 +177,39 @@ export default function InvoicePage() {
             명세서
           </MzCheckBox>
           재발행 원하시는 발행일을 선택해 주세요
+          <label htmlFor="reissueYear">발행 연도</label>
           <MzSelectBox
+            id="reissueYear"
+            name="reissueYear"
             type="default"
             size="5"
-            options={optionsYear}
+            options={yearOptions}
             selected={selectedYear}
             className="dropdown"
-            onSelect={(v) => setSelectedYear(typeof v === "string" ? v : v[0])}
+            onSelect={(v) => setSelectedYear(Number(v as any))}
           />
+          <label htmlFor="reissueMonth">발행 월</label>
           <MzSelectBox
+            id="reissueMonth"
+            name="reissueMonth"
             type="default"
             size="5"
-            options={optionsMonth}
+            options={monthOptions}
             selected={selectedMonth}
             className="dropdown"
-            onSelect={(v) => setSelectedMonth(typeof v === "string" ? v : v[0])}
+            onSelect={(v) => setSelectedMonth(Number(v as any))}
           />
           <MzButton fill="black">추가</MzButton>
           <MzButton fill="black">삭제</MzButton>
           <h3>재발행 된 문서 받으실 정보</h3>
           <label htmlFor="email">이메일주소</label>
-          <MzInputText id="email"></MzInputText>
+          <MzInputText
+            id="email"
+            value={email1}
+            onChange={(e) => setEmail1(e.target.value)}
+            errorText="이메일주소를 입력해주세요."
+            showError={showError1 && !email1.trim()}
+          />
           <MzCheckBox
             type="checkbox"
             id="allCheck"
@@ -127,7 +231,9 @@ export default function InvoicePage() {
           <h3>기타 요청사항</h3>
           <label htmlFor="content">내용</label>
           <MzInputText id="content"></MzInputText>
-          <MzButton fill="black">접수하기</MzButton>
+          <MzButton fill="black" onClick={handleSubmitTab1}>
+            접수하기
+          </MzButton>
         </div>
       ),
     },
@@ -137,14 +243,42 @@ export default function InvoicePage() {
         <div>
           <h3>계약정보</h3>
           <label htmlFor="contractInfo">계약정보</label>
-          <MzInputText type="text" id="contractInfo" />
+          <MzInputText
+            type="text"
+            id="contractInfo"
+            value={contractInfo2}
+            onChange={(e) => setContractInfo2(e.target.value)}
+            errorText="계약정보를 입력해주세요."
+            showError={showError2 && !contractInfo2.trim()}
+          />
           <label htmlFor="companyName">상호명</label>
-          <MzInputText type="text" id="companyName" />
+          <MzInputText
+            type="text"
+            id="companyName"
+            value={companyName2}
+            onChange={(e) => setCompanyName2(e.target.value)}
+            errorText="상호명을 입력해주세요."
+            showError={showError2 && !companyName2.trim()}
+          />
           <h3>요청자정보</h3>
           <label htmlFor="name">이름</label>
-          <MzInputText type="text" id="name" />
+          <MzInputText
+            type="text"
+            id="name"
+            value={name2}
+            onChange={(e) => setName2(e.target.value)}
+            errorText="이름을 입력해주세요."
+            showError={showError2 && !name2.trim()}
+          />
           <label htmlFor="phone">전화번호</label>
-          <MzInputText type="text" id="phone" />
+          <MzInputText
+            type="text"
+            id="phone"
+            value={phone2}
+            onChange={(e) => setPhone2(e.target.value)}
+            errorText="전화번호를 입력해주세요."
+            showError={showError2 && !phone2.trim()}
+          />
           <h3>세금계산서 정보 변경 항목</h3>
           <p>변경하실 항목을 선택하고 수정해주세요.(중복 선택 가능)</p>
           <MzCheckBox
@@ -156,7 +290,14 @@ export default function InvoicePage() {
           >
             대표자명
           </MzCheckBox>
-          <MzInputText type="text" id="representativeName" />
+          <MzInputText
+            type="text"
+            id="representativeName"
+            value={representativeName}
+            onChange={(e) => setRepresentativeName(e.target.value)}
+            errorText="대표자명을 입력해주세요."
+            showError={showError2 && !representativeName.trim()}
+          />
           <MzCheckBox
             type="checkbox"
             id="allCheck"
@@ -166,7 +307,14 @@ export default function InvoicePage() {
           >
             상호명
           </MzCheckBox>
-          <MzInputText type="text" id="companyName" />
+          <MzInputText
+            type="text"
+            id="companyName"
+            value={companyNameChange}
+            onChange={(e) => setCompanyNameChange(e.target.value)}
+            errorText="상호명을 입력해주세요."
+            showError={showError2 && !companyNameChange.trim()}
+          />
           <MzCheckBox
             type="checkbox"
             id="allCheck"
@@ -176,7 +324,14 @@ export default function InvoicePage() {
           >
             업태
           </MzCheckBox>
-          <MzInputText type="text" id="businessType" />
+          <MzInputText
+            type="text"
+            id="businessType"
+            value={businessType}
+            onChange={(e) => setBusinessType(e.target.value)}
+            errorText="업태를 입력해주세요."
+            showError={showError2 && !businessType.trim()}
+          />
           <MzCheckBox
             type="checkbox"
             id="allCheck"
@@ -186,7 +341,14 @@ export default function InvoicePage() {
           >
             종목
           </MzCheckBox>
-          <MzInputText type="text" id="businessType" />
+          <MzInputText
+            type="text"
+            id="businessType"
+            value={businessItem}
+            onChange={(e) => setBusinessItem(e.target.value)}
+            errorText="종목을 입력해주세요."
+            showError={showError2 && !businessItem.trim()}
+          />
           <MzCheckBox
             type="checkbox"
             id="allCheck"
@@ -196,29 +358,47 @@ export default function InvoicePage() {
           >
             주소
           </MzCheckBox>
-          <MzInputText type="text" id="address" />
-          <MzInputText type="text" id="addressDetail" />
+          <MzInputText
+            type="text"
+            id="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            errorText="주소를 입력해주세요."
+            showError={showError2 && !address.trim()}
+          />
+          <MzInputText
+            type="text"
+            id="addressDetail"
+            value={addressDetail}
+            onChange={(e) => setAddressDetail(e.target.value)}
+          />
           <h3>세금계산서 정보변경 적용시기</h3>
           <p>변경된 정보가 적용될 시기(월)을 선택해주세요</p>
+          <label htmlFor="applyYear">적용 연도</label>
           <MzSelectBox
+            id="applyYear"
+            name="applyYear"
             type="default"
             size="5"
-            options={optionsYear}
+            options={yearOptions}
             selected={selectedYear}
             className="dropdown"
-            onSelect={(v) => setSelectedYear(typeof v === "string" ? v : v[0])}
+            onSelect={(v) => setSelectedYear(Number(v as any))}
           />
+          <label htmlFor="applyMonth">적용 월</label>
           <MzSelectBox
+            id="applyMonth"
+            name="applyMonth"
             type="default"
             size="5"
-            options={optionsMonth}
+            options={monthOptions}
             selected={selectedMonth}
             className="dropdown"
-            onSelect={(v) => setSelectedMonth(typeof v === "string" ? v : v[0])}
+            onSelect={(v) => setSelectedMonth(Number(v as any))}
           />
 
           <h3>증명문서 첨부</h3>
-          <p>사업자 등ㄹ옥증 정보 바탕으로 수정되니 사본을 첨부해주세요.</p>
+          <p>사업자 등록증 정보 바탕으로 수정되니 사본을 첨부해주세요.</p>
           <MzButton fill="black">파일선택</MzButton>
           <MzInputText id="file"></MzInputText>
 
@@ -226,7 +406,9 @@ export default function InvoicePage() {
           <label htmlFor="content">내용</label>
           <MzInputText id="content"></MzInputText>
 
-          <MzButton fill="black">접수하기</MzButton>
+          <MzButton fill="black" onClick={handleSubmitTab2}>
+            접수하기
+          </MzButton>
         </div>
       ),
     },

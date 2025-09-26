@@ -9,16 +9,21 @@ interface Tab {
 interface MzTabsProps {
   tabs: Tab[];
   tabSize?: boolean; // true: full width, false: shrink to content
+  solid?: boolean; // true: solid, false: border
 }
 
-const MzTabs: React.FC<MzTabsProps> = ({ tabs, tabSize = true }) => {
+const MzTabs: React.FC<MzTabsProps> = ({
+  tabs,
+  tabSize = true,
+  solid = false,
+}) => {
   const [active, setActive] = useState(0);
   return (
     <div className={styles.tabs}>
       <div
         className={`${styles["tabs__list"]} ${
           tabSize ? styles["tabs__list--equal"] : styles["tabs__list--auto"]
-        }`}
+        } ${solid ? styles["tabs__list--solid"] : ""}`}
       >
         {tabs.map((tab, idx) => (
           <button

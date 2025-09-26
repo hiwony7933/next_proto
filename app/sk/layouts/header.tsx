@@ -35,13 +35,15 @@ export default function Header() {
       <div className={S.header__innerContainer}>
         <div className={S.header__inner}>
           <div className={S.header__innerLeft}>
-            <Image
-              src={skLogo}
-              alt="쉴더스 로고"
-              width={100}
-              height={100}
-              priority
-            />
+            <Link href="/">
+              <Image
+                src={skLogo}
+                alt="쉴더스 로고"
+                width={100}
+                height={100}
+                priority
+              />
+            </Link>
             <nav
               className={S.header__menus}
               aria-label="주요 메뉴"

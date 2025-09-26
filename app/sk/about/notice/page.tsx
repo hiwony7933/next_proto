@@ -22,7 +22,7 @@ export default function NoticePage() {
       <ListNotice
         items={items}
         basePath="/sk/about/notice"
-        columnWidths={["70%", "30%"]}
+        columnWidths={["90%", "10%"]}
       />
     </div>
   );

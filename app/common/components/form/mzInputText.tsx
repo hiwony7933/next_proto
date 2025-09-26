@@ -1,11 +1,12 @@
 import React, {
   InputHTMLAttributes,
   forwardRef,
+  useId,
   useRef,
   useState,
 } from "react";
 import classnames from "classnames";
-import styles from "./mzInputText.module.scss";
+import S from "./mzInputText.module.scss";
 
 /**
  * MzInputText
@@ -20,11 +21,13 @@ export interface MzInputTextProps
   className?: string; // 사용자 정의 클래스
   numberFormat?: boolean; // 추가: 숫자 천단위 콤마 옵션
   onSearch?: (keyword: string) => void; // 검색 콜백
+  errorText?: string; // 에러 텍스트
+  showError?: boolean; // 에러 표시 여부(제출 시점 제어)
 }
 
 /**
  * SCSS 모듈 사이즈 변형 클래스 키 생성기
- * 예) prefix: "size", name: "5" => styles["size5"]
+ * 예) prefix: "size", name: "5" => S["size5"]
  */
 const classNameMaker = (prefix: string, name: string) => {
   let transformString = "";
@@ -49,6 +52,8 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
       onKeyDown,
       onSearch,
       value,
+      errorText,
+      showError = false,
       ...rest
     },
     ref
@@ -102,13 +107,13 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
 
     // 래퍼 클래스: 컴포넌트 사이즈 변형 + 외부 className
     const wrapperClassName = classnames(
-      styles.mzInputText,
-      mzSize && styles[classNameMaker("size", mzSize)],
+      S.mzInputText,
+      mzSize && S[classNameMaker("size", mzSize)],
       className
     );
 
     // 내부 input 엘리먼트 클래스(래퍼와 분리)
-    const inputClassNames = classnames(styles.mzInputText__input);
+    // const inputClassNames = classnames(S.mzInputText__input);
 
     // 전달받은 ref와 내부 ref를 병합하여 외부 접근을 보장
     const setCombinedRef = (node: HTMLInputElement | null) => {
@@ -138,73 +143,98 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
       });
     };
 
-    // 검색 트리거: 버튼 클릭 시 onSearch 호출
+    // 검색 트리거: 버튼 클릭 시 onSearch 호출 (에러가 있으면 중단)
     const handleSearch = () => {
       if (!onSearch) return;
+      if (showError && errorText) return;
       onSearch(getRawValue());
     };
 
     // 엔터 키로 검색 수행, 사용자 onKeyDown과 공존
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (onKeyDown) onKeyDown(e);
-      if (e.key === "Enter" && onSearch) {
+      if (e.key === "Enter" && onSearch && !(showError && errorText)) {
         onSearch(getRawValue());
       }
     };
 
+    // A11y: 에러 메시지 연결용 ID 및 aria 속성 병합
+    const errorId = useId();
+    const errorElementId = `mz-input-error-${errorId}`;
+    const shouldShowError = Boolean(showError && errorText);
+    const parentDescribedBy = (rest as any)["aria-describedby"] as
+      | string
+      | undefined;
+    const mergedDescribedBy = [
+      parentDescribedBy,
+      shouldShowError ? errorElementId : undefined,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
     return (
       <div className={wrapperClassName} style={style}>
-        <input
-          type={numberFormat ? "text" : rest.type || "text"}
-          ref={setCombinedRef}
-          className={inputClassNames}
-          value={effectiveValue}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          inputMode={numberFormat ? "numeric" : rest.inputMode}
-          {...rest}
-        />
-        {hasValue && isInteractive && (
-          <button
-            type="button"
-            title="입력 초기화"
-            aria-label="입력 초기화"
-            className={styles.mzInputText__clear}
-            onClick={handleClear}
+        <div className={S.mzInputText__inputWrapper}>
+          <input
+            type={numberFormat ? "text" : rest.type || "text"}
+            ref={setCombinedRef}
+            style={{ width: "100%" }}
+            className={S.mzInputText__input}
+            value={effectiveValue}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            inputMode={numberFormat ? "numeric" : rest.inputMode}
+            aria-invalid={shouldShowError || undefined}
+            aria-describedby={mergedDescribedBy || undefined}
+            aria-errormessage={shouldShowError ? errorElementId : undefined}
+            {...rest}
+          />
+          <div className={S.mzInputText__inputWrapper__actions}>
+            {hasValue && isInteractive && (
+              <button
+                type="button"
+                title="입력 초기화"
+                aria-label="입력 초기화"
+                className={S.mzInputText__clear}
+                onClick={handleClear}
+              >
+                <img
+                  src="/images/common/icon_18_clear.svg"
+                  alt=""
+                  aria-hidden="true"
+                  width={18}
+                  height={18}
+                />
+              </button>
+            )}
+            {onSearch && (
+              <button
+                type="button"
+                title="검색"
+                aria-label="검색"
+                className={S.mzInputText__search}
+                onClick={handleSearch}
+                disabled={rest.disabled === true}
+              >
+                <img
+                  src="/images/common/icon_18_search.svg"
+                  alt=""
+                  aria-hidden="true"
+                  width={18}
+                  height={18}
+                />
+              </button>
+            )}
+          </div>
+        </div>
+        {shouldShowError && (
+          <div
+            id={errorElementId}
+            className={S.mzInputText__error}
+            aria-live="polite"
           >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                d="M3 3l6 6M9 3L3 9"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </button>
-        )}
-        {onSearch && (
-          <button
-            type="button"
-            title="검색"
-            aria-label="검색"
-            className={styles.mzInputText__search}
-            onClick={handleSearch}
-            disabled={rest.disabled === true}
-          >
-            <img
-              src="/images/common/icon_18_search.svg"
-              alt=""
-              aria-hidden="true"
-              width={18}
-              height={18}
-            />
-          </button>
+            {errorText}
+          </div>
         )}
       </div>
     );

@@ -34,6 +34,11 @@ export default function SampleMzTabs() {
               <td>boolean</td>
               <td>true: 전체폭(기본), false: 버튼 내용만큼</td>
             </tr>
+            <tr>
+              <td>solid</td>
+              <td>boolean</td>
+              <td>true: 솔리드(배경/활성 강조), false: 보더(기본)</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -44,6 +49,14 @@ export default function SampleMzTabs() {
       <div className="sampleInfo">
         <h3>샘플: 콘텐츠폭(tabSize=false)</h3>
         <MzTabs tabs={tabData} tabSize={false} />
+      </div>
+      <div className="sampleInfo">
+        <h3>샘플: 솔리드 스타일(solid=true)</h3>
+        <MzTabs tabs={tabData} solid />
+      </div>
+      <div className="sampleInfo">
+        <h3>샘플: 솔리드 + 콘텐츠폭</h3>
+        <MzTabs tabs={tabData} tabSize={false} solid />
       </div>
     </div>
   );

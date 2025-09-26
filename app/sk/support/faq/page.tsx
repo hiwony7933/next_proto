@@ -5,6 +5,7 @@ import { faqData } from "@/sample/data/faq";
 import MzTabs from "@/app/common/components/ui/mzTabs";
 import MzInputText from "@/app/common/components/form/mzInputText";
 import S from "./page.module.scss";
+import CornerBanner003 from "@/app/common/components/corner/cornerBanner003";
 
 export default function FaqPage() {
   const faqItems = faqData.map((item) => ({
@@ -39,7 +40,18 @@ export default function FaqPage() {
   const onSearchHandler = (q: string) => {
     console.log("search:", q);
   };
-
+  const data = {
+    cornerTitle: "CTA 배너",
+    designType: "type01",
+    textList: [
+      {
+        title: "지금 무료 견적을 받아보세요!",
+        desc: "견적 신청하기",
+        linkUrl: "https://example.com/estimate",
+        target: true,
+      },
+    ],
+  };
   return (
     <div className={S.faqPage}>
       <MzInputText
@@ -48,7 +60,8 @@ export default function FaqPage() {
         style={{ width: 500, margin: "33px auto" }}
         onSearch={onSearchHandler}
       />
-      <MzTabs tabs={tabData} tabSize={true} />
+      <MzTabs tabs={tabData} tabSize={true} solid={false} />
+      <CornerBanner003 data={data} />
     </div>
   );
 }

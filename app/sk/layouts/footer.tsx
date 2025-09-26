@@ -5,174 +5,190 @@ import Link from "next/link";
 import MzSelectBox from "@/app/common/components/form/mzSelectBox";
 import MzButton from "@/app/common/components/ui/mzButton";
 
+type FooterLink = { label: string; href: string };
+type FooterLinkGroup = { id: string; items: FooterLink[] };
+type FooterSns = { label: string; href: string; short: string };
+
 export default function Footer() {
-  // 총 4개의 그룹으로 familyLinkGroups를 정의합니다.
-  const familyLinkGroups = {
-    group01: [
-      {
-        icon: "",
-        label: "개인정보처리방침",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "위치기반서비스 이용약관",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "영상정보처리방침",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "신용정보활용체제공시",
-        href: "",
-      },
-    ],
-    group02: [
-      {
-        icon: "",
-        label: "회사소개",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "SK윤리경영",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "채용정보",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "ESG경영",
-        href: "",
-      },
-    ],
-    group03: [
-      {
-        icon: "",
-        label: "NSOK 고객지원",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "사업자등록증",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "뷰가드 웹서비스",
-        href: "",
-      },
-    ],
-    group04: [
-      {
-        icon: "",
-        label: "YouTube",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "Blog",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "Facebook",
-        href: "",
-      },
-      {
-        icon: "",
-        label: "Instagram",
-        href: "",
-      },
-    ],
-  };
-  const options = ["전체", "이미지", "텍스트", "HTML", "상품", "파일"];
-  const [selected, setSelected] = useState(options[0]);
+  // 링크 그룹(순서 보장)과 SNS를 배열로 관리
+  const linkGroups: FooterLinkGroup[] = [
+    {
+      id: "group01",
+      items: [
+        { label: "개인정보처리방침", href: "#" },
+        { label: "위치기반서비스 이용약관", href: "#" },
+        { label: "영상정보처리방침", href: "#" },
+        { label: "신용정보활용체제공시", href: "#" },
+      ],
+    },
+    {
+      id: "group02",
+      items: [
+        { label: "회사소개", href: "/about" },
+        { label: "SK윤리경영", href: "/about/esg" },
+        { label: "채용정보", href: "#" },
+        { label: "ESG경영", href: "/about/esg" },
+      ],
+    },
+    {
+      id: "group03",
+      items: [
+        { label: "NSOK 고객지원", href: "#" },
+        { label: "사업자등록증", href: "#" },
+        { label: "뷰가드 웹서비스", href: "#" },
+      ],
+    },
+  ];
+
+  const snsLinks: FooterSns[] = [
+    { label: "YouTube", href: "#", short: "YT" },
+    { label: "Blog", href: "#", short: "Bl" },
+    { label: "Facebook", href: "#", short: "Fb" },
+    { label: "Instagram", href: "#", short: "In" },
+  ];
+
+  const options = ["Family Site", "SK쉴더스", "ADT캡스", "캡스홈"];
+  const [selected, setSelected] = useState<string>(options[0]);
+
   return (
-    <footer className={S.footer} role="banner">
+    <footer className={S.footer}>
       <div className={S.footer__inner}>
+        {/* Top: Title + Phone + SNS/Family */}
         <div className={S.footer__top}>
           <div className={S.footer__topLeft}>
-            <div className={S.footer__title}>
+            <h2 className={S.footer__title}>
               SK쉴더스의
               <br />
-              전문가와 상담하세요
-              <div className={S.footer__desc}>
-                원하는 상담 내용과 간단한 정보를 남겨주시면 전문 상담사가
-                도와드리겠습니다.
+              전문가와 상담하세요.
+            </h2>
+            <p className={S.footer__desc}>
+              원하는 상담 내용과 간단한 정보를 남겨주시면
+              <br />
+              전문 상담사가 친절히 돕겠습니다.
+            </p>
+          </div>
+
+          <div className={S.footer__topCenter}>
+            <div className={S.footer__phone}>
+              <div className={S.footer__phoneNumberWrapper}>
+                <span className={S.footer__phoneLabel}>전화상담</span>
+                <strong
+                  className={S.footer__phoneNumber}
+                  aria-label="전화상담 번호 1800-6400"
+                >
+                  1800-6400
+                </strong>
               </div>
+              <span className={S.footer__phoneTime}>
+                평일 09:00~18:00 (토/일/공휴일 휴무)
+              </span>
+            </div>
+            <div className={S.footer__actions}>
+              <MzButton
+                className={S.footer__actionBtn}
+                aria-label="정보보안 전문상담"
+              >
+                정보보안 전문상담
+              </MzButton>
+              <MzButton
+                className={S.footer__actionBtn}
+                aria-label="ADT 캡스 상담 (물리보안)"
+              >
+                ADT 캡스 상담{" "}
+                <span className={S.footer__actionSub}>(물리보안)</span>
+              </MzButton>
             </div>
           </div>
-          <div className={S.footer__topCenter}>
-            <span>전화상담</span>
-            <span>1800-6400</span>
-            <span>평일 09:00~18:00 일요일/공휴일 휴무</span>
-          </div>
+
           <div className={S.footer__topRight}>
-            <MzButton>정보보안 전문상담</MzButton>
-            <MzButton> ADT 캡스(물리보안)상담</MzButton>
+            <ul className={S.footer__snsList} aria-label="SK쉴더스 SNS">
+              {snsLinks.map((sns, idx) => (
+                <li key={idx} className={S.footer__snsItem}>
+                  <a
+                    href={sns.href}
+                    aria-label={sns.label}
+                    className={S.footer__snsLink}
+                  >
+                    {sns.short}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className={S.footer__familySelect}>
+              <MzSelectBox
+                type="default"
+                size="5"
+                options={options}
+                selected={selected}
+                style={{ color: "#fff", width: "100%" }}
+                onSelect={(v) =>
+                  setSelected(Array.isArray(v) ? String(v[0]) : String(v))
+                }
+              />
+            </div>
           </div>
         </div>
+
+        {/* Bottom: Logo + Links + Certified */}
         <div className={S.footer__bottom}>
           <div className={S.footer__bottomLeft}>
-            <div className={S.footer__title}>에스케이쉴더스 주식회사</div>
-            <div>
-              <div>
-                3486 경기도 성남시 분당구 판교로 227번길 23, 4&5층
+            <div className={S.footer__logo}>
+              <img src="/images/sk/sk_logo.svg" alt="SK쉴더스" />
+            </div>
+            <div className={S.footer__company}>
+              <strong className={S.footer__companyName}>
+                에스케이쉴더스 주식회사
+              </strong>
+              <address className={S.footer__address}>
+                13486 경기도 성남시 분당구 판교로 227번길 23, 4&5층
                 <br />
                 사업자등록번호 : 120-86-07747
-              </div>
-              <div className={S.footer__title}>
+              </address>
+              <div className={S.footer__copyEn}>
                 COPYRIGHT © 2026 SK SHIELDUS. ALL RIGHTS RESERVED.
               </div>
             </div>
-            <div>
-              <div>
-                인증범위] SK쉴더스 대표홈페이지 및
-                홈보안/물리보안/정보보안/융합보안/케어 서비스 운영 [유효기간]
-                2023-08-02 ~ 2026-08-01
-              </div>
-            </div>
-            <div>
-              <div>Copyright 2025 SK쉴더스. All rights reserved.</div>
-            </div>
           </div>
-          <div className={S.footer__bottomCenter}>
-            <div className={S.footer__familyList}>
-              {Object.values(familyLinkGroups).map((item, index) => (
-                <div className={S.footer__familyItem} key={index}>
-                  {item.map((link, linkIdx) => (
-                    <Link
-                      className={S.footer__familyLink}
-                      href={link.href}
-                      key={linkIdx}
-                      passHref
-                    >
-                      {link.icon ? (
-                        <img src={link.icon} alt={link.label} />
-                      ) : null}
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
+
+          <nav className={S.footer__bottomCenter} aria-label="푸터 링크">
+            <div className={S.footer__links}>
+              {linkGroups.map((group, groupIdx) => (
+                <>
+                  <ul key={group.id} className={S.footer__linkGroup}>
+                    {group.items.map((link, i) => (
+                      <li key={`${group.id}-${i}`}>
+                        <Link
+                          className={`${S.footer__link} ${
+                            groupIdx === 0 && i === 0
+                              ? S.footer__linkEmphasis
+                              : ""
+                          }`}
+                          href={link.href}
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  {groupIdx < linkGroups.length - 1 ? (
+                    <span className={S.footer__slash} aria-hidden="true" />
+                  ) : null}
+                </>
               ))}
             </div>
-          </div>
+          </nav>
+
           <div className={S.footer__bottomRight}>
-            <MzSelectBox
-              type="default"
-              size="5"
-              options={options}
-              selected={selected}
-              style={{ color: "#fff" }}
-              onSelect={(v) => setSelected(typeof v === "string" ? v : v[0])}
-            />
+            <div className={S.footer__certLogos} aria-hidden="true">
+              <span className={S.footer__certMark} />
+              <span className={S.footer__certIsms} />
+            </div>
+            <p className={S.footer__certText}>
+              <strong>인증범위</strong> : SK쉴더스 대표 홈페이지 및 홈보안 /
+              물리보안 / 정보보안 / 융합보안 / 케어 서비스 운영
+              <br />
+              <strong>유효기간</strong> : 2023.08.02 ~ 2026.08.01
+            </p>
           </div>
         </div>
       </div>
