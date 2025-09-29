@@ -1,6 +1,3 @@
-@use "@/styles/_variable.scss" as *;
-@use "@/styles/_mixin.scss" as *;
-
 .faqWrap {
   list-style: none !important;
   padding: 0;
@@ -8,10 +5,7 @@
 }
 
 .faqContainer {
-  padding: 0 40px;
-  @include mobile {
-    padding: 0;
-  }
+  // padding: 0 40px;
 
   h4 {
     @include mixinFontSize(24);
@@ -147,5 +141,11 @@
       @include mixinFontSize(14);
       color: $colorGray2;
     }
+  }
+}
+
+@include mobile {
+  .faqContainer {
+    padding: 0;
   }
 }

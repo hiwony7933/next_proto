@@ -23,18 +23,17 @@ export interface MzInputTextProps
   onSearch?: (keyword: string) => void; // 검색 콜백
   errorText?: string; // 에러 텍스트
   showError?: boolean; // 에러 표시 여부(제출 시점 제어)
+  status?: string; // 디자인 변형 구분자 (예: 'search')
 }
 
 /**
  * SCSS 모듈 사이즈 변형 클래스 키 생성기
- * 예) prefix: "size", name: "5" => S["size5"]
+ * 예) prefix: "size", name: "5" => "size5"
  */
 const classNameMaker = (prefix: string, name: string) => {
-  let transformString = "";
-  name.split(" ").map((n: any) => {
-    transformString += `${prefix}${n.substr(0, 1).toUpperCase()}${n.substr(1)}`;
-  });
-  return transformString.replace(/\s$/, "");
+  const token = String(name).trim().split(" ")[0] || "";
+  if (!token) return "";
+  return `${prefix}${token.charAt(0).toUpperCase()}${token.slice(1)}`;
 };
 
 /** 표시용 천단위 콤마 포맷 */
@@ -54,6 +53,7 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
       value,
       errorText,
       showError = false,
+      status,
       ...rest
     },
     ref
@@ -106,14 +106,17 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
     };
 
     // 래퍼 클래스: 컴포넌트 사이즈 변형 + 외부 className
+    const statusClass = status
+      ? S[`is${status.charAt(0).toUpperCase()}${status.slice(1)}`]
+      : undefined;
     const wrapperClassName = classnames(
       S.mzInputText,
+      statusClass,
       mzSize && S[classNameMaker("size", mzSize)],
       className
     );
 
-    // 내부 input 엘리먼트 클래스(래퍼와 분리)
-    // const inputClassNames = classnames(S.mzInputText__input);
+    // 내부 input 엘리먼트 클래스는 SCSS 모듈 키를 직접 사용합니다.
 
     // 전달받은 ref와 내부 ref를 병합하여 외부 접근을 보장
     const setCombinedRef = (node: HTMLInputElement | null) => {
@@ -144,16 +147,17 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
     };
 
     // 검색 트리거: 버튼 클릭 시 onSearch 호출 (에러가 있으면 중단)
+    const isErrorActive = Boolean(showError && errorText);
     const handleSearch = () => {
       if (!onSearch) return;
-      if (showError && errorText) return;
+      if (isErrorActive) return;
       onSearch(getRawValue());
     };
 
     // 엔터 키로 검색 수행, 사용자 onKeyDown과 공존
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (onKeyDown) onKeyDown(e);
-      if (e.key === "Enter" && onSearch && !(showError && errorText)) {
+      if (e.key === "Enter" && onSearch && !isErrorActive) {
         onSearch(getRawValue());
       }
     };
@@ -178,7 +182,6 @@ const MzInputText = forwardRef<HTMLInputElement, MzInputTextProps>(
           <input
             type={numberFormat ? "text" : rest.type || "text"}
             ref={setCombinedRef}
-            style={{ width: "100%" }}
             className={S.mzInputText__input}
             value={effectiveValue}
             onChange={handleChange}

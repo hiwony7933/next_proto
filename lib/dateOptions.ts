@@ -13,11 +13,12 @@ export function getYearOptions(params?: {
   const end = params?.endYear ?? now.getFullYear();
   const start = params?.startYear ?? end - 5;
   const order = params?.order ?? "desc";
-  const years: OptionItem[] = [];
+  const values: OptionItem[] = [];
   for (let y = start; y <= end; y++) {
-    years.push({ label: `${y}년`, value: y });
+    values.push({ label: `${y}년`, value: y });
   }
-  return order === "desc" ? years.reverse() : years;
+  const ordered = order === "desc" ? values.reverse() : values;
+  return [{ label: "년도", value: "", disabled: false }, ...ordered];
 }
 
 export function getMonthOptions(params: {
@@ -34,5 +35,5 @@ export function getMonthOptions(params: {
     );
     result.push({ label: `${m}월`, value: m, disabled });
   }
-  return result;
+  return [{ label: "월", value: "", disabled: false }, ...result];
 }

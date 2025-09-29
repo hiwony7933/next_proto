@@ -16,7 +16,7 @@ export default function FaqPage() {
   const wrapClassName = "faqType01";
   const multiOpen = false;
   const totalVisible = true;
-  const totalPrefix = "'보안'검색결과";
+  const totalPrefix = "총";
   const totalUnit = "건";
   const tabData = [
     {
@@ -33,8 +33,8 @@ export default function FaqPage() {
       ),
     },
     { label: "시설보안", content: <div>시설보안 내용</div> },
+    { label: "ADT캡스", content: <div>ADT캡스 내용</div> },
     { label: "캡스홈", content: <div>캡스홈 내용</div> },
-    { label: "무인경비", content: <div>무인경비 내용</div> },
   ];
 
   const onSearchHandler = (q: string) => {
@@ -54,13 +54,15 @@ export default function FaqPage() {
   };
   return (
     <div className={S.faqPage}>
-      <MzInputText
-        mzSize="5"
-        placeholder="제목이나 키워드로 검색해 보세요."
-        style={{ width: 500, margin: "33px auto" }}
-        onSearch={onSearchHandler}
-      />
-      <MzTabs tabs={tabData} tabSize={true} solid={false} />
+      <div className="notice-wrapper">
+        <MzInputText
+          mzSize="5"
+          placeholder="제목이나 키워드로 검색해 보세요."
+          onSearch={onSearchHandler}
+          status="search"
+        />
+      </div>
+      <MzTabs tabs={tabData} tabSize={true} solid={true} />
       <CornerBanner003 data={data} />
     </div>
   );

@@ -14,12 +14,14 @@ export default function BrochurePage() {
 
   return (
     <div>
-      <MzInputText
-        mzSize="5"
-        placeholder="제목이나 키워드로 검색해 보세요."
-        style={{ width: 500, margin: "33px auto" }}
-        onSearch={onSearchHandler}
-      />
+      <div className="notice-wrapper">
+        <MzInputText
+          mzSize="5"
+          placeholder="제목이나 키워드로 검색해 보세요."
+          onSearch={onSearchHandler}
+          status="search"
+        />
+      </div>
       <ImageNotice
         items={items}
         renderActions={(item) =>

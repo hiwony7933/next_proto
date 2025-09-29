@@ -46,3 +46,78 @@ body.tenant-cap {
     outline-offset: var(--focus-offset);
   }
 }
+
+.notice-wrapper {
+  margin-bottom: 100px;
+  @include mobile {
+    margin-bottom: 20px;
+  }
+}
+
+.form {
+  &-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  &-info {
+    margin: 146px 0 80px;
+    font-size: 38px;
+    line-height: 140%;
+    font-weight: 600;
+  }
+  &-title {
+    font-size: 28px;
+    line-height: 150%;
+    font-weight: 600;
+  }
+  &-label {
+    margin-bottom: 16px;
+    &.required {
+      &::after {
+        content: "*";
+        color: $colorRed;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+// 변수 설정
+$gutter: 20px;
+$container-width: 1400px;
+$total-columns: 12;
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gutter;
+  @include mobile {
+    display: block;
+  }
+}
+
+// 자식 요소 (컬럼)
+.col {
+  flex: 1; // 기본 컬럼은 남는 공간을 모두 차지
+}
+
+// 1부터 12까지의 컬럼 클래스를 동적으로 생성
+@for $i from 1 through $total-columns {
+  .col-#{$i} {
+    // ⭐️ 훨씬 간단해진 너비 계산
+    // 전체 너비(100%)에서 전체 갭(11개)을 뺀 후,
+    // 12개로 나누고 현재 컬럼 수만큼 곱합니다.
+    width: calc(
+      (100% - ($gutter * ($total-columns - 1))) /
+        $total-columns *
+        #{$i} +
+        ($gutter * ($i - 1))
+    );
+    flex: 0 0 auto;
+    &.flex {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+  }
+}

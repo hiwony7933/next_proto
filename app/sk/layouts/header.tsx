@@ -51,18 +51,22 @@ export default function Header() {
               onMouseLeave={handleClose}
             >
               {menus.map((menu, index) => (
-                <Link
-                  className={S.header__menuLink}
-                  key={menu.label}
-                  href={menu.href.startsWith("/") ? menu.href : `/${menu.href}`}
-                  aria-label={menu.label}
-                  onMouseEnter={() => handleActivate(index)}
-                  onFocus={() => handleActivate(index)}
-                  onClick={handleItemClick}
-                  onKeyDown={handleItemKeyDown}
-                >
-                  {menu.label}
-                </Link>
+                <div className={S.header__menusInner}>
+                  <Link
+                    className={S.header__menuLink}
+                    key={menu.label}
+                    href={
+                      menu.href.startsWith("/") ? menu.href : `/${menu.href}`
+                    }
+                    aria-label={menu.label}
+                    onMouseEnter={() => handleActivate(index)}
+                    onFocus={() => handleActivate(index)}
+                    onClick={handleItemClick}
+                    onKeyDown={handleItemKeyDown}
+                  >
+                    {menu.label}
+                  </Link>
+                </div>
               ))}
             </nav>
           </div>

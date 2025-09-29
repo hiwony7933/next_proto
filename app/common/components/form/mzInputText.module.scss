@@ -1,8 +1,7 @@
 .mzInputText {
-  // display: flex;
-  // align-items: center;
-  // justify-content: flex-start;
-  height: 70px;
+  // height: auto;
+  // status variants
+
   &__input {
     flex: 1 1 auto;
     width: 100%;
@@ -56,32 +55,44 @@
       display: block;
     }
   }
-
-  &__search {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    margin-left: 6px;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    cursor: pointer;
-
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    img {
-      display: block;
-    }
-  }
   &__error {
     color: Red;
     font-size: 14px;
     margin-top: 4px;
+  }
+  &.isSearch {
+    .mzInputText__inputWrapper {
+      border-radius: 50px;
+      background-color: $colorGray12;
+      // border-color: $colorDefault;
+      // box-shadow: 0 0 0 3px rgba($colorDefault, 0.08);
+      padding: 0 20px;
+    }
+
+    .mzInputText__search {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      img {
+        display: block;
+      }
+    }
+
+    .mzInputText__input {
+      font-size: 18px;
+    }
   }
   // hasValue modifier 제거 (빈 규칙 방지)
 
@@ -133,27 +144,27 @@
 
   &.size {
     &1 {
-      height: 30px;
+      // height: 30px;
       font-size: 13px;
     }
 
     &2 {
-      height: 36px;
+      // height: 36px;
       font-size: 13px;
     }
 
     &3 {
-      height: 40px;
+      // height: 40px;
       font-size: 14px;
     }
 
     &4 {
-      height: 48px;
+      // height: 48px;
       font-size: 14px;
     }
 
     &5 {
-      height: 56px;
+      // height: 56px;
       font-size: 16px;
 
       // 5 사이즈 특이 처리 없음
@@ -162,27 +173,27 @@
 
   &.sizePC {
     &1 {
-      height: 24px;
+      // height: 24px;
       font-size: 12px;
     }
 
     &2 {
-      height: 28px;
+      // height: 28px;
       font-size: 13px;
     }
 
     &3 {
-      height: 40px;
+      // height: 40px;
       font-size: 14px;
     }
 
     &4 {
-      height: 48px;
+      // height: 48px;
       font-size: 15px;
     }
 
     &5 {
-      height: 56px;
+      // height: 56px;
       font-size: 16px;
 
       // 5 사이즈 특이 처리 없음

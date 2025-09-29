@@ -40,3 +40,10 @@ $mobile: 1270px;
     @content;
   }
 }
+
+// $gutter: 20px;
+// @function getWidth($colNumber) {
+//   @return calc(
+//     (1400px - #{$gutter} * 11) / 12 * #{$colNumber} + #{$gutter} * #{$colNumber}
+//   );
+// }

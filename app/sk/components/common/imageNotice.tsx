@@ -145,6 +145,9 @@ export default function ImageNotice<ItemType>(
     ["--gap" as any]: typeof gap === "number" ? `${gap}px` : gap,
   };
 
+  // Next/Image sizes 힌트: 모바일(<=1270px)은 100vw, 데스크톱은 대략 컬럼 폭에 맞춤
+  const sizes = `(max-width: 1270px) 100vw, ${Math.ceil(100 / columns)}vw`;
+
   return (
     <div
       className={[S.imageNotice, className].filter(Boolean).join(" ")}
@@ -174,27 +177,22 @@ export default function ImageNotice<ItemType>(
               // href가 있으면 Link로 감싸고(상세페이지), 없으면 div로 감싸기(썸네일이미지만 보이기)
               // - 썸네일만 Link로 감싸 레이어 중첩/겹침 제거
               // - 아이템 루트는 항상 div로 유지하여 클릭/탭 영역을 명확히 분리
+              const thumbStyle = {
+                ["--thumb-ratio" as any]: `${imageWidth} / ${imageHeight}`,
+              } as React.CSSProperties;
+
               const thumb = href ? (
                 <Link
                   href={href}
                   className={S.imageNotice__thumb}
                   onClick={handleClick}
+                  style={thumbStyle}
                 >
-                  <Image
-                    src={src}
-                    alt={titleText}
-                    width={imageWidth}
-                    height={imageHeight}
-                  />
+                  <Image src={src} alt={titleText} fill sizes={sizes} />
                 </Link>
               ) : (
-                <div className={S.imageNotice__thumb}>
-                  <Image
-                    src={src}
-                    alt={titleText}
-                    width={imageWidth}
-                    height={imageHeight}
-                  />
+                <div className={S.imageNotice__thumb} style={thumbStyle}>
+                  <Image src={src} alt={titleText} fill sizes={sizes} />
                 </div>
               );
               // 부모 페이지에서 예시 헤더/푸터 사용 예시

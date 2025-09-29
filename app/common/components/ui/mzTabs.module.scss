@@ -28,13 +28,14 @@
   }
 
   &__button {
-    padding: 6px 16px;
+    padding: 18px;
     border: none;
     color: #eee;
-    border-radius: 4px 4px 0 0;
+    // border-radius: 4px 4px 0 0;
     cursor: pointer;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 140%;
 
     /* 균등 분배 컨텍스트에서 동일 폭으로 */
     .tabs__list--equal & {
@@ -49,8 +50,8 @@
 
   &__content {
     // border: 1px solid #eee;
-    padding: 16px;
-    border-radius: 0 0 4px 4px;
+    padding: 16px 0;
+    // border-radius: 0 0 4px 4px;
     // background: #fafafa;
     @include mobile {
       padding: 0;

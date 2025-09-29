@@ -147,7 +147,7 @@ export default function BreadCrumb() {
                 <Link href={item.href}>{item.label}</Link>
               )}
               {!isLast && (
-                <span className={S.breadCrumb__separator}>{" > "}</span>
+                <span className={S.breadCrumb__separator}>{" | "}</span>
               )}
             </li>
           );

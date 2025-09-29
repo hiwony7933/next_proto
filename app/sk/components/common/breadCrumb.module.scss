@@ -4,10 +4,10 @@
   justify-content: flex-end;
   font-size: 14px;
   color: #666;
-  padding-top: 105px;
-  @include mobile {
-    display: none;
-  }
+  padding-top: 185px;
+  width: 1440px;
+  margin: 0 auto;
+
   &__list {
     display: flex;
     list-style: none;
@@ -33,5 +33,10 @@
   &__separator {
     margin: 0 8px;
     color: #aaa;
+  }
+}
+@include mobile {
+  .breadCrumb {
+    display: none;
   }
 }
