@@ -77,7 +77,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   ];
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <BreadCrumb />
       <Banner items={banner} />
       <main className={styles.layout__main}>{children}</main>
