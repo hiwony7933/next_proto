@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import MzSelectBox from './mzSelectBox';
-import styles from './mzImageType.module.scss';
+import React, { useState, useEffect } from "react";
+import MzSelectBox from "../atom/mzSelectBox";
+import styles from "./mzImageType.module.scss";
 
 /**
  * 이미지 타입 선택 컴포넌트
@@ -13,13 +13,13 @@ export default function MzImageType({
   onChange,
 }: {
   value?: string;
-  type?: 'URL' | 'upload';
+  type?: "URL" | "upload";
   onChange?: (value: string) => void;
 }) {
-  const [type, setType] = useState<'URL' | 'upload'>(propType || 'URL');
-  const [url, setUrl] = useState(value || '');
+  const [type, setType] = useState<"URL" | "upload">(propType || "URL");
+  const [url, setUrl] = useState(value || "");
   const [file, setFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string>(value || '');
+  const [previewUrl, setPreviewUrl] = useState<string>(value || "");
 
   // value, type prop이 바뀌면 내부 상태 동기화
   useEffect(() => {
@@ -35,12 +35,12 @@ export default function MzImageType({
 
   // 타입 변경 핸들러
   const handleTypeChange = (v: string) => {
-    setType(v as 'URL' | 'upload');
+    setType(v as "URL" | "upload");
     // 타입 변경 시 값 초기화
-    setUrl('');
+    setUrl("");
     setFile(null);
-    setPreviewUrl('');
-    onChange?.('');
+    setPreviewUrl("");
+    onChange?.("");
   };
 
   // URL 입력 핸들러
@@ -59,8 +59,8 @@ export default function MzImageType({
       setPreviewUrl(blobUrl);
       onChange?.(f.name);
     } else {
-      setPreviewUrl('');
-      onChange?.('');
+      setPreviewUrl("");
+      onChange?.("");
     }
   };
 
@@ -68,15 +68,12 @@ export default function MzImageType({
     <div className={styles.mzImageType}>
       <div className={styles.form}>
         <MzSelectBox
-          type="dropdown"
-          className="dropdown"
-          options={['URL', 'upload']}
+          options={["URL", "upload"].map((o) => ({ label: o, value: o }))}
           selected={type}
-          onSelect={v => handleTypeChange(typeof v === 'string' ? v : v[0])}
-          size="2"
+          onSelect={(v: string) => handleTypeChange(v as "URL" | "upload")}
           style={{ width: 100 }}
         />
-        {type === 'URL' ? (
+        {type === "URL" ? (
           <input
             type="text"
             placeholder="이미지 주소 입력"

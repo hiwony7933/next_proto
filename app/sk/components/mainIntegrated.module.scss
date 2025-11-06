@@ -1,0 +1,265 @@
+.integrated {
+  position: relative;
+  padding: 160px 0 140px;
+  background: url("/images/sk/maInimsivisual.png") center / cover no-repeat;
+  color: #ffffff;
+
+  // &__dimmed {
+  //   position: absolute;
+  //   inset: 0;
+  //   background: radial-gradient(
+  //     74% 74% at 50% 26%,
+  //     rgba(255, 255, 255, 0.08) 0%,
+  //     rgba(2, 4, 15, 0.85) 75%,
+  //     rgba(2, 4, 15, 1) 100%
+  //   );
+  //   pointer-events: none;
+  //   z-index: 0;
+  // }
+
+  > .layout__container {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 64px;
+  }
+
+  &__title {
+    flex: 1;
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+  }
+
+  &__nav {
+    display: inline-flex;
+    gap: 12px;
+  }
+
+  &__navButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: transparent;
+    color: #ffffff;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease,
+      opacity 200ms ease;
+
+    &:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-color: #ffffff;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &__navButtonActive {
+    background-color: #ffffff;
+    border-color: #000000;
+    color: #000000;
+  }
+
+  &__navButtonPrev {
+    order: 1;
+  }
+
+  &__navButtonNext {
+    order: 2;
+  }
+
+  &__navButtonIcon {
+    background-color: currentColor !important;
+  }
+
+  &__swiperWrapper {
+    position: relative;
+  }
+
+  &__swiper {
+    width: 100%;
+  }
+
+  &__slide {
+    height: auto;
+    display: flex;
+  }
+
+  &__card {
+    position: relative;
+    width: 100%;
+    min-height: 317px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(32px);
+    overflow: hidden;
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease,
+      transform 200ms ease;
+
+    &:hover {
+      border-color: #ffffff;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      // transform: translateY(-4px);
+    }
+  }
+
+  &__cardInner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 36px;
+    padding: 40px;
+    min-height: 100%;
+  }
+
+  &__cardHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__cardTitle {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+  }
+
+  &__cardDescription {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: rgba(255, 255, 255, 0.85);
+    white-space: pre-line;
+  }
+
+  &__cardTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__cardTagItem {
+    display: inline-flex;
+  }
+
+  &__cardTag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 99px;
+    background-color: $color-gray-20;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: -0.03em;
+    color: $color-gray-70;
+  }
+
+  &__cta {
+    margin-top: 72px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 30px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    transition:
+      background-color 200ms ease,
+      transform 200ms ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.85);
+      transform: translateY(-2px);
+    }
+  }
+
+  &__ctaIcon {
+    background-color: currentColor !important;
+  }
+
+  @include mobiles {
+    padding: 100px 0 100px;
+
+    &__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    &__title {
+      font-size: 32px;
+      line-height: 1.35;
+    }
+
+    &__nav {
+      width: 100%;
+      justify-content: flex-end;
+      display: none;
+      pointer-events: none;
+    }
+
+    &__swiperWrapper {
+      padding-bottom: 72px;
+    }
+
+    &__cardInner {
+      padding: 32px 24px;
+      gap: 28px;
+    }
+
+    &__cardTitle {
+      font-size: 26px;
+    }
+
+    &__cardDescription {
+      font-size: 18px;
+    }
+
+    &__cardActionLink {
+      width: 100%;
+      justify-content: center;
+    }
+
+    &__cta {
+      margin-top: 56px;
+    }
+
+    &__ctaButton {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

@@ -1,0 +1,63 @@
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  z-index: 1000;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--brand, #e50012);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease,
+      opacity 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+      transform: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  &__buttonSecondary {
+    background: #111;
+  }
+
+  &__icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+}
+
+@include mobiles {
+  .fab {
+    display: none;
+  }
+}

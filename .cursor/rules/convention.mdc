@@ -25,9 +25,9 @@ Good: /utils/formatDate.ts
 Bad: /utils/FormatDate.ts
 
 ❗️ Exception: React Components
-React component filenames and the component functions/classes themselves must use PascalCase.
+React component filenames and the component functions/classes themselves must use camelCase.
 
-Good: Filename ImageUploader.tsx, Component export default function ImageUploader() {}
+Good: Filename imageUploader.tsx, Component export default function ImageUploader() {}
 
 2. CSS Styling Methodology: BEM (+ camelCase accessor for CSS Modules)
    All SCSS class names written in .module.scss files must follow the BEM (Block\_\_Element--Modifier) methodology. The goal is to create readable, reusable, and conflict-free styles.

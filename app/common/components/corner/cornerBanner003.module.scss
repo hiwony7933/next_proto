@@ -1,5 +1,5 @@
-@use '@/styles/_variable.scss' as *;
-@use '@/styles/_mixin.scss' as *;
+@use "@/styles/_variable.scss" as *;
+@use "@/styles/_mixin.scss" as *;
 
 .wLayoutBlockcontainer {
   max-width: 940px;
@@ -42,6 +42,7 @@
 .textLarge {
   font-size: 24px;
   line-height: 38px;
+  white-space: pre-line;
 }
 
 .cctvCtaBtnWrapper {
@@ -50,7 +51,8 @@
 }
 
 .cctvSolidCta {
-  background-color: #0052a4;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ea002c 0%, #c70020 100%);
   color: #fff;
   letter-spacing: -0.3px;
   white-space: nowrap;
@@ -66,14 +68,6 @@
   justify-content: center;
   align-items: center;
   line-height: 60px;
-
-  &:hover {
-    background-color: #0052a4;
-  }
-
-  &:active {
-    background-color: #0052a4;
-  }
 }
 
 .wInlineBlock {

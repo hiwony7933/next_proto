@@ -1,0 +1,224 @@
+.mainServiceM {
+  position: relative;
+  width: 100%;
+  height: 732px;
+  background: #000;
+  overflow: hidden;
+
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 732px;
+    overflow: hidden;
+  }
+
+  &__backgroundImage {
+    position: absolute;
+    top: -83px;
+    left: -355px;
+    width: 1318.84px;
+    height: 879.228px;
+    background: url("/images/sk/cyber.png") no-repeat center center;
+    background-size: cover;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 3.867%,
+        rgba(0, 0, 0, 0) 44.016%
+      );
+    }
+  }
+
+  &__backgroundDim {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 72px 0 0;
+  }
+
+  &__header {
+    padding: 0 20px;
+    margin-bottom: 73px;
+  }
+
+  &__title {
+    @include typographyBoth(h3B);
+    color: #fff;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  &__swiperWrapper {
+    margin-bottom: 32px;
+  }
+
+  &__swiper {
+    padding: 0 20px;
+    overflow: visible;
+  }
+
+  &__slide {
+    width: 277px; // 모바일 기본
+  }
+
+  &__card {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__cardLink {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &__cardContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 323px;
+    padding: 24px 16px 16px 20px;
+    background: #282a2e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    &:hover {
+      background: linear-gradient(158deg, #6a7176 -8.28%, #34383c 90.16%);
+    }
+  }
+
+  &__cardTitle {
+    @include typographyBoth(t2B);
+    color: #fff;
+    margin: 0 0 14px;
+  }
+
+  &__cardDesc {
+    @include typographyBoth(b3M);
+    color: #fff;
+    line-height: 1.45;
+    margin: 0 0 auto;
+    white-space: pre-line;
+  }
+
+  &__cardTags {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__cardTag {
+    @include typographyBoth(b5M);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__cardTagHash {
+    opacity: 0.6;
+  }
+
+  &__cardMore {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 100px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+
+  &__cardMoreIcon {
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  &__indicator {
+    padding: 0 20px;
+    margin-bottom: 42px;
+  }
+
+  &__button {
+    padding: 0 20px;
+  }
+
+  &__btn {
+    width: 100%;
+    height: 54px !important;
+    @include typographyBoth(t3B);
+  }
+}
+
+// Swiper 기본 스타일 오버라이드
+// :global {
+//   .mainServiceM__swiper {
+//     .swiper-slide {
+//       // 자동 너비 설정
+//       width: auto !important;
+//     }
+//   }
+// }
+
+@include mobiles {
+  .mainServiceM {
+    // 모바일 최적화
+    height: 732px;
+
+    &__slide {
+      width: 277px; // 모바일: 다음 카드 58px 미리보기
+    }
+
+    &__swiper {
+      padding: 0 20px;
+    }
+  }
+}
+
+@include tablet {
+  .mainServiceM {
+    // 태블릿 최적화
+    height: 732px;
+
+    &__slide {
+      width: 320px; // 태블릿: 카드 크기 증가
+    }
+
+    &__swiper {
+      padding: 0 40px; // 태블릿: 여백 증가
+    }
+  }
+}

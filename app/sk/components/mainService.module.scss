@@ -1,0 +1,246 @@
+.mainService {
+  padding-top: 100px;
+
+  // 스크롤 바운스 방지
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.serviceWrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  z-index: 50;
+  background: #1d1d1d;
+
+  // 스크롤 바운스 방지
+  overscroll-behavior-y: contain;
+}
+
+.serviceRight {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  background: #1d1d1d;
+  transition:
+    transform 0.1s ease-out,
+    opacity 0.1s ease-out;
+  z-index: 1;
+
+  &__listWrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 70px 52px;
+
+    // 스크롤바 스타일
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px 30px;
+    justify-content: center;
+  }
+
+  &__listItem {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    min-height: 466px;
+    padding: 46px 40px 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: linear-gradient(158deg, #6a7176 -8.28%, #34383c 90.16%);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      background: #282a2e;
+    }
+
+    &__title {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 150%;
+      margin-bottom: 15px;
+      color: #fff;
+      margin-bottom: 23px;
+      line-height: 1.4;
+    }
+
+    &__desc {
+      @include typographyBoth(b3M);
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: auto;
+      min-height: 90px;
+      white-space: pre-line;
+    }
+
+    &__tags {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 30px;
+      margin-bottom: 45px;
+    }
+
+    &__tag {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 150%;
+      color: #fff;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    &__tagHash {
+      opacity: 0.6;
+    }
+
+    &__moreBtn {
+      position: absolute;
+      right: 40px;
+      bottom: 40px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 100px;
+      background: transparent;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      pointer-events: none; // Link 클릭 방해하지 않도록
+    }
+
+    &:hover &__moreBtn {
+      background: #fff;
+      border-color: #fff;
+    }
+
+    &:hover &__moreBtnIcon {
+      color: #000;
+    }
+
+    &__moreBtnIcon {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1;
+      color: #fff;
+      transition: color 0.3s ease;
+    }
+  }
+}
+
+.service {
+  background: url("/images/sk/cyber.png") no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+  transition: width 0.1s ease-out;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // 좌측 경계 블러 효과 (부드러운 등장)
+  &::before {
+    content: "";
+    position: absolute;
+    right: -200px;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      rgba(29, 29, 29, 1) 0%,
+      rgba(29, 29, 29, 0.8) 20%,
+      rgba(29, 29, 29, 0.4) 50%,
+      rgba(29, 29, 29, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  &__inner {
+    width: 100%;
+    max-width: 1440px;
+    padding: 0 160px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__title {
+    @include typographyBoth(h2B);
+    color: #fff;
+    margin: 0;
+  }
+
+  &__desc {
+    @include typographyBoth(t1Sb);
+    color: #fff;
+    margin: 0;
+    line-height: 1.4;
+    white-space: pre-line;
+  }
+
+  &__btnWrapper {
+    margin-top: 50px;
+    transition:
+      opacity 0.4s ease-out,
+      transform 0.4s ease-out;
+    &__btn {
+      width: 320px;
+      height: 96px !important;
+      font-size: 26px !important;
+      font-weight: 700 !important;
+      line-height: 150% !important;
+    }
+  }
+}

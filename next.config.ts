@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
-    additionalData: `@use 'variable' as *; @use 'mixin' as *;`,
+    additionalData: `@use 'foundation' as *;`,
   },
   outputFileTracingRoot: process.cwd(),
   webpack: (config) => {

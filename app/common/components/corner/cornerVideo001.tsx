@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { MzModal } from '../ui/mzModal';
-import styles from './cornerVideo001.module.scss';
+import React, { useState } from "react";
+import { MzModal } from "../molecule/mzModal";
+import styles from "./cornerVideo001.module.scss";
 
 interface VideoData {
   videoTitle: string;
@@ -35,7 +35,9 @@ const CornerVideo001: React.FC<CornerVideo001Props> = ({ data }) => {
 
   return (
     <section id="video" className={styles.section}>
-      <div className={`${styles.wLayoutBlockcontainer} ${styles.container} ${styles.wContainer}`}>
+      <div
+        className={`${styles.wLayoutBlockcontainer} ${styles.container} ${styles.wContainer}`}
+      >
         <h4>{data.title}</h4>
         <div
           className={styles.cctvVideoThumbnail}
@@ -44,7 +46,7 @@ const CornerVideo001: React.FC<CornerVideo001Props> = ({ data }) => {
           <div
             className={`${styles.wLayoutVflex} ${styles.videoPlayButtonWrapper}`}
             onClick={openModal}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           >
             <div className={styles.videoPlayButton}>
               <div className={`${styles.playEmbedIcon} ${styles.wEmbed}`}>
@@ -72,11 +74,11 @@ const CornerVideo001: React.FC<CornerVideo001Props> = ({ data }) => {
         {/** modal */}
         <MzModal isOpen={modalOpen} onClose={closeModal} hasClose>
           <video
-            style={{ borderRadius: 8, visibility: 'visible' }}
+            style={{ borderRadius: 8, visibility: "visible" }}
             controls
             autoPlay
             width="100%"
-            src={videoSrc || ''}
+            src={videoSrc || ""}
             poster={videoData.subImgUrl}
           >
             <img src={videoData.subImgUrl} alt="video thumbnail" />

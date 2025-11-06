@@ -1,0 +1,389 @@
+@charset "utf-8";
+@use "variable" as *;
+@use "mixin" as *;
+
+.insideParentContainer {
+  height: 100%;
+}
+
+// 딤
+.overlay {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1005;
+  background: rgba(0, 0, 0, 0.5);
+
+  .mcWrap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    :global {
+      .mobileAlert {
+        background: $colorWhite;
+        width: 80%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
+
+        .popupTxt {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 30px 0;
+          font-size: 15px;
+          color: $colorBlack;
+          letter-spacing: -0.3px;
+          line-height: 20px;
+          text-align: center;
+          border-bottom: 1px solid $colorGray10;
+        }
+
+        .buttonArea {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 56px;
+
+          button {
+            width: 100%;
+            height: 100%;
+            font-weight: bold;
+            border-left: 1px solid #d9d9d9;
+            font-size: 15px;
+            color: $colorBlack;
+            box-sizing: border-box;
+
+            &:first-child {
+              border-left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.pcOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.pcWrap {
+  background: $colorWhite;
+  border: 1px solid $colorBlack;
+  position: fixed;
+  z-index: 99;
+  outline: none;
+  border-radius: 12px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.overlayNone {
+  background: transparent;
+}
+
+// pc
+.desktopContainer {
+  .modal {
+    &__header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #f7f7f7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__title {
+        @include typographyBoth(t4Sb);
+      }
+      &__btnClose {
+        height: auto;
+      }
+    }
+    &__content {
+      overflow-y: auto;
+      overflow-x: hidden; // ios 가로스크롤 현상 해결 위함
+      max-height: calc(100vh - 180px);
+      padding: 16px 24px 24px;
+      &::-webkit-scrollbar {
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 3px;
+      }
+
+      /*스크롤바 전체*/
+      &::-webkit-scrollbar-thumb {
+        width: 6px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 3px;
+      }
+
+      /*스크롤바 막대*/
+      &::-webkit-scrollbar-track {
+        border-radius: 3px;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+// mobile
+.mobileContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  background: $colorWhite;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  .modal {
+    &__header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #f7f7f7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &__title {
+        @include typographyBoth(t4Sb);
+      }
+      &__btnClose {
+        height: auto;
+      }
+    }
+    &__content {
+      overflow-y: auto;
+      overflow-x: hidden; // ios 가로스크롤 현상 해결 위함
+      max-height: calc(100vh - 180px);
+      padding: 16px 24px 24px;
+      &::-webkit-scrollbar {
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 3px;
+      }
+
+      /*스크롤바 전체*/
+      &::-webkit-scrollbar-thumb {
+        width: 6px;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 3px;
+      }
+
+      /*스크롤바 막대*/
+      &::-webkit-scrollbar-track {
+        border-radius: 3px;
+        background-color: transparent;
+      }
+    }
+  }
+  .modalTitle {
+    padding: 20px 30px 20px 0;
+    margin: 0 20px;
+    font-size: 16px;
+    color: $colorBlack;
+    border-bottom: 1px solid $colorBlack;
+    font-weight: 700;
+    line-height: 22px;
+    letter-spacing: -0.3px;
+  }
+
+  .modalContent {
+    padding: 15px 20px 20px 20px;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    //-webkit-overflow-scrolling: touch;
+  }
+
+  :global {
+    .modalSubTxt {
+      //@include mixinMobileFont(12);
+      color: $colorGray5;
+    }
+
+    .modalDimTxt {
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      right: 0;
+
+      &.center {
+        text-align: center;
+      }
+
+      button {
+        color: $colorWhite;
+        letter-spacing: -0.9px;
+      }
+
+      .underline {
+        border-bottom: 1px solid $colorWhite;
+        //@include mixinMobileFont(14);
+      }
+    }
+
+    .modalFlexButton {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 55px;
+      border-top: 1px solid $colorGray8;
+      margin: 20px -20px 0;
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        background-color: $colorWhite;
+      }
+
+      a,
+      button {
+        width: 100%;
+        height: 100%;
+        font-weight: bold;
+        font-size: 15px;
+        color: $colorBlack;
+        line-height: 55px;
+        text-align: center;
+        border-left: 1px solid $colorGray8;
+
+        &.fillBlack {
+          background-color: $colorBlack;
+          color: $colorWhite;
+        }
+      }
+    }
+  }
+
+  .modalFooter {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 16px;
+  }
+}
+
+// bottom sheet
+.bottomsheet {
+  .mcContainer {
+    top: inherit;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    width: 100%;
+
+    //max-height: calc(100vh - 100px);
+    //overflow-y: auto;
+    .modalTitle {
+      font-size: 18px;
+      letter-spacing: -0.4px;
+    }
+
+    .modalContent {
+      padding: 20px;
+    }
+  }
+
+  :global {
+    .modalFullButton {
+      display: flex;
+      margin: 20px -20px -20px -20px;
+      padding: 10px 20px calc(env(safe-area-inset-bottom) + 10px) 20px;
+      box-shadow: 0 -2px 5px 0 rgb(0 0 0 / 4%);
+      background-color: #fff;
+      gap: 7px;
+
+      button {
+        flex: 1 1;
+      }
+    }
+  }
+}
+
+// bottom sheet에 플로팅 버튼 존재 시
+.hasFloating {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 75px);
+
+  :global {
+    .modalFullButton {
+      bottom: 0;
+      left: 0;
+      margin: 0 !important;
+      position: absolute;
+      width: 100%;
+    }
+  }
+}
+
+// 타입
+.type {
+  &Mix {
+    [class^="LfModal_modalContent"] {
+      padding-bottom: 0;
+    }
+  }
+
+  &Alert {
+    .mcContainer {
+      width: 300px !important;
+      left: 50%;
+      transform: translate(calc(-50% + 0.5px), calc(-50% + 0.5px));
+    }
+
+    .modalContent {
+      padding-top: 30px;
+      padding-bottom: 0;
+      text-align: center;
+      overflow-y: hidden !important;
+      //@include mixinMobileFont(15);
+    }
+
+    :global {
+      .modalFlexButton {
+        margin-top: 30px;
+      }
+    }
+
+    .btnClose {
+      display: none;
+    }
+  }
+}
+
+// 모바일 슬라이드 업 애니메이션
+.slideUpBase {
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+}
+.slideUpAfterOpen {
+  transform: translateY(0);
+}
+.slideUpBeforeClose {
+  transform: translateY(100%);
+}
+
+// 오버레이 페이드 애니메이션
+.overlayFadeBase {
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+.overlayFadeAfterOpen {
+  opacity: 1;
+}
+.overlayFadeBeforeClose {
+  opacity: 0;
+}

@@ -1,0 +1,19 @@
+.boardTop {
+  margin-bottom: var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include mobiles {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  &__unit {
+    @include typographyBoth(b3Sb);
+    color: $color-gray-60;
+    margin-right: var(--space-1);
+  }
+  &__length {
+    @include typographyBoth(b2B);
+    color: $color-gray-100;
+  }
+}

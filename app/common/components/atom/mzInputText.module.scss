@@ -1,0 +1,157 @@
+.mzInputText {
+  &__input {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 20px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    outline: none;
+    @include typographyBoth(b3R);
+    height: 60px;
+    @include mobiles {
+      height: 52px;
+      padding: 10px 16px;
+    }
+    &:disabled {
+      background-color: $color-gray-5;
+      border-color: $color-gray-0;
+      color: $color-gray-50;
+      cursor: not-allowed;
+    }
+  }
+  &__inputWrapper {
+    position: relative;
+    border: 1px solid $colorGray9;
+    border-radius: 8px;
+    background-color: $colorWhite;
+    color: $colorDefault;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 6px;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: $colorGray9;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:hover {
+      color: $colorDefault;
+    }
+
+    svg {
+      display: block;
+    }
+  }
+  &__error {
+    color: $sk-color-primary-default;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  &.isSearch {
+    .mzInputText__inputWrapper {
+      border-radius: 50px;
+      background-color: $color-gray-5;
+      border: 1px solid $color-gray-0;
+      &__actions {
+        gap: 12px;
+        right: 40px;
+        @include mobiles {
+          right: 24px;
+          gap: 2px;
+        }
+      }
+    }
+
+    .mzInputText__search {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
+      img {
+        display: block;
+      }
+    }
+
+    .mzInputText__input {
+      height: 68px;
+      font-size: 18px;
+      padding: 20px 120px 20px 40px;
+      border: 1px solid transparent;
+      box-sizing: border-box;
+      @include mobiles {
+        height: 47px;
+        font-size: 15px;
+        padding: 12px 90px 12px 24px;
+      }
+      &:focus-visible {
+        border: 1px solid $color-gray-100;
+        border-radius: 50px;
+      }
+    }
+  }
+  // hasValue modifier 제거 (빈 규칙 방지)
+
+  &.fill {
+    &Black {
+      background-color: $colorDefault;
+      border-color: $colorDefault;
+      color: $colorWhite !important;
+    }
+
+    &Red {
+      background-color: $colorSubDefault;
+      border-color: $colorSubDefault;
+      color: $colorWhite;
+    }
+  }
+
+  &.stroke {
+    &Black {
+      border-color: $colorDefault;
+    }
+
+    &Red {
+      border-color: $colorSubDefault;
+      color: $colorSubDefault;
+    }
+  }
+
+  &__input:read-only {
+    background-color: $colorGray12;
+    border-color: $colorGray9;
+    color: $colorDefault;
+  }
+}

@@ -1,0 +1,42 @@
+@use "foundation" as *;
+
+:root {
+  --focus-color: #000;
+  --focus-offset: 0px;
+}
+// 포커스 링 및 테넌트별 포커스 컬러 오버라이드
+
+body.tenant-sk {
+  --focus-color: $sk-color-primary-default;
+}
+
+body.tenant-adt {
+  --focus-color: $adt-color-primary-default;
+}
+
+body.tenant-cap {
+  --focus-color: #e7660d;
+}
+
+// 기본 포커스 규칙: 키보드 접근 요소의 가시성 보장
+:where(
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 1px solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+  outline-width: 1px;
+  outline-style: solid;
+}
+
+// 유틸 클래스: 필요 시 임의 요소에 적용
+.uFocusRing {
+  &:focus-visible {
+    outline: 2px solid var(--focus-color);
+    outline-offset: var(--focus-offset);
+  }
+}

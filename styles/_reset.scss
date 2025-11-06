@@ -1,8 +1,8 @@
 // 브라우저 기본 스타일 초기화 및 전체 사이트 공통 스타일 초기화
 
 @charset 'utf-8';
-@use "mixin" as *;
-@use "variable" as *;
+@use "./variable" as *;
+@use "./mixin" as *;
 
 body,
 div,
@@ -33,13 +33,16 @@ button,
 strong {
   margin: 0;
   padding: 0;
-  outline: none;
+  // outline: none;
 }
 
 html,
 body {
   width: 100%;
   height: 100%;
+  
+  // 스크롤 바운스 방지 (전역)
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -203,8 +206,8 @@ html {
 
 // 크롬에서 아이콘 안 보이게 추가
 input[type="time"]::-webkit-inner-spin-button,
-input[type="time"]::-webkit-calendar-picker-indicator
-  input[type="date"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
@@ -289,7 +292,6 @@ textarea {
   padding: 20px;
   color: $colorDefault;
   @include mixinFontSize(14);
-  font-family: "hanjinGroupSans", "Apple SD Gothic Neo";
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   box-shadow:

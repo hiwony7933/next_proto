@@ -1,0 +1,29 @@
+@use "foundation" as *;
+
+// 전역 기본 폰트 패밀리 설정
+html,
+body {
+  font-family:
+    "Pretendard",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Apple SD Gothic Neo",
+    "Segoe UI",
+    Roboto,
+    "Noto Sans KR",
+    "Malgun Gothic",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+}
+
+// 기본 헤딩 매핑: 태그만 써도 디자인 토큰 적용
+h2 {
+  @include typographyBoth(h2B);
+}
+h3 {
+  @include typographyBoth(h3B);
+}
+h4 {
+  @include typographyBoth(h4B);
+}

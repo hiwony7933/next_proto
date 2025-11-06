@@ -15,7 +15,13 @@ function resolveTenantByHost(host?: string | null): string | null {
   if (!host) return null;
   // 정규화: 포트 제거
   const normalized = host.split(":")[0].toLowerCase();
-  return hostToTenant[normalized] ?? null;
+  // 1) ENV 매핑 우선
+  const byEnv = hostToTenant[normalized] ?? null;
+  if (byEnv) return byEnv;
+  // 2) 로컬/서브도메인 규칙: sk.localhost, cap.localhost, adt.localhost
+  const subMatch = normalized.match(/^(sk|cap|adt)\./);
+  if (subMatch) return subMatch[1];
+  return null;
 }
 
 export function middleware(req: NextRequest) {
@@ -60,8 +66,20 @@ export function middleware(req: NextRequest) {
     }
   }
 
-  // 이미 테넌트 경로면 통과
-  if (nextUrl.pathname.startsWith(`/${activeTenant}`)) {
+  // 서브도메인(예: sk.localhost 또는 실제 도메인)에서 테넌트 접두어가 포함된 경우: 접두어 제거로 정규화
+  if (!isLocalBase && activeTenant) {
+    const prefixed = nextUrl.pathname.startsWith(`/${activeTenant}`);
+    if (prefixed) {
+      const rest =
+        nextUrl.pathname.replace(new RegExp(`^/${activeTenant}`), "") || "/";
+      const redirectUrl = new URL(nextUrl.toString());
+      redirectUrl.pathname = rest;
+      return NextResponse.redirect(redirectUrl, 307);
+    }
+  }
+
+  // 이미 테넌트 경로면 통과 (단, 로컬 베이스에서만 허용 - 서브도메인은 위에서 정규화 처리됨)
+  if (isLocalBase && nextUrl.pathname.startsWith(`/${activeTenant}`)) {
     return NextResponse.next({ request: { headers: requestHeaders } });
   }
 
@@ -75,6 +93,7 @@ export function middleware(req: NextRequest) {
     nextUrl.pathname.startsWith("/images") ||
     nextUrl.pathname.startsWith("/icons") ||
     nextUrl.pathname.startsWith("/fonts") ||
+    nextUrl.pathname.startsWith("/videos") ||
     nextUrl.pathname.startsWith("/guide")
   ) {
     return NextResponse.next({ request: { headers: requestHeaders } });
@@ -90,6 +109,6 @@ export function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next|api|favicon.ico|assets|public|images|icons|fonts|guide).*)",
+    "/((?!_next|api|favicon.ico|assets|public|images|icons|fonts|videos|guide).*)",
   ],
 };

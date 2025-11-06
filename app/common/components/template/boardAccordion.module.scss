@@ -1,0 +1,134 @@
+.boardAccordion {
+  &__total {
+    @include typographyBoth(b4R);
+    color: $colorGray5;
+    margin-bottom: 10px;
+  }
+  &__categoryWrapper {
+    margin-top: var(--space-9);
+    margin-bottom: var(--space-15);
+  }
+  &__list {
+    list-style: none !important;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.boardAccordion__item {
+  border-bottom: 1px solid $colorGray8;
+  &:first-of-type {
+    border-top: 1px solid $colorGray7;
+  }
+}
+
+.boardAccordion__questionWrap {
+  cursor: pointer;
+  width: 100%;
+
+  &:focus-visible {
+    outline: 2px solid $colorGray5;
+    outline-offset: 2px;
+  }
+}
+.boardAccordion__questionWrap__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.boardAccordion__rowStack {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.boardAccordion__category {
+  @include typographyBoth(b3Sb);
+  padding: var(--space-10) var(--space-9);
+  color: $color-gray-100;
+  display: flex;
+  align-items: center;
+  flex-basis: 15%;
+}
+
+.boardAccordion__question {
+  flex-basis: 78%;
+  padding: var(--space-10) 0;
+  color: $color-gray-100;
+  @include typographyBoth(t3Sb);
+  text-align: left;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.boardAccordion__icons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+
+.boardAccordion__icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: opacity 0.2s ease-in-out;
+}
+
+.boardAccordion__icon--hidden {
+  opacity: 0;
+}
+
+.boardAccordion__answerTextInner {
+  overflow: hidden; // 애니메이션 시 내용 넘침 방지
+  display: block; // 자동 높이 계산을 방해하지 않도록 block 유지
+  will-change: height;
+}
+
+.boardAccordion__answerText {
+  padding-bottom: var(--space-12);
+  word-break: auto-phrase;
+  color: $colorGray6;
+  padding-left: 15%;
+  padding-right: 10%;
+  @include typographyBoth(b3R);
+}
+
+.boardAccordion__item--open {
+  background-color: $color-gray-5;
+}
+
+@include mobiles {
+  // mobile overrides
+  // .boardAccordion__questionWrap: grid system로 행 분리되어 별도 스타일 불필요
+  .boardAccordion__category {
+    padding: 16px !important;
+    flex-basis: 50% !important;
+  }
+  .boardAccordion__question {
+    padding: 20px 16px !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    flex-basis: 100% !important;
+  }
+  .boardAccordion__answerText {
+    padding: 0 16px 24px !important;
+  }
+  .boardAccordion__icon {
+    width: 36px;
+    height: 36px;
+    right: 20%;
+    top: 50%;
+  }
+}

@@ -1,20 +1,27 @@
 "use client";
 import React from "react";
-import S from "./page.module.scss";
 import { eventData } from "@/sample/data/event";
-import ImageNotice from "@/app/sk/components/common/imageNotice";
+import ImageCardList from "@/app/common/components/template/imageCardList";
+import S from "./page.module.scss";
+import useResponsiveColumns from "@/hooks/useResponsiveColumns";
 
 export default function EventPage() {
   const items = eventData;
-  console.log(items);
+  const columns = useResponsiveColumns({
+    desktop: 3,
+    tablet: 2,
+    mobile: 1,
+  });
   return (
-    <div className={S.eventPage}>
-      <ImageNotice
+    <div className="layout__container">
+      <div className="top__inner">
+        <h2 className="top__title">이벤트</h2>
+      </div>
+      <ImageCardList
         items={items}
         basePath="/sk/support/event"
-        columns={4}
-        gap={12}
-        itemsPerPage={12}
+        columns={columns}
+        gap={32}
         renderMetaArea={(item) => (
           <span className={S.imageNotice__date}>{item.date}</span>
         )}

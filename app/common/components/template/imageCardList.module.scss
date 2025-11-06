@@ -1,0 +1,77 @@
+.imageCardList {
+  /* layout variables */
+  --cols: 4;
+  --gap: 12px;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  margin-top: 100px;
+}
+
+.imageCardList__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+.imageCardList__item {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    border-color: #d6d6d6;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+}
+
+.imageCardList__thumb {
+  position: relative;
+  aspect-ratio: var(--thumb-ratio, 400 / 230);
+  overflow: hidden;
+}
+
+.imageCardList__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px 20px 20px;
+}
+
+.imageCardList__title {
+  font-size: 16px;
+  line-height: 1.45;
+  font-weight: 600;
+  color: #111;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  word-break: keep-all;
+}
+
+.imageCardList__date {
+  font-size: 14px;
+  color: #6b7280; /* gray-500 */
+}
+
+/* accessibility: focus ring */
+.imageCardList__thumb :focus-visible,
+.imageCardList__item :focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+@include mobiles {
+  .imageCardList__grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

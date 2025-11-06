@@ -1,0 +1,103 @@
+.mzSwiperIndicator {
+  width: 100%;
+
+  &__track {
+    position: relative;
+    height: 2px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__item {
+    display: inline-flex;
+    height: 100%;
+    width: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    &__active {
+      height: 2px;
+    }
+  }
+
+  // Dark 테마 (어두운 배경용 - 밝은 인디케이터)
+  &--dark {
+    .mzSwiperIndicator__track {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .mzSwiperIndicator__item {
+      background: #fff;
+      opacity: 0.3;
+
+      &:focus-visible {
+        outline-color: rgba(255, 255, 255, 0.5);
+      }
+
+      &__active {
+        opacity: 1;
+      }
+    }
+  }
+
+  // Light 테마 (밝은 배경용 - 어두운 인디케이터)
+  &--light {
+    .mzSwiperIndicator__track {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .mzSwiperIndicator__item {
+      background: #000;
+      opacity: 0.3;
+
+      &:focus-visible {
+        outline-color: rgba(0, 0, 0, 0.5);
+      }
+
+      &__active {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+@include mobiles {
+  .mzSwiperIndicator {
+    // 모바일 최적화
+    &__track {
+      height: 2px;
+    }
+
+    &__item {
+      &__active {
+        height: 2px;
+      }
+    }
+  }
+}
+
+@include tablet {
+  .mzSwiperIndicator {
+    // 태블릿 최적화 (필요시)
+    &__track {
+      height: 3px;
+    }
+
+    &__item {
+      &__active {
+        height: 3px;
+      }
+    }
+  }
+}
+

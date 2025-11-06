@@ -1,0 +1,41 @@
+{
+  "code": "0000",
+  "message": "성공",
+  "responseTime": 1760663632772,
+  "body": {
+    "total": 1,
+    "skip": 0,
+    "limit": 100,
+    "items": [
+      {
+        "id": "5VlPP8qCMSAavCVsmqrEDS",
+        "createdAt": "2025-10-13T08:43:46.493Z",
+        "updatedAt": "2025-10-15T07:15:02.044Z",
+        "fields": {
+          "title": "이제 공공기관도 ChatGPT를 쓸 수 있다? 국가 망 보안체계(N²SF)의 모든 것",
+          "thumbnail": {
+            "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "4mBMA12SthBErDhw1vivCy"
+            },
+            "fields": {
+              "title": "이제 공공기관도 ChatGPT를 쓸 수 있다? 국가 망 보안체계(N²SF)의 모든 것",
+              "description": "이제 공공기관도 ChatGPT를 쓸 수 있다? 국가 망 보안체계(N²SF)의 모든 것",
+              "file": {
+                "url": "//images.ctfassets.net/q0h977jnm6n2/4mBMA12SthBErDhw1vivCy/c7ee69d16997c35620f5392ecfdd50bb/68d48ab261e763e4641b5acb_홈페이지 썸네일.jpg",
+                "details": {
+                  "size": 480411,
+                  "image": { "width": 700, "height": 466 }
+                },
+                "fileName": "68d48ab261e763e4641b5acb_홈페이지 썸네일.jpg",
+                "contentType": "image/jpeg"
+              }
+            }
+          },
+          "contents": "<div class=\"blog-post\" w-richtext>더미 컨텐츠</div>"
+        }
+      }
+    ]
+  }
+}

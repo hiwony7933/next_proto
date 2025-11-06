@@ -1,69 +1,91 @@
 "use client";
-import React from "react";
-import CornerFaq001 from "@/app/common/components/corner/cornerFaq001";
+import React, { useState } from "react";
+import BoardAccordion from "@/app/common/components/template/boardAccordion";
 import { faqData } from "@/sample/data/faq";
-import MzTabs from "@/app/common/components/ui/mzTabs";
-import MzInputText from "@/app/common/components/form/mzInputText";
-import S from "./page.module.scss";
-import CornerBanner003 from "@/app/common/components/corner/cornerBanner003";
+import MzTabs from "@/app/common/components/molecule/mzTabs";
+import MzInputText from "@/app/common/components/atom/mzInputText";
+import ServiceLinkCard from "@/app/common/components/organism/serviceLinkCard";
 
 export default function FaqPage() {
+  const onSearchHandler = (q: string) => {
+    console.log("search:", q);
+    setSearchValue(q);
+  };
+  const [searchValue, setSearchValue] = useState("");
   const faqItems = faqData.map((item) => ({
     question: item.question,
     answer: item.answer.replace(/\\n/g, "<br/>"),
     category: item.category,
   }));
-  const wrapClassName = "faqType01";
+
   const multiOpen = false;
-  const totalVisible = true;
-  const totalPrefix = "총";
-  const totalUnit = "건";
   const tabData = [
     {
-      label: "정보보안",
+      label: "사이버보안",
       content: (
-        <CornerFaq001
+        <BoardAccordion
           items={faqItems}
-          wrapClassName={wrapClassName}
           multiOpen={multiOpen}
-          totalVisible={totalVisible}
-          totalPrefix={totalPrefix}
-          totalUnit={totalUnit}
+          searchValue={searchValue}
         />
       ),
     },
-    { label: "시설보안", content: <div>시설보안 내용</div> },
-    { label: "ADT캡스", content: <div>ADT캡스 내용</div> },
-    { label: "캡스홈", content: <div>캡스홈 내용</div> },
+    {
+      label: "산업보안",
+      content: (
+        <BoardAccordion
+          items={faqItems}
+          multiOpen={multiOpen}
+          searchValue={searchValue}
+        />
+      ),
+    },
+    {
+      label: "ADT캡스",
+      content: (
+        <ServiceLinkCard
+          title="우리 매장을 지키는 스마트 상업용 보안"
+          subtitle="서비스가 궁금하다면?"
+          description="지금 바로 ADT캡스로 이동해서 확인해보세요."
+          buttonText="ADT캡스 FAQ 바로가기"
+          logo="icon__adt-logo"
+          buttonHref="./"
+          imageSrc="/images/sk/faq_adt_thumnail.png"
+          color="#003594"
+        />
+      ),
+    },
+    {
+      label: "캡스홈",
+      content: (
+        <ServiceLinkCard
+          title="우리 가족을 지키는 스마트 홈보안"
+          subtitle="서비스가 궁금하다면?"
+          description="지금 바로 캡스홈으로 이동해서 확인해보세요."
+          buttonText="가정용 홈보안 FAQ 바로가기"
+          logo="icon__home-logo"
+          buttonHref="./"
+          imageSrc="/images/sk/faq_home_thumnail.png"
+          color="#025AFC"
+        />
+      ),
+    },
   ];
 
-  const onSearchHandler = (q: string) => {
-    console.log("search:", q);
-  };
-  const data = {
-    cornerTitle: "CTA 배너",
-    designType: "type01",
-    textList: [
-      {
-        title: "지금 무료 견적을 받아보세요!",
-        desc: "견적 신청하기",
-        linkUrl: "https://example.com/estimate",
-        target: true,
-      },
-    ],
-  };
   return (
-    <div className={S.faqPage}>
+    <div className="layout__container">
+      <div className="top__inner">
+        <h2 className="top__title">자주 하는 질문</h2>
+      </div>
       <div className="notice-wrapper">
         <MzInputText
-          mzSize="5"
+          style={{ width: 700 }}
           placeholder="제목이나 키워드로 검색해 보세요."
+          search
           onSearch={onSearchHandler}
-          status="search"
         />
       </div>
       <MzTabs tabs={tabData} tabSize={true} solid={true} />
-      <CornerBanner003 data={data} />
     </div>
   );
 }

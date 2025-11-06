@@ -107,3 +107,36 @@ NEXT_PUBLIC_DEV_TENANT=sk
 
 - SCSS는 BEM 규칙(언더스코어/대시)을 그대로 사용하고, JS/TS에서는 대시가 포함된 부분만 camelCase 접근을 지원합니다.
 - 기존 브래킷 접근 코드가 있다면 일관성을 위해 점 표기(camelCase)로 점진 전환을 권장합니다.
+
+### Typography
+
+- 정의: `styles/_fonts.scss` (PC: `$typography-tokens`, MO: `$typography-tokens-mobile`)
+- 믹스인: `typography`, `typographyMobile`, `typographyBoth`
+- 권장 사용: `typographyBoth`로 PC/모바일 동시 적용, 모바일 예외는 두 번째 인자로 토큰 또는 맵 전달
+
+예시:
+
+```scss
+.titleBoth {
+  @include typographyBoth(t2B);
+}
+.titleBothStrong {
+  @include typographyBoth(b4R, b3B);
+}
+.bodyCustomMo {
+  @include typographyBoth(
+    b4R,
+    (
+      size: 15px,
+      lineHeight: 150%,
+      weight: 500,
+    )
+  );
+}
+```
+
+### 여백 스케일(Spacing Tokens)
+
+- 전역 여백 토큰은 `styles/common.scss`에 정의되어 있습니다.
+- 문서: `docs/styleGuide.md`의 “여백 스케일(Spacing Tokens)” 섹션과 `docs/layout.md`의 “전역 여백 토큰 사용 가이드”를 참고하세요.
+- 사용 예: `gap: var(--space-6); // PC 20px, Mobile 12px`

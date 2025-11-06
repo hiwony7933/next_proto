@@ -1,0 +1,42 @@
+.faqFormat {
+  // align-items: center;
+  margin-top: 80px;
+  margin-bottom: 160px;
+  .faqFormat__text {
+    padding: 0 var(--space-9);
+    .faqFormat__text__title {
+      @include typographyBoth(b4Sb);
+      margin-bottom: var(--space-8);
+    }
+    .faqFormat__text__subtitle {
+      color: $color-gray-90;
+      margin-bottom: var(--space-7);
+      white-space: pre-line;
+    }
+    .faqFormat__text__description {
+      @include typographyBoth(b1M);
+      color: $color-gray-70;
+      margin-bottom: var(--space-13);
+      white-space: pre-line;
+    }
+    .faqFormat__text__button {
+      @include typographyBoth(b3Sb);
+      width: 320px;
+      @include mobiles {
+        width: 100%;
+      }
+    }
+  }
+  .faqFormat__image {
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+}
+
+@include mobiles {
+  .faqFormat {
+    flex-direction: column-reverse;
+    gap: 24px;
+    margin-top: 48px;
+  }
+}

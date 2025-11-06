@@ -1,0 +1,316 @@
+@use "@/styles/_variable.scss" as variable;
+@use "@/styles/_mixin.scss" as mixin;
+
+.mainLogo {
+  --mainLogoOctagonSize: min(60vw, 460px);
+  --mainLogoLineGap: 22px;
+  --mainLogoGridCount: 12;
+  --mainLogoWaveSize: calc(
+    var(--mainLogoOctagonSize) +
+      (var(--mainLogoLineGap) * var(--mainLogoGridCount) * 2)
+  );
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 1080px;
+  padding: 160px 20px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: variable.$adt-color-primary-default;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.12) 26%,
+      rgba(255, 255, 255, 0.08) 48%,
+      rgba(255, 255, 255, 0) 75%
+    );
+    opacity: 0.35;
+    transition: opacity 600ms ease;
+    z-index: 0;
+  }
+
+  &--active::before {
+    opacity: 0.6;
+  }
+
+  &__background {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  &__grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &__gridLine {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(
+      var(--mainLogoOctagonSize) +
+        (var(--mainLogoLineGap) * var(--line-index, 1) * 2)
+    );
+    height: calc(
+      var(--mainLogoOctagonSize) +
+        (var(--mainLogoLineGap) * var(--line-index, 1) * 2)
+    );
+    transform: translate(-50%, -50%);
+    clip-path: polygon(
+      30% 0%,
+      70% 0%,
+      100% 30%,
+      100% 70%,
+      70% 100%,
+      30% 100%,
+      0% 70%,
+      0% 30%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    opacity: 0.08;
+    transition: opacity 600ms ease;
+
+    &:nth-child(2n) {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+  }
+
+  // &__halo {
+  //   position: absolute;
+  //   width: min(75vw, 840px);
+  //   aspect-ratio: 1;
+  //   background: radial-gradient(
+  //     circle,
+  //     rgba(255, 255, 255, 0.25) 0%,
+  //     rgba(255, 255, 255, 0.1) 35%,
+  //     rgba(255, 255, 255, 0) 70%
+  //   );
+  //   filter: blur(8px);
+  //   opacity: 0;
+  //   transform: scale(0.8);
+  //   transition:
+  //     opacity 900ms ease,
+  //     transform 900ms ease;
+  // }
+
+  &__octagon {
+    // position: absolute;
+    // width: var(--mainLogoOctagonSize);
+    // aspect-ratio: 1;
+    // clip-path: polygon(
+    //   30% 0%,
+    //   70% 0%,
+    //   100% 30%,
+    //   100% 70%,
+    //   70% 100%,
+    //   30% 100%,
+    //   0% 70%,
+    //   0% 30%
+    // );
+    // background: rgba(255, 255, 255, 0.22);
+    // box-shadow: 0 0 40px rgba(0, 0, 0, 0.28);
+    // opacity: 0;
+    // transform: scale(0.85);
+  }
+
+  &__waveLines {
+    position: absolute;
+    inset: 0;
+  }
+
+  &__waveLine {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--mainLogoWaveSize);
+    aspect-ratio: 1;
+    clip-path: polygon(
+      30% 0%,
+      70% 0%,
+      100% 30%,
+      100% 70%,
+      70% 100%,
+      30% 100%,
+      0% 70%,
+      0% 30%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+
+    &:nth-child(1) {
+      --delay: 0.1s;
+    }
+
+    &:nth-child(2) {
+      --delay: 0.3s;
+    }
+
+    &:nth-child(3) {
+      --delay: 0.5s;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    text-align: center;
+    color: #ffffff;
+    top: -160px;
+  }
+
+  &__heading,
+  &__textLine {
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  &__heading {
+    font-size: clamp(24px, 3vw, 34px);
+    letter-spacing: -0.02em;
+  }
+
+  &__textList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    // gap: 8px;
+  }
+
+  &__textLine {
+    font-size: clamp(22px, 2.6vw, 32px);
+    @include typographyBoth(t1Sb);
+  }
+
+  // &__textLine--accent {
+  //   font-size: clamp(24px, 3vw, 34px);
+  // }
+
+  &__textLine--visible,
+  &__heading--visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 420ms ease,
+      transform 420ms ease;
+  }
+
+  &__logo {
+    position: relative;
+    width: 240px;
+    height: 240px;
+    opacity: 0;
+    transform: scale(0.88);
+    transition:
+      opacity 600ms ease,
+      transform 600ms ease;
+  }
+
+  &--active {
+    .mainLogo__halo {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .mainLogo__octagon {
+      animation: mainLogoFillBrand 900ms ease forwards;
+    }
+
+    .mainLogo__gridLine {
+      opacity: 0.24;
+    }
+
+    .mainLogo__waveLine {
+      animation: mainLogoWaveSweep 1400ms ease forwards;
+      animation-delay: var(--delay);
+    }
+
+    .mainLogo__logo {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+.mainLogo--active .mainLogo__heading,
+.mainLogo--active .mainLogo__textLine {
+  transition-delay: 0.1s;
+}
+
+@keyframes mainLogoFillBrand {
+  0% {
+    opacity: 0;
+    transform: scale(0.65);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  65% {
+    opacity: 1;
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    background: rgba(255, 255, 255, 0.18);
+  }
+}
+
+@keyframes mainLogoWaveSweep {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+
+  40% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.4);
+  }
+}
+
+@include mixin.mobiles {
+  .mainLogo {
+    padding: 120px 16px;
+    min-height: 620px;
+
+    &__content {
+      gap: 48px;
+    }
+
+    &__logo {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}

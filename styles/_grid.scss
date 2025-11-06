@@ -1,0 +1,49 @@
+@use "foundation" as *;
+// 12컬럼 그리드 시스템
+$total-columns: 12;
+
+:root {
+  --grid-gutter: 32px; // PC 기본
+  --grid-columns: #{$total-columns};
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--grid-gutter);
+}
+
+.col {
+  flex: 1;
+}
+
+@for $i from 1 through $total-columns {
+  .col-#{$i} {
+    width: calc(
+      (100% - (var(--grid-gutter) * (var(--grid-columns) - 1))) /
+        var(--grid-columns) *
+        #{$i} +
+        (var(--grid-gutter) * (#{$i} - 1))
+    );
+    flex: 0 0 auto;
+    &.flex {
+      display: flex;
+      align-items: center;
+      gap: var(--grid-gutter);
+      @include mobiles {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+}
+
+@include mobiles {
+  :root {
+    --grid-gutter: 12px; // 모바일 기본(임시)
+  }
+  .row {
+    // flex-direction: column;
+    // display: block;
+  }
+}

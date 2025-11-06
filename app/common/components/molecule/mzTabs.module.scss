@@ -1,0 +1,74 @@
+@use "foundation" as *;
+.tabs {
+  width: 100%;
+  &__list {
+    display: flex;
+    width: 100%;
+    &--auto {
+      display: inline-flex;
+      width: auto;
+    }
+    &--equal {
+      display: flex;
+      width: 100%;
+    }
+    &--solid {
+      .tabs__button {
+        border-bottom: 1px solid #d8d8d8;
+        @include typographyBoth(t4Sb);
+      }
+      .tabs__button--active {
+        border-bottom: 3px solid #333;
+        color: #333;
+        background-color: initial;
+        @include typographyBoth(t4B, t4Sb);
+      }
+    }
+    &--border {
+      border-right: 1px solid #eee;
+      .tabs__button {
+        border: 1px solid #eee;
+        border-right: none;
+        &:last-child {
+          border-right: none;
+        }
+        &--active {
+          color: #fff;
+          background-color: #333;
+        }
+      }
+    }
+  }
+
+  &__button {
+    padding: 18px;
+    color: #eee;
+    cursor: pointer;
+    @include mobiles {
+      white-space: pre-line;
+    }
+
+    /* 균등 분배 컨텍스트에서 동일 폭으로 */
+    .tabs__list--equal & {
+      flex: 1 1 0%;
+    }
+  }
+}
+// @include mobile {
+//   .tabs__list {
+//     display: flex;
+//     flex-wrap: nowrap;
+//     overflow-x: auto;
+//     -webkit-overflow-scrolling: touch;
+//     // gap: 6px;
+
+//     &__hideScrollbar {
+//       /* 스크롤바 숨김 */
+//       scrollbar-width: none; /* Firefox */
+//       -ms-overflow-style: none; /* IE/Edge */
+//     }
+//     &__hideScrollbar::-webkit-scrollbar {
+//       display: none; /* Chrome/Safari */
+//     }
+//   }
+// }

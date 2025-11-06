@@ -1,0 +1,71 @@
+.report__background {
+  margin-bottom: var(--space-15);
+  background: url("/images/sk/insights_issue_report_bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.report__background__content {
+  padding: 84px 0;
+}
+.report__background__contentLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.report__background__contentLeft__title {
+  @include typographyBoth(t3Sb);
+  margin-bottom: 40px;
+  color: white;
+}
+.report__background__contentLeft__description {
+  @include typographyBoth(b4R);
+  color: white;
+}
+.report__background__contentRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.report__background__contentRight__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.report__background__contentRight__item__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.report__background__contentRight__title {
+  @include typographyBoth(t3Sb);
+  color: white;
+}
+.report__background__contentRight__description {
+  @include typographyBoth(b4R);
+  color: white;
+}
+
+@include mobiles {
+  .report__background {
+    padding: 44px 20px 80px;
+  }
+  .report__background__content {
+    padding: 0;
+  }
+  .report__background__contentRow {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .report__background__contentRight__description {
+    white-space: pre-line;
+    text-align: center;
+  }
+}

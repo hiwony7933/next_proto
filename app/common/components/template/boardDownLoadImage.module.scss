@@ -1,0 +1,115 @@
+.imageNotice {
+  /* CSS variables for layout control */
+  --cols: 4;
+  --gap: 10px;
+  margin-top: 80px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  // row-gap: var(--gap);
+}
+
+.imageNotice__list {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gap);
+}
+
+.imageNotice__item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 80px;
+  height: 495px;
+
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    border-radius: 12px;
+    border-color: #d6d6d6;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+}
+
+.imageNotice__thumb {
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  height: 258px;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  /* 비율 고정하여 반응형 이미지 컨테이너 확보 */
+  aspect-ratio: var(--thumb-ratio, 400 / 230);
+}
+
+.imageNotice__body {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: calc(100% - 258px);
+  gap: 24px;
+  padding: var(--space-10);
+  border: 1px solid #e0e0e0;
+  border-bottom-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+  box-sizing: border-box;
+}
+
+.imageNotice__title {
+  @include typographyBoth(t4Sb, b4Sb);
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  width: 100%;
+
+  // min-height: 67px;
+}
+
+.imageNotice__date {
+  color: #666;
+  font-size: 14px;
+}
+
+.imageNotice__actions {
+  margin-top: 6px;
+}
+
+.imageNotice__download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #222;
+  background: #fff;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* 접근성: 키보드 포커스 가시성 */
+.imageNotice__download:focus-visible,
+.imageNotice__thumb :focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* 상호작용: 호버 피드백 */
+.imageNotice__download:hover {
+  background: #f7f7f7;
+  border-color: #ccc;
+}
+
+@include mobiles {
+  .imageNotice__list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
