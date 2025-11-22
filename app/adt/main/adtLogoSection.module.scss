@@ -1,0 +1,88 @@
+.adtLogoWrapper {
+  height: 200vh;
+}
+
+.adtLogo {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+
+  &__panel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  &__bgOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #003594 0%, #000a14 100%);
+    transform-origin: top center;
+    z-index: 0;
+  }
+
+  &__list {
+    position: absolute;
+    top: 13%;
+    z-index: 2;
+    list-style: none;
+    margin: 0;
+    padding: 0 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__item {
+    font-size: 36px;
+    line-height: 1.4;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  &__logoWrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  &__logo {
+    width: clamp(180px, 18vw, 320px);
+    height: auto;
+    transform-origin: center;
+  }
+
+  &__rings {
+    width: min(220vmax, 2200px);
+    height: min(220vmax, 2200px);
+  }
+
+  &__ring {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 1px;
+  }
+}
+

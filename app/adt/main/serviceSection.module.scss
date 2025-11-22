@@ -1,0 +1,122 @@
+.serviceWrapper {
+  position: sticky;
+  top: 0;
+  height: 555vh;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  z-index: 50;
+}
+
+.serviceRight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.1s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  will-change: transform;
+
+  &__inner {
+    width: 100%;
+    max-width: 1440px;
+    padding: 0 160px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 40px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    li {
+      padding: 30px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateX(10px);
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.service {
+  background: url(/images/sk/bg.png) no-repeat center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  z-index: 2;
+  transform: translateX(0);
+
+  &__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 160px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__inner__title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  &__inner__desc {
+    font-size: 24px;
+    color: #fff;
+  }
+}
+
