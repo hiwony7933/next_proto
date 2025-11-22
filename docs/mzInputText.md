@@ -10,7 +10,6 @@
 
 ```tsx
 <MzInputText
-  mzSize="3"
   placeholder="검색어"
   value={searchKeyword}
   onChange={(e) => setSearchKeyword(e.target.value)}
@@ -25,7 +24,6 @@
 
 ```tsx
 <MzInputText
-  mzSize="3"
   placeholder="필수 입력"
   value={keyword}
   onChange={(e) => setKeyword(e.target.value)}

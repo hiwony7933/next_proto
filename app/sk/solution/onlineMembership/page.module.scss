@@ -1,0 +1,180 @@
+@use "foundation" as *;
+
+.auth__section {
+  margin-bottom: var(--space-13);
+
+  button {
+    width: 100%;
+    border: 1.5px solid $color-gray-70;
+    background-color: $colorWhite;
+    color: $color-gray-70;
+  }
+}
+
+.section__title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid $color-gray-100;
+  margin-bottom: var(--space-10);
+}
+
+.section__subtitle {
+  @include typographyBoth(b5M);
+  color: $color-gray-50;
+  margin-left: 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  &:before {
+    content: "";
+    display: block;
+    width: 1px;
+    height: 18px;
+    margin-right: 12px;
+    background-color: $color-gray-30;
+  }
+}
+
+.install__notice {
+  @include typographyBoth(b5M);
+  color: $color-gray-50;
+  margin-top: var(--space-7);
+
+  p {
+    margin: 0 0 var(--space-2);
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.agreement__section {
+  background-color: $colorWhite;
+  padding: var(--space-5) 0;
+  margin-bottom: var(--space-5);
+}
+
+.agreement__header {
+  display: flex;
+  align-items: center;
+  height: 40px;
+
+  label {
+    @include typographyBoth(b3M);
+    color: $color-gray-100;
+  }
+}
+
+.agreement__divider {
+  width: 100%;
+  height: 1px;
+  background-color: $color-gray-20;
+  margin: var(--space-4) 0;
+}
+
+.agreement__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  padding-left: var(--space-10);
+}
+
+.agreement__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: 40px;
+
+  label {
+    @include typographyBoth(b3M);
+    color: $color-gray-100;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    flex: 1;
+  }
+}
+
+.required {
+  color: $colorRed;
+}
+
+.optional {
+  color: $color-gray-100;
+}
+
+.view__button {
+  @include typographyBoth(b5M);
+  color: $color-gray-50;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  min-width: 120px;
+  text-align: right;
+  text-underline-position: from-font;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+// success 스타일은 completePage.module.scss로 이동
+
+@include mobiles {
+  .auth__section {
+    margin-bottom: var(--space-7);
+  }
+
+  .section__title {
+    gap: var(--space-2);
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .section__subtitle {
+    @include typographyBoth(b5M);
+  }
+
+  .install__notice {
+    margin-top: var(--space-4);
+  }
+
+  .agreement__section {
+    padding: var(--space-3) 0;
+  }
+
+  // .agreement__header {
+  //   label {
+  //     // @include typographyBoth(b2M);
+  //   }
+  // }
+
+  .agreement__list {
+    padding-left: 0;
+    gap: var(--space-4);
+  }
+
+  .agreement__item {
+    flex-direction: row;
+    align-items: flex-start;
+    height: auto;
+    padding-right: 0;
+
+    label {
+      @include typographyBoth(b3M);
+      display: inline-block;
+    }
+  }
+
+  .view__button {
+    min-width: 60px;
+    flex-shrink: 0;
+  }
+}

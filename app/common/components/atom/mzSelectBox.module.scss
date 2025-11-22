@@ -1,0 +1,175 @@
+@use "foundation" as *;
+
+.mzSelectBox {
+  position: relative;
+  display: inline-block;
+  // min-width: 160px;
+
+  &.borderless {
+    .mzSelectBox__button {
+      border: none;
+      padding: 6px 40px 6px 12px;
+    }
+    .mzSelectBox__panel {
+      padding: 12px;
+    }
+  }
+
+  &.nood {
+    .mzSelectBox__button {
+      border-radius: 0;
+      background-color: transparent;
+      color: white;
+      &__arrow {
+        background-color: white;
+      }
+    }
+  }
+
+  &__button {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 40px;
+    padding: 15px 40px 15px 16px;
+    border: 1px solid $colorGray8;
+    border-radius: 8px;
+    background-color: $colorWhite;
+    color: $colorDefault;
+    text-align: left;
+    cursor: pointer;
+    @include typographyBoth(b3R);
+    position: relative;
+
+    &__arrow {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 0.3s ease-in-out;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-color: #333;
+      -webkit-mask: url("/icons/icon_12_down_arrow.svg") no-repeat center /
+        contain;
+      mask: url("/icons/icon_12_down_arrow.svg") no-repeat center / contain;
+
+      &Up {
+        transform: translateY(-50%) rotate(180deg);
+      }
+
+      &Down {
+        transform: translateY(-50%);
+      }
+    }
+    &:disabled {
+      background-color: $colorGray10;
+      color: $colorGray5;
+      cursor: not-allowed;
+      border-color: $colorGray9;
+    }
+  }
+
+  &__button--placeholder {
+    color: $colorGray4;
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 100%;
+    max-height: 280px;
+    overflow: auto;
+    border: 1px solid $colorGray8;
+    border-radius: 8px;
+    background-color: $colorWhite;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: var(--space-9);
+    z-index: 20;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      background-color: $colorGray10;
+      border-radius: 8px;
+    }
+
+    &--selected {
+      background-color: rgba(0, 0, 0, 0.04);
+      border-radius: 8px;
+    }
+
+    &--disabled {
+      color: $colorGray5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__optionLabel {
+    flex: 1 1 auto;
+    color: $color-gray-100;
+    @include typographyBoth(b3R);
+  }
+
+  &__errorText {
+    margin-top: 6px;
+    color: $colorRed;
+    @include typographyBoth(captionS);
+  }
+
+  /* open 상태 별도 스타일 필요 시 확장 */
+
+  &--disabled {
+    .mzSelectBox__button {
+      background-color: $colorGray10;
+      color: $colorGray5;
+      border-color: $colorGray9;
+      cursor: not-allowed;
+    }
+  }
+
+  &--error {
+    .mzSelectBox__button {
+      border-color: $colorRed;
+      box-shadow: 0 0 0 1px rgba($colorRed, 0.1);
+    }
+  }
+
+  /* errorText가 존재할 때 required 시각 표시(스타일만 적용) */
+  &--required {
+    .mzSelectBox__button::before {
+      content: "(필수)";
+      position: absolute;
+      right: 36px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $colorRed;
+      @include typographyBoth(captionS);
+    }
+  }
+
+  /* alignment modifiers */
+  &--align-left {
+    .mzSelectBox__button {
+      text-align: left;
+    }
+  }
+  &--align-center {
+    .mzSelectBox__button {
+      text-align: center;
+    }
+  }
+  &--align-right {
+    .mzSelectBox__button {
+      text-align: right;
+    }
+  }
+}

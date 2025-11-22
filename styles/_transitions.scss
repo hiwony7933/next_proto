@@ -1,0 +1,18 @@
+// CSSTransition class hooks
+.answerAnimEnter {
+  height: 0;
+}
+.answerAnimEnterActive {
+  height: var(--target-height);
+  transition: height 0.3s ease;
+}
+.answerAnimEnterDone {
+  height: auto;
+}
+.answerAnimExit {
+  height: var(--target-height);
+}
+.answerAnimExitActive {
+  height: 0;
+  transition: height 0.3s ease;
+}

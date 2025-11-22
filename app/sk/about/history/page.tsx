@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import MzTabs from "@/app/common/components/ui/mzTabs";
+import MzTabs from "@/app/common/components/molecule/mzTabs";
 
 const tabs = [
   { label: "현재~2020", content: <div>2025</div> },

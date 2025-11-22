@@ -1,0 +1,102 @@
+.imageListNotice {
+  &__list {
+    padding: 32px 40px;
+    border-bottom: 1px solid $color-gray-30;
+    &:first-of-type {
+      border-top: 1px solid $color-gray-30;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &__content__category {
+    @include typographyBoth(b3Sb);
+    color: $color-gray-50;
+  }
+  &__content__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    &__text {
+      @include typographyBoth(t3Sb);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      width: 90%;
+    }
+  }
+  &__content__desc {
+    @include typographyBoth(b3R);
+    color: $color-gray-70;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    white-space: pre-line;
+  }
+  &__content__date {
+    @include typographyBoth(b4M);
+    color: $color-gray-50;
+  }
+  &__content__filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &__item {
+      @include typographyBoth(b5M);
+      color: $color-gray-50;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background-color: $color-gray-20;
+    }
+  }
+  &__label {
+    @include typographyBoth(captionL);
+    padding: 5px 12px;
+    border-radius: 99px;
+    background: rgba(234, 0, 44, 0.04);
+    color: $sk-color-primary-default;
+  }
+}
+.pagination {
+  margin-top: var(--space-15);
+  margin-bottom: var(--space-15) !important;
+}
+
+@include mobiles {
+  .imageListNotice {
+    &__list {
+      padding: 0;
+      flex-direction: column;
+      border: none;
+      margin-bottom: 32px;
+      &:first-of-type {
+        border-top: none;
+      }
+    }
+    &__content__filter {
+      display: none;
+    }
+    &__content {
+      padding: 20px 16px 0;
+    }
+    &__content__title__text {
+      width: 100%;
+      -webkit-line-clamp: 2 !important;
+      line-clamp: 2 !important;
+    }
+    &__content__desc {
+      -webkit-line-clamp: 1 !important;
+      line-clamp: 1 !important;
+    }
+  }
+}

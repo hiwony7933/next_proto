@@ -1,0 +1,51 @@
+.boardSearch {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--space-15);
+    margin-bottom: var(--space-13);
+  }
+  &__header__title {
+    @include typographyBoth(t2B);
+    color: #000;
+    &__length {
+      // @include typographyBoth(b2B);
+      color: $sk-color-primary-default;
+    }
+  }
+  &__list {
+    list-style: none;
+    margin-bottom: var(--space-13);
+    &__item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 40px 32px;
+      border-bottom: 1px solid $color-gray-30;
+      &__category {
+        @include typographyBoth(captionL);
+        color: $color-gray-50;
+      }
+
+      &__title {
+        @include typographyBoth(t3Sb);
+        color: $color-gray-90;
+      }
+      &__content {
+        @include typographyBoth(b3R);
+        color: $color-gray-70;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+    }
+  }
+}

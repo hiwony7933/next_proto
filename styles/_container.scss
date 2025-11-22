@@ -1,0 +1,71 @@
+@use "foundation" as *;
+// 레이아웃 및 상단 영역
+.layout__main {
+  width: 100%;
+  // overflow: auto;
+  margin: 0 auto;
+  background-color: #fff;
+  color: #000;
+  padding-top: calc(100px + var(--banner-height, 0px));
+}
+.layout__full__container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.layout__container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.top {
+  &__inner {
+    // max-width: 1200px;
+    // margin: 0 auto;
+  }
+  &__title {
+    text-align: center;
+  }
+  &__desc {
+    @include typographyBoth(hSub);
+    color: $color-gray-80;
+    text-align: center;
+    margin-top: var(--space-4);
+  }
+}
+
+.notice-wrapper {
+  margin-top: var(--space-13);
+  margin-bottom: var(--space-15);
+  display: flex;
+  justify-content: center;
+}
+
+@include mobiles {
+  .layout__main {
+    padding-top: calc(80px + var(--banner-height, 0px)) !important;
+  }
+  .layout__container {
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+  }
+  .top {
+    &__inner {
+      // justify-content: center;
+      // flex-direction: initial;
+      margin-bottom: 20px;
+      display: none;
+    }
+    &__title {
+      margin-bottom: 0px;
+    }
+  }
+  .notice-wrapper {
+    margin-bottom: 48px;
+    padding: 0 20px;
+  }
+}

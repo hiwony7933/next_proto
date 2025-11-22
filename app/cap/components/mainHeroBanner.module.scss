@@ -1,0 +1,109 @@
+.heroBanner {
+  width: 100%;
+  height: 100%;
+}
+.heroBanner__swiper {
+  width: 100%;
+  height: 100%;
+}
+.heroBanner__slide {
+  height: 100%;
+}
+.heroBanner__contentBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.heroBanner__contentBody__top {
+  display: flex;
+  flex-direction: column;
+  margin-top: 214px;
+}
+
+.heroBanner__title {
+  margin-top: 12px;
+  color: white;
+  @include typographyBoth(h4B);
+  white-space: pre-line;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
+
+.heroBanner__desc {
+  margin-top: 30px;
+  @include typographyBoth(hSub);
+  white-space: pre-line;
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+}
+.heroBanner__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 60px;
+}
+// .heroBanner__link {
+//   color: white;
+//   border: 1px solid white;
+// }
+.heroBanner__bottom {
+  position: relative;
+  bottom: 80px;
+  left: 0;
+  max-width: 500px;
+  // height: 100%;
+  z-index: 10;
+  margin: 0 auto;
+}
+.heroBanner__pagination {
+  position: absolute;
+  // bottom: 0;
+  // left: 0;
+  height: 2px;
+  width: 100%;
+  margin: 0 auto;
+  // background-color: white;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  &__inner {
+    display: inline-flex;
+    height: 100%;
+    width: 0;
+    border: none;
+    padding: 0;
+    margin: 0;
+    // background: transparent;
+    background-color: white;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    appearance: none;
+    &:focus-visible {
+      outline: 2px solid $color-gray-80;
+      outline-offset: 2px;
+    }
+  }
+  &__inner__active {
+    background-color: white;
+    opacity: 1;
+    width: 100%;
+    height: 4px;
+  }
+}
+
+@include mobiles {
+  .heroBanner__contentBody__top {
+    padding: 0 20px;
+  }
+}

@@ -1,0 +1,468 @@
+@use "mixin" as *;
+
+// Pretendard 폰트 페이스 선언
+$font-family-name: "Pretendard";
+$font-weights: (
+  Thin: 100,
+  ExtraLight: 200,
+  Light: 300,
+  Regular: 400,
+  Medium: 500,
+  SemiBold: 600,
+  Bold: 700,
+  ExtraBold: 800,
+);
+
+@each $style, $weight in $font-weights {
+  // Next.js public 경로 기준: "/fonts/..."
+  $path: "/fonts/" + $font-family-name + "-" + #{$style} + ".woff";
+  @font-face {
+    font-family: #{$font-family-name};
+    src: url(#{$path}) format("woff");
+    font-weight: #{$weight};
+    font-style: normal;
+    font-display: swap;
+  }
+}
+
+// --------------------------------------------------------
+// Typography Tokens (PC 기준, from Figma)
+// - 명칭: h2B, h3B, h4B, hSub, t1B, t1Sb, t2B, t3B, t3Sb, t3M,
+//         t4B, t4Sb, b1M, b2B, b3Sb, b3M, b3R, b3L,
+//         b4B, b4Sb, b4M, b4R, b5M, b5R, captionL, captionS
+// - line-height 표기: 퍼센트 값 그대로 사용(예: 150%)
+// - letter-spacing: Figma에 명시된 경우만 적용(px)
+
+$typography-tokens: (
+  // Heading
+  h2B: (
+      weight: 700,
+      size: 60px,
+      lineHeight: 150%,
+      letterSpacing: -1.2px,
+    ),
+  h3B: (
+    weight: 700,
+    size: 52px,
+    lineHeight: 140%,
+    letterSpacing: -1.04px,
+  ),
+  h4B: (
+    weight: 700,
+    size: 48px,
+    lineHeight: 140%,
+    letterSpacing: -1.44px,
+  ),
+  hSub: (
+    weight: 400,
+    size: 20px,
+    lineHeight: 160%,
+  ),
+  // Title
+  t1B: (
+      weight: 700,
+      size: 34px,
+      lineHeight: 140%,
+      letterSpacing: -0.68px,
+    ),
+  t1Sb: (
+    weight: 600,
+    size: 34px,
+    lineHeight: 140%,
+    letterSpacing: -0.68px,
+  ),
+  t2B: (
+    weight: 700,
+    size: 32px,
+    lineHeight: 140%,
+    letterSpacing: -0.64px,
+  ),
+  t3B: (
+    weight: 700,
+    size: 26px,
+    lineHeight: 150%,
+  ),
+  t3Sb: (
+    weight: 600,
+    size: 26px,
+    lineHeight: 150%,
+  ),
+  t3M: (
+    weight: 500,
+    size: 26px,
+    lineHeight: 150%,
+    letterSpacing: -0.52px,
+  ),
+  t4B: (
+    weight: 700,
+    size: 24px,
+    lineHeight: 140%,
+    letterSpacing: -0.24px,
+  ),
+  t4Sb: (
+    weight: 600,
+    size: 24px,
+    lineHeight: 140%,
+    letterSpacing: -0.24px,
+  ),
+  // Body
+  b1M: (
+      weight: 500,
+      size: 24px,
+      lineHeight: 150%,
+      letterSpacing: -0.24px,
+    ),
+  b2B: (
+    weight: 700,
+    size: 22px,
+    lineHeight: 140%,
+    letterSpacing: -0.22px,
+  ),
+  b3B: (
+    weight: 700,
+    size: 20px,
+    lineHeight: 140%,
+    letterSpacing: -0.18px,
+  ),
+  b3Sb: (
+    weight: 600,
+    size: 20px,
+    lineHeight: 140%,
+    letterSpacing: -0.6px,
+  ),
+  b3M: (
+    weight: 500,
+    size: 20px,
+    lineHeight: 150%,
+    letterSpacing: -0.2px,
+  ),
+  b3R: (
+    weight: 400,
+    size: 20px,
+    lineHeight: 145%,
+    letterSpacing: -0.2px,
+  ),
+  b3L: (
+    weight: 300,
+    size: 20px,
+    lineHeight: 140%,
+  ),
+  b4B: (
+    weight: 700,
+    size: 18px,
+    lineHeight: 144%,
+    letterSpacing: -0.18px,
+  ),
+  b4Sb: (
+    weight: 600,
+    size: 18px,
+    lineHeight: 144%,
+    letterSpacing: -0.18px,
+  ),
+  b4M: (
+    weight: 500,
+    size: 18px,
+    lineHeight: 160%,
+  ),
+  b4R: (
+    weight: 400,
+    size: 18px,
+    lineHeight: 160%,
+  ),
+  b5M: (
+    weight: 500,
+    size: 16px,
+    lineHeight: 150%,
+    letterSpacing: -0.16px,
+  ),
+  b5R: (
+    weight: 400,
+    size: 16px,
+    lineHeight: 145%,
+    letterSpacing: -0.16px,
+  ),
+  b5Sb: (
+    weight: 600,
+    size: 16px,
+    lineHeight: 150%,
+    letterSpacing: -0.16px,
+  ),
+  // Caption
+  captionL: (
+      weight: 500,
+      size: 14px,
+      lineHeight: 145%,
+      letterSpacing: -0.42px,
+    ),
+  captionS: (
+    weight: 600,
+    size: 12px,
+    lineHeight: 100%,
+  )
+);
+
+@mixin typography($token) {
+  $t: map-get($typography-tokens, $token);
+  @if $t == null {
+    @error "Unknown typography token: #{$token}";
+  }
+  $weight: map-get($t, weight);
+  $size: map-get($t, size);
+  $lineHeight: map-get($t, lineHeight);
+  $letterSpacing: map-get($t, letterSpacing);
+
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $lineHeight;
+  @if $letterSpacing != null {
+    letter-spacing: $letterSpacing;
+  }
+}
+
+// --------------------------------------------------------
+// Mobile Typography Tokens (from Figma)
+// - 키: PC와 동일 네이밍을 최대한 유지, 모바일만 추가된 항목 포함
+// - 공통 font-family는 전역(common.scss)에서 적용됨
+
+$typography-tokens-mobile: (
+  // Heading
+  h2B: (
+      weight: 700,
+      size: 26px,
+      lineHeight: 140%,
+      letterSpacing: -0.26px,
+    ),
+  h3B: (
+    weight: 700,
+    size: 25px,
+    lineHeight: 142%,
+    letterSpacing: -0.25px,
+  ),
+  h4B: (
+    weight: 700,
+    size: 24px,
+    lineHeight: 140%,
+    letterSpacing: -0.24px,
+  ),
+  hSub: (
+    weight: 400,
+    size: 16px,
+    lineHeight: 140%,
+    letterSpacing: -0.48px,
+  ),
+  // Title
+  t1B: (
+      weight: 700,
+      size: 22px,
+      lineHeight: 145%,
+      letterSpacing: -0.66px,
+    ),
+  t1Sb: (
+    weight: 600,
+    size: 22px,
+    lineHeight: 145%,
+    letterSpacing: -0.22px,
+  ),
+  t2B: (
+    weight: 700,
+    size: 20px,
+    lineHeight: 145%,
+    letterSpacing: -0.2px,
+  ),
+  t2Sb: (
+    weight: 600,
+    size: 20px,
+    lineHeight: 140%,
+    letterSpacing: -0.2px,
+  ),
+  t3B: (
+    weight: 700,
+    size: 18px,
+    lineHeight: 145%,
+    letterSpacing: -0.18px,
+  ),
+  t3Sb: (
+    weight: 600,
+    size: 18px,
+    lineHeight: 145%,
+    letterSpacing: -0.18px,
+  ),
+  t4Sb: (
+    weight: 600,
+    size: 16px,
+    lineHeight: 140%,
+    letterSpacing: -0.32px,
+  ),
+  // Body
+  b1M: (
+      weight: 500,
+      size: 18px,
+      lineHeight: 145%,
+      letterSpacing: -0.36px,
+    ),
+  b1R: (
+    weight: 400,
+    size: 18px,
+    lineHeight: 145%,
+    letterSpacing: -0.36px,
+  ),
+  b2M: (
+    weight: 500,
+    size: 17px,
+    lineHeight: 145%,
+    letterSpacing: -0.17px,
+  ),
+  b3M: (
+    weight: 500,
+    size: 16px,
+    lineHeight: 145%,
+    letterSpacing: -0.32px,
+  ),
+  b2B: (
+    weight: 700,
+    size: 17px,
+    lineHeight: 145%,
+    letterSpacing: -0.17px,
+  ),
+  b3B: (
+    weight: 700,
+    size: 16px,
+    lineHeight: 145%,
+    letterSpacing: -0.32px,
+  ),
+  b3Sb: (
+    weight: 600,
+    size: 16px,
+    lineHeight: 145%,
+    letterSpacing: -0.32px,
+  ),
+  b3R: (
+    weight: 400,
+    size: 16px,
+    lineHeight: 145%,
+    letterSpacing: -0.48px,
+  ),
+  b3L: (
+    weight: 300,
+    size: 16px,
+    lineHeight: 145%,
+    letterSpacing: -0.32px,
+  ),
+  b4B: (
+    weight: 700,
+    size: 14px,
+    lineHeight: 140%,
+    letterSpacing: -0.14px,
+  ),
+  b4Sb: (
+    weight: 600,
+    size: 14px,
+    lineHeight: 140%,
+    letterSpacing: -0.28px,
+  ),
+  b4M: (
+    weight: 500,
+    size: 14px,
+    lineHeight: 140%,
+    letterSpacing: -0.42px,
+  ),
+  b4R: (
+    weight: 400,
+    size: 14px,
+    lineHeight: 140%,
+    letterSpacing: -0.42px,
+  ),
+  b5M: (
+    weight: 500,
+    size: 13px,
+    lineHeight: 140%,
+    letterSpacing: -0.26px,
+  ),
+  b5R: (
+    weight: 400,
+    size: 13px,
+    lineHeight: 140%,
+    letterSpacing: -0.26px,
+  ),
+  b6Sb: (
+    weight: 600,
+    size: 12px,
+    lineHeight: 140%,
+    letterSpacing: -0.24px,
+  ),
+  b6R: (
+    weight: 400,
+    size: 12px,
+    lineHeight: 140%,
+    letterSpacing: -0.24px,
+  ),
+  // Caption
+  captionL: (
+      weight: 500,
+      size: 12px,
+      lineHeight: 133%,
+      letterSpacing: -0.12px,
+    ),
+  captionS: (
+    weight: 500,
+    size: 11px,
+    lineHeight: 127%,
+    letterSpacing: -0.22px,
+  )
+);
+
+@mixin typographyMobile($token) {
+  $t: map-get($typography-tokens-mobile, $token);
+  @if $t == null {
+    @error "Unknown mobile typography token: #{$token}";
+  }
+  $weight: map-get($t, weight);
+  $size: map-get($t, size);
+  $lineHeight: map-get($t, lineHeight);
+  $letterSpacing: map-get($t, letterSpacing);
+
+  font-weight: $weight;
+  font-size: $size;
+  line-height: $lineHeight;
+  @if $letterSpacing != null {
+    letter-spacing: $letterSpacing;
+  }
+}
+
+// 간결 + 예외 지원: PC는 $pcToken, 모바일은 기본적으로 동일 키 사용
+// - 모바일에 다른 토큰을 쓰려면 문자열 토큰 전달: @include typographyBoth(b4R, b3B)
+// - 모바일에 하드코딩 맵을 쓰려면 map 전달: @include typographyBoth(b4R, (size: 15px, lineHeight: 150%, weight: 500, letterSpacing: -0.15px))
+@mixin typographyBoth($pcToken, $mobileOverride: null) {
+  @include typography($pcToken);
+  @include mobiles {
+    @if $mobileOverride == null {
+      @include typographyMobile($pcToken);
+    } @else if type-of($mobileOverride) == "string" {
+      @include typographyMobile($mobileOverride);
+    } @else if type-of($mobileOverride) == "map" {
+      $w: map-get($mobileOverride, weight);
+      $s: map-get($mobileOverride, size);
+      $lh: map-get($mobileOverride, lineHeight);
+      $ls: map-get($mobileOverride, letterSpacing);
+      @if $w != null {
+        font-weight: $w;
+      }
+      @if $s != null {
+        font-size: $s;
+      }
+      @if $lh != null {
+        line-height: $lh;
+      }
+      @if $ls != null {
+        letter-spacing: $ls;
+      }
+    } @else {
+      @error "Invalid mobile override. Use a token string or a map.";
+    }
+  }
+}
+
+// 권장 사용 예(요약)
+// .titleBoth { @include typographyBoth(t2B); } // PC=t2B, MO=t2B
+// .titleBothStrong { @include typographyBoth(b4R, b3B); } // PC=b4R, MO=b3B
+// .bodyCustomMo { @include typographyBoth(b4R, (size: 15px, lineHeight: 150%, weight: 500, letterSpacing: -0.15px)); }

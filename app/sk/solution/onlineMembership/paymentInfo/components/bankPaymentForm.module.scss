@@ -1,0 +1,100 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  &__warning {
+    @include typographyBoth(b4M);
+    color: $colorRed;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  &__label {
+    @include typographyBoth(b4M);
+    color: $color-gray-70;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  &__row {
+    display: flex;
+    gap: var(--space-8);
+  }
+
+  &__field {
+    flex: 1;
+  }
+
+  &__select {
+    width: 100%;
+    height: 60px;
+    padding: 10px 20px;
+    border: 1px solid $color-gray-30;
+    border-radius: 8px;
+    background-color: $colorWhite;
+    @include typographyBoth(b3R);
+    color: $color-gray-60;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5' stroke='%23717171' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    padding-right: 52px;
+
+    &:focus {
+      outline: none;
+      border-color: $color-gray-70;
+    }
+
+    option {
+      @include typographyBoth(b3R);
+      color: $color-gray-70;
+    }
+  }
+
+  &__amount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: $color-gray-10;
+
+    &__label {
+      @include typographyBoth(b4M);
+      color: $color-gray-60;
+      letter-spacing: -0.01em;
+      opacity: 0.7;
+    }
+
+    &__value {
+      @include typographyBoth(b3Sb);
+      color: $color-gray-70;
+      letter-spacing: -0.03em;
+    }
+  }
+
+  &__info {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-4);
+
+    p {
+      @include typographyBoth(b3M);
+      color: $color-gray-70;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+  }
+}

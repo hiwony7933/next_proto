@@ -1,0 +1,86 @@
+@use "foundation" as *;
+// 전역 폼 유틸리티(진짜 전역에서 공유되어야 하는 최소 범위)
+.form {
+  &__container {
+    max-width: 1440px;
+  }
+  &__info {
+    margin: var(--space-15) 0 var(--space-13);
+    @include typographyBoth(t1B);
+  }
+  &__title {
+    @include typographyBoth(t3B);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid #000;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  &__process {
+    margin-bottom: var(--space-12);
+    &__row {
+      margin-bottom: var(--space-7);
+      display: flex;
+      align-items: center;
+    }
+    .box-wrapper {
+      display: flex;
+      gap: var(--space-4);
+      flex-direction: column;
+      margin-bottom: var(--space-9);
+    }
+  }
+  &__comment {
+    @include typographyBoth(b4M);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-8);
+    &.required {
+      &::after {
+        content: "(필수)";
+        color: $colorRed;
+        margin-left: 5px;
+      }
+    }
+  }
+  &__file__comment {
+    @include typographyBoth(b5M);
+    color: $color-gray-40;
+    margin-top: var(--space-4);
+  }
+  &__row {
+    padding: var(--space-10) 0;
+    margin-bottom: 40px;
+  }
+  &__label {
+    line-height: 150%;
+    @include typographyBoth(b4M);
+    margin-bottom: var(--space-5);
+    display: inline-block;
+    &.required {
+      &::after {
+        content: "(필수)";
+        color: $colorRed;
+        margin-left: 5px;
+      }
+    }
+  }
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-19);
+  }
+}
+.mb-none {
+  margin-bottom: 0 !important;
+}
+@include mobiles {
+  .form {
+    &-info {
+      // margin: 48px 0 40px 0;
+    }
+    &__row {
+      gap: 16px;
+    }
+  }
+}

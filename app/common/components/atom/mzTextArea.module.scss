@@ -1,0 +1,23 @@
+.mzTextArea {
+  textarea {
+    width: 100%;
+    padding: var(--space-6);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    @include typographyBoth(b3R);
+    font-family: $font-family-name;
+  }
+  .resizeNone {
+    resize: none;
+  }
+
+  .byteCount {
+    @include typographyBoth(captionS);
+    text-align: right;
+    color: $colorDefault;
+    margin-top: 10px;
+    .red {
+      color: $colorRed;
+    }
+  }
+}

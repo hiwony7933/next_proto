@@ -1,0 +1,109 @@
+.listNotice {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.listNotice__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.listNotice__total {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.listNotice__table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.listNotice__selectBox {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.listNotice__item {
+  height: 130px;
+  border-bottom: 1px solid #e0e0e0;
+  &:first-of-type {
+    border-top: 2px solid #e0e0e0;
+  }
+  &:hover {
+    background-color: #f5f5f5;
+  }
+  .listNotice__category {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+
+    & > img {
+      width: 24px;
+      height: 24px;
+    }
+    & > span {
+      text-align: left;
+      font-size: 18px;
+      line-height: 24px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+    }
+  }
+  .listNotice__categoryEmpty {
+    width: 24px;
+    height: 24px;
+  }
+  .listNotice__content-link {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 20px;
+    .listNotice__label {
+      font-size: 14px;
+      line-height: 24px;
+      border-radius: 4px;
+      background-color: #000;
+      color: #fff;
+      padding: 4px 8px;
+      width: 55px;
+    }
+    .listNotice__content-text {
+      font-size: 20px;
+      line-height: 24px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+    }
+    &:hover {
+      text-decoration: none;
+      color: #000;
+    }
+  }
+  .listNotice__date {
+    padding: 0 20px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+@include mobiles {
+  .listNotice__content-text {
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+  }
+}

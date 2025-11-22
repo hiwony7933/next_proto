@@ -1,0 +1,132 @@
+.boardList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.boardList__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boardList__total {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.boardList__list {
+  list-style: none;
+  margin-bottom: var(--space-15);
+  padding: 0;
+}
+
+.boardList__item {
+  border-bottom: 1px solid #e0e0e0;
+  &:first-of-type {
+    border-top: 2px solid #e0e0e0;
+  }
+  // &:hover {
+  //   background-color: #f5f5f5;
+  // }
+}
+
+.boardList__item--top {
+  background-color: #f5f5f5;
+  .boardList__title-text {
+    @include typographyBoth(t3Sb);
+  }
+}
+
+.boardList__row-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.boardList__category {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px;
+
+  & > img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.boardList__category-empty {
+  width: 24px;
+  height: 24px;
+}
+
+.boardList__category-text {
+  font-size: 16px;
+  line-height: 24px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.boardList__content {
+  display: flex;
+  align-items: center;
+  padding: 45px 0px 45px 32px;
+}
+
+.boardList__title-link {
+  text-decoration: none;
+  color: #000;
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.boardList__label {
+  @include typographyBoth(b4M);
+  border-radius: 99px;
+  background: rgba(234, 0, 44, 0.04);
+  color: $sk-color-primary-default;
+  padding: 5px 12px;
+  flex: 0 0 auto;
+}
+
+.boardList__title-text {
+  @include typographyBoth(t3B);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.boardList__date {
+  @include typographyBoth(b4M);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-10) var(--space-6);
+  color: $color-gray-50;
+}
+
+@include mobiles {
+  .boardList__title-text {
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+  }
+  .boardList__content,
+  .boardList__date {
+    padding: 16px 12px;
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+  .boardList__content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './cornerBanner003.module.scss';
+import React from "react";
+import styles from "./cornerBanner003.module.scss";
 
 interface BannerData {
   title: string;
@@ -19,7 +19,9 @@ interface CornerBanner003Props {
 const CornerBanner003: React.FC<CornerBanner003Props> = ({ data }) => {
   const banner = data.textList[0];
   return (
-    <div className={`${styles.wLayoutBlockcontainer} ${styles.container} ${styles.wContainer}`}>
+    <div
+      className={`${styles.wLayoutBlockcontainer} ${styles.container} ${styles.wContainer}`}
+    >
       <div className={`${styles.wLayoutHflex} ${styles.cctvCtaBoxWrapper}`}>
         <div className={styles.textLarge}>
           <strong>{banner.title}</strong>
@@ -28,11 +30,12 @@ const CornerBanner003: React.FC<CornerBanner003Props> = ({ data }) => {
           <a
             id="go-estimation"
             href={banner.linkUrl}
-            className={`${styles.cctvSolidCta} ${styles.wInlineBlock}`}
-            target={banner.target ? '_blank' : undefined}
-            rel={banner.target ? 'noopener noreferrer' : undefined}
+            className={styles.cctvSolidCta}
+            target={banner.target ? "_blank" : undefined}
+            rel={banner.target ? "noopener noreferrer" : undefined}
           >
             <div>{banner.desc}</div>
+            <i className="icon__20_right_arrow" />
           </a>
         </div>
       </div>

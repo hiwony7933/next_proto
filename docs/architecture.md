@@ -32,6 +32,17 @@
 - ESLint: next/core-web-vitals + typescript + prettier
 - Prettier: 저장소 설정 준수
 
+### 브레이크포인트(반응형)
+
+- Mobile: ≤ 719px
+- Tablet: 720–1023px(작은 PC)
+- PC: ≥ 1024px
+
+- 구현 위치
+  - SCSS 믹스인: `styles/_mixin.scss` (`@include mobile`, `@include tablet`)
+  - JS/TS 분기(권장): `hooks/useBreakpoint` 또는 `hooks/useMediaQuery` + `lib/breakpoints`
+  - 참고: `hooks/useIsMobile`는 `mediaQueries.mobile` 래퍼(Deprecated)
+
 ## 빌드/환경
 
 - `next.config.ts` Sass includePaths 및 전역 SCSS additionalData

@@ -1,0 +1,37 @@
+.header__topBanner {
+  background-color: #092049;
+  color: #fff;
+  overflow: hidden;
+  max-height: 60px;
+  transition:
+    max-height 0.35s ease,
+    padding 0.35s ease,
+    opacity 0.25s ease;
+  padding: 0;
+  &Collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+  }
+  &Text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  &CloseCollapsed {
+    display: none;
+  }
+
+  &Close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+  }
+}

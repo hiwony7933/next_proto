@@ -1,0 +1,156 @@
+.mzButton {
+  // border: 1px solid $color-gray-100;
+  border-radius: 8px;
+  // background-color: $colorWhite;
+  // color: $colorDefault;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.cta {
+    width: 320px;
+    @include mobiles {
+      width: 100%;
+    }
+  }
+  &.fill {
+    &Black {
+      background-color: $color-gray-80;
+      color: $colorWhite;
+      &:disabled {
+        background-color: $color-gray-30;
+      }
+      &:active {
+        background-color: $color-gray-100;
+      }
+    }
+    &Red {
+      background-color: $sk-color-primary-default;
+
+      color: $colorWhite;
+      &:disabled {
+        background-color: $color-gray-30;
+      }
+      &:active {
+        background-color: #a3001f;
+      }
+    }
+    &Blue {
+      background-color: $home-color-primary-default;
+      &:disabled {
+        background-color: $color-gray-30;
+      }
+      &:active {
+        background-color: $primary-blue;
+      }
+    }
+    &Gray {
+      background-color: $color-gray-20;
+      &:disabled {
+        background-color: $color-gray-10;
+      }
+      &:active {
+        background-color: $color-gray-40;
+      }
+    }
+    &White {
+      background-color: $colorWhite;
+      border: 1px solid $color-gray-70;
+      &:disabled {
+        background-color: $colorWhite;
+        border: 1px solid $color-gray-30;
+      }
+      &:active {
+        background-color: $colorWhite;
+        border: 1px solid $color-gray-100;
+      }
+    }
+    &Transparent {
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      &:disabled {
+        background-color: transparent;
+        border: 1px solid $color-gray-30;
+        color: $color-gray-30;
+      }
+      &:active {
+        background-color: transparent;
+        border: 1px solid $color-gray-100;
+        color: $color-gray-100;
+      }
+    }
+  }
+
+  &.stroke {
+    &Black {
+      border: 1px solid $color-gray-70;
+    }
+    &Red {
+      border: 1px solid $sk-color-primary-default;
+    }
+    &Blue {
+      border: 1px solid $home-color-primary-default;
+    }
+    &Gray {
+      border: 1px solid $color-gray-30;
+    }
+    &White {
+      border: 1px solid $color-gray-100;
+    }
+  }
+
+  &.full {
+    @include mobiles {
+      width: 100%;
+    }
+  }
+
+  &.size {
+    &Small {
+      height: 42px;
+      padding: 0 20px;
+      @include typographyBoth(b5Sb, b4Sb);
+      @include mobiles {
+        height: 38px;
+      }
+    }
+    &Medium {
+      height: 48px;
+      padding: 0 30px;
+      @include typographyBoth(b4Sb, b3Sb);
+      @include mobiles {
+        padding: 0 20px;
+        height: 46px;
+      }
+    }
+    &Large {
+      height: 64px;
+      padding: 0 30px;
+      @include typographyBoth(b3Sb);
+      @include mobiles {
+        padding: 0 28px;
+        height: 48px;
+      }
+    }
+    &Form {
+      height: 60px;
+      padding: 0 20px;
+      @include typographyBoth(b3Sb);
+      @include mobiles {
+        height: 53px;
+        padding: 0 20px;
+      }
+    }
+  }
+  &.icon {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.mzUnderline {
+  border-bottom: 1px solid $colorGray2;
+  color: $colorGray2;
+}

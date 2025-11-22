@@ -1,0 +1,45 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: var(--space-19);
+
+  &__list {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0 32px;
+  }
+
+  &__button {
+    min-width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 150%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-gray-50;
+
+    &-active {
+      font-weight: 700;
+      color: $color-gray-100;
+    }
+
+    &-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      color: $color-gray-50;
+    }
+  }
+}
+
+// @include mobiles {
+//   .pagination {
+//     margin-bottom: 60px;
+//   }
+// }

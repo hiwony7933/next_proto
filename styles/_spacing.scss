@@ -1,0 +1,56 @@
+@use "foundation" as *;
+// 전역 CSS 변수 및 스페이싱 토큰(:root)
+// 간단 스페이싱 유틸리티
+.mt-100 {
+  margin-top: var(--space-16);
+}
+.mt-80 {
+  margin-top: var(--space-15);
+}
+:root {
+  // 기본 여백 변수 설정 (PC 기본)
+  --space-1: 4px;
+  --space-2: 6px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 20px;
+  --space-7: 24px;
+  --space-8: 28px;
+  --space-9: 32px;
+  --space-10: 40px;
+  --space-11: 48px;
+  --space-12: 52px;
+  --space-13: 60px;
+  --space-14: 68px;
+  --space-15: 80px;
+  --space-16: 100px;
+  --space-17: 120px;
+  --space-18: 140px;
+  --space-19: 160px;
+}
+
+@include mobiles {
+  // 모바일 기본 여백 변수 설정
+  :root {
+    --space-1: 4px;
+    --space-2: 4px;
+    --space-3: 6px;
+    --space-4: 8px;
+    --space-5: 8px;
+    --space-6: 12px;
+    --space-7: 14px;
+    --space-8: 16px;
+    --space-9: 16px;
+    --space-10: 20px;
+    --space-11: 24px;
+    --space-12: 28px;
+    --space-13: 28px;
+    --space-14: 32px;
+    --space-15: 40px;
+    --space-16: 44px;
+    --space-17: 60px;
+    --space-18: 72px;
+    --space-19: 80px;
+  }
+}

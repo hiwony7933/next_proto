@@ -1,0 +1,31 @@
+@use "foundation" as *;
+// 버튼 관련 공용 유틸(ADT 기본 색 사용)
+.bottom-button-area {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 100px;
+}
+.button-more {
+  background-image: linear-gradient(
+    90deg,
+    $sk-color-primary-default 0%,
+    $sk-color-primary-default 100%
+  );
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left top;
+  transition:
+    background-size 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 100%;
+    color: $colorWhite;
+    border-color: $sk-color-primary-default;
+    i {
+      background-color: white;
+    }
+  }
+}

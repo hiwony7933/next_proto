@@ -3,12 +3,12 @@
  * MzAddress는 주소 입력 UI 및 내부 상태 관리만 담당.
  * 벨리데이션은 **폼 전체 흐름(Formik, React Hook Form 등 포함)**이나 비즈니스 로직의 일부이기 때문에 부모가 담당하는 게 자연스러움.
  */
-import React, { useState, useEffect } from 'react';
-import MzButton from '../ui/mzButton';
-import MzInputText from './mzInputText';
-import { MzModal } from '../ui/mzModal';
-import Postcode from 'react-daum-postcode';
-import styles from './mzAddress.module.scss';
+import React, { useState, useEffect } from "react";
+import MzButton from "../atom/mzButton";
+import MzInputText from "../atom/mzInputText";
+import { MzModal } from "../molecule/mzModal";
+import Postcode from "react-daum-postcode";
+import styles from "./mzAddress.module.scss";
 
 interface MzAddressProps {
   value: string;
@@ -17,9 +17,9 @@ interface MzAddressProps {
 
 const MzAddress: React.FC<MzAddressProps> = ({ value, onChange }) => {
   const [open, setOpen] = useState(false);
-  const [zipcode, setZipcode] = useState('');
-  const [address, setAddress] = useState('');
-  const [detailAddress, setDetailAddress] = useState('');
+  const [zipcode, setZipcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [detailAddress, setDetailAddress] = useState("");
 
   // 주소 선택 완료 시 처리
   const handleComplete = (data: any) => {
@@ -77,7 +77,7 @@ const MzAddress: React.FC<MzAddressProps> = ({ value, onChange }) => {
       >
         <div className="modalPostcode">
           <Postcode
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: "100%", height: "100%" }}
             onComplete={handleComplete}
             autoClose={false}
           />

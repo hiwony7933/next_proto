@@ -1,6 +1,6 @@
 // 자주 사용하는 스타일 패턴(반복되는 CSS) 함수화
 @charset 'utf-8';
-@use 'variable' as *;
+@use "variable" as *;
 
 @mixin mixinFontSize($Size) {
   @if ($Size ==10) {
@@ -69,7 +69,7 @@
   display: block;
   width: $width;
   height: $height;
-  background-image: url('@/assets/images/common/hLogo.png');
+  background-image: url("@/assets/images/common/hLogo.png");
   background-repeat: no-repeat;
   background-size: $width auto;
   color: transparent;
@@ -91,7 +91,7 @@
   cursor: pointer;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -104,7 +104,7 @@
 }
 
 @mixin mixinBullet1PX($rotate, $direction, $distance) {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
 
@@ -142,4 +142,29 @@
   padding: 8px 12px;
   color: $colorDefault;
   @include mixinFontSize(14px);
+}
+
+// SK Shields Renewal Mobile
+$tablet-max: 1023px; // 720–1023px: 작은 PC(태블릿)
+$tablet-min: 720px;
+@mixin tablet {
+  @media screen and (min-width: #{$tablet-min}) and (max-width: #{$tablet-max}) {
+    @content;
+  }
+}
+
+$mobile: 719px; // ≤719px: 모바일
+@mixin mobile {
+  @media screen and (max-width: #{$mobile}) {
+    @content;
+  }
+}
+
+@mixin mobiles {
+  @include tablet {
+    @content;
+  }
+  @include mobile {
+    @content;
+  }
 }

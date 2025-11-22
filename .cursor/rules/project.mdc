@@ -29,8 +29,31 @@ alwaysApply: true
 
 ## 반응형 규칙
 
-- **브레이크포인트**: 모바일 ≤ `1270px`. 공통 훅 `hooks/useIsMobile(breakpoint=1270)` 사용.
-- **SCSS 권고**: 전역 변수에 `$bp-mobile: 1270px` 선언 후 `@media (max-width: $bp-mobile)` 일관 사용.
+- **브레이크포인트**:
+  - Mobile: ≤ 719px
+  - Tablet: 720–1023px(작은 PC로 간주, PC 레이아웃을 소폭 축소/재배열)
+  - PC: ≥ 1024px
+- **SCSS 권고**:
+  - 대부분은 @include mobiles 로 모바일, 테블릿 둘다 대응
+  - 모바일과, 테블릿의 스타일은 다르게 갈경우 모바일, 테블릿 각각 선언하여 사용
+
+```scss
+// 모바일, 테블릿 같이 선언
+@include mobiles {
+  /* ... */
+}
+
+// tablet: 720–1023
+@include tablet {
+  /* ... */
+}
+
+// mobile: ≤719
+@include mobiles {
+  /* ... */
+}
+```
+
 - **이미지/레이아웃**: 랜딩 상단 요소는 CLS/LCP 고려. `next/image`의 `priority`/`sizes`/`fill` 적극 활용.
 
 ## SEO 원칙(마케팅 강화)
@@ -82,5 +105,5 @@ alwaysApply: true
 - SSR 경계 위반 없음(윈도우 접근/ssr:false 위치 점검).
 - SEO 메타/헤딩/랜드마크/aria 채움.
 - BEM 클래스/모듈 SCSS 일관.
-- 반응형(1270px 기준) 확인, `useIsMobile` 활용 여부.
+- 반응형(1024px 기준) 확인, `useIsMobile` 활용 여부.
 - 재사용 가능성 검토 후 공통 모듈 배치 여부 판단.

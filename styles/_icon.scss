@@ -1,0 +1,231 @@
+.icon {
+  &__adt-logo {
+    display: inline-block;
+    width: 195px;
+    height: 46px;
+    background-color: #003594;
+    -webkit-mask: url("/images/sk/faq_adt_logo.svg") no-repeat center / contain;
+    mask: url("/images/sk/faq_adt_logo.svg") no-repeat center / contain;
+  }
+  &__home-logo {
+    display: inline-block;
+    width: 134px;
+    height: 80px;
+    background-color: #025afc;
+    -webkit-mask: url("/images/sk/faq_home_logo.svg") no-repeat center / contain;
+    mask: url("/images/sk/faq_home_logo.svg") no-repeat center / contain;
+  }
+  &__16_right_up {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    -webkit-mask: url("/icons/icon_16_right_up.svg") no-repeat center / contain;
+    mask: url("/icons/icon_16_right_up.svg") no-repeat center / contain;
+  }
+  &__24_search {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_24_search.svg") no-repeat center / contain;
+    mask: url("/icons/icon_24_search.svg") no-repeat center / contain;
+  }
+  &__24_lang {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_24_lang.svg") no-repeat center / contain;
+    mask: url("/icons/icon_24_lang.svg") no-repeat center / contain;
+  }
+  &__32_hamberger {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_32_hamberger.svg") no-repeat center / contain;
+    mask: url("/icons/icon_32_hamberger.svg") no-repeat center / contain;
+  }
+  &__20_right_arrow {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_20_right_arrow.svg") no-repeat center /
+      contain;
+    mask: url("/icons/icon_20_right_arrow.svg") no-repeat center / contain;
+  }
+  &__24_left_arrow {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_24_left_arrow.svg") no-repeat center /
+      contain;
+    mask: url("/icons/icon_24_left_arrow.svg") no-repeat center / contain;
+  }
+  &__24_right_arrow {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_24_right_arrow.svg") no-repeat center /
+      contain;
+    mask: url("/icons/icon_24_right_arrow.svg") no-repeat center / contain;
+  }
+  &__24_home_arrow {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_24_home_arrow.svg") no-repeat center /
+      contain;
+    mask: url("/icons/icon_24_home_arrow.svg") no-repeat center / contain;
+  }
+  &__24_end_arrow {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_24_end_arrow.svg") no-repeat center / contain;
+    mask: url("/icons/icon_24_end_arrow.svg") no-repeat center / contain;
+  }
+  &__32_search {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_32_search.svg") no-repeat center / contain;
+    mask: url("/icons/icon_32_search.svg") no-repeat center / contain;
+  }
+  &__14_check {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_14_check.svg") no-repeat center / contain;
+    mask: url("/icons/icon_14_check.svg") no-repeat center / contain;
+  }
+  &__12_down_arrow {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_12_down_arrow.svg") no-repeat center /
+      contain;
+    mask: url("/icons/icon_12_down_arrow.svg") no-repeat center / contain;
+  }
+  &__12_up_arrow {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_12_up_arrow.svg") no-repeat center / contain;
+    mask: url("/icons/icon_12_up_arrow.svg") no-repeat center / contain;
+  }
+  &__12_download {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    -webkit-mask: url("/icons/icon_12_downLoad.svg") no-repeat center / contain;
+    mask: url("/icons/icon_12_downLoad.svg") no-repeat center / contain;
+  }
+  &__50_plus {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_50_plus.svg") no-repeat center / contain;
+    mask: url("/icons/icon_50_plus.svg") no-repeat center / contain;
+  }
+  &__50_minus_line {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_50_minus_line.svg") no-repeat center /
+      contain;
+    mask: url("/icons/icon_50_minus_line.svg") no-repeat center / contain;
+  }
+  &__24_info {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: #404040;
+    -webkit-mask: url("/icons/icon_24_info.svg") no-repeat center / contain;
+    mask: url("/icons/icon_24_info.svg") no-repeat center / contain;
+  }
+  &__80_red_check {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    background-image: url("/icons/icon_80_red_check.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__30_question {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url("/icons/icon_30_question.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__20_close {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #333;
+    -webkit-mask: url("/icons/icon_20_close.svg") no-repeat center / contain;
+    mask: url("/icons/icon_20_close.svg") no-repeat center / contain;
+  }
+  &__80_info {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    background-image: url("/icons/icon_80_info.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__20_up_arrow {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("/icons/icon_20_up_arrow.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__20_down_arrow {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("/icons/icon_20_down_arrow.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__105_play_btn {
+    display: inline-block;
+    width: 105px;
+    height: 105px;
+    background-image: url("/icons/icon_105_play_btn.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &__50_play_btn {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-image: url("/icons/icon_50_play_btn.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
